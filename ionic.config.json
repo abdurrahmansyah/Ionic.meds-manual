@@ -1,0 +1,7 @@
+{
+  "name": "Meds Manual",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

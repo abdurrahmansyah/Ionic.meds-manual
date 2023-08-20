@@ -8,27 +8,35 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'asesmen',
+        loadChildren: () => import('../pages/asesmen/asesmen.module').then(m => m.AsesmenPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'penunjang',
+        loadChildren: () => import('../pages/penunjang/penunjang.module').then(m => m.PenunjangPageModule)
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'panduan',
+        loadChildren: () => import('../pages/panduan/panduan.module').then(m => m.PanduanPageModule)
+      },
+      {
+        path: 'obat',
+        loadChildren: () => import('../pages/obat/obat.module').then(m => m.ObatPageModule)
+      },
+      {
+        path: 'profil',
+        loadChildren: () => import('../pages/profil/profil.module').then(m => m.ProfilPageModule)
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/asesmen',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/asesmen',
     pathMatch: 'full'
   }
 ];

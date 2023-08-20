@@ -24,3 +24,235 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+.red {
+    color: var(--ion-color-meds-red);
+}
+
+.red10 {
+    color: var(--ion-color-meds-red);
+    font-size: 10px;
+}
+
+.red11 {
+    color: var(--ion-color-meds-red);
+    font-size: 11px;
+}
+
+.red12 {
+    color: var(--ion-color-meds-red);
+    font-size: 12px;
+}
+
+ion-modal {
+    &.modalTermAndCond {
+        --width: 85vw; // calc(100% - 20px);
+        // height: 
+        // --min-height: fit-content;
+        --min-height: 40%;
+        --max-height: 90%;
+        --border-radius: 16px;
+        --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    
+        ion-content {
+            --background: var(--ion-color-meds-pink);
+            --color: black;
+        }
+    }
+}
+
+// ion-modal::part(backdrop) {
+//     background: rgba(209, 213, 219);
+//     opacity: 1;
+// }
+
+ion-modal ion-toolbar {
+    --background: rgb(14 116 144);
+    --color: white;
+}
+
+// ion-alert {
+//     &.alert-notification {
+//         --min-width: 90vw; // calc(100% - 20px);
+//         --border-spacing: 10px; // DELETE LATER
+//         --letter-spacing: 10px; // DELETE LATER
+//         --word-spacing: 10px; // DELETE LATER
+
+//         // .alert-head {
+//         //   min-height: 54.399vw;
+//         //   background-image: url("../assets/images/img-14.png");
+//         //   background-size: 100% 100%;
+//         //   color: #fff;
+//         // }
+
+//         // .alert-message {
+//         //   height: 0px;
+//         //   padding: 0px;
+//         // }
+
+//         // .alert-button {
+//         //   min-height: 50px;
+//         //   color: var(--ion-color-hk-ppid);
+//         // }
+//     }
+// }
+
+// .globalMessage {
+//     .alert-wrapper {
+//         background: var(--ion-color-base-blue);
+//         border-radius: 20px;
+//         --max-width: 300px;
+//         padding-top: 15px;
+//         padding-bottom: 25px;
+
+//         .alert-head {
+//             padding-top: 0px;
+//             padding-bottom: 0px;
+//         }
+
+//         .alert-message {
+//             max-height: 290px;
+//             text-align: center;
+
+//             img {
+//                 padding-bottom: 30px;
+//             }
+
+//             h3 {
+//                 font-weight: bold;
+//                 font-size: 16px;
+//                 color: var(--ion-color-base-white);
+//             }
+
+//             p {
+//                 font-weight: normal;
+//                 font-size: 14px;
+//                 color: var(--ion-color-base-white);
+//             }
+//         }
+
+//         .alert-button-group {
+//             flex-direction: column;
+//             padding-left: 40px;
+//             padding-right: 40px;
+
+//             .alert-button {
+//                 display: block;
+//                 background: var(--ion-color-base-red);
+//                 border-radius: 10px;
+//                 color: white;
+//                 text-align: center;
+//                 margin: unset;
+//                 margin-bottom: 10px;
+
+//                 .alert-button-inner {
+//                     text-align: center;
+//                     justify-content: center;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// .my-update-app {
+//     .alert-wrapper {
+//         background: var(--ion-color-base-blue);
+//         border-radius: 20px;
+//         --max-width: 300px;
+//         padding-top: 25px;
+//         padding-bottom: 25px;
+
+//         .alert-message {
+//             max-height: 290px;
+//             text-align: center;
+
+//             img {
+//                 padding-bottom: 30px;
+//             }
+
+//             h3 {
+//                 font-weight: bold;
+//                 font-size: 16px;
+//                 color: white;
+//                 margin: unset;
+//                 margin-bottom: 8px;
+//             }
+
+//             p {
+//                 font-weight: normal;
+//                 font-size: 14px;
+//                 color: white;
+//                 margin: unset;
+//                 white-space: pre-line;
+//             }
+//         }
+
+//         .alert-button-group {
+//             flex-direction: column;
+//             padding-left: 40px;
+//             padding-right: 40px;
+//             padding-bottom: 0px;
+
+//             .alert-button {
+//                 display: block;
+//                 background: var(--ion-color-base-yellow);
+//                 border-radius: 10px;
+//                 color: var(--ion-color-base-blue);
+//                 text-align: center;
+//                 margin: unset;
+//                 margin-bottom: 10px;
+
+//                 .alert-button-inner {
+//                     text-align: center;
+//                     justify-content: center;
+//                 }
+//             }
+
+//             .alert-button.red {
+//                 display: block;
+//                 background: var(--ion-color-base-red);
+//                 border-radius: 10px;
+//                 color: var(--ion-color-base-white);
+//                 text-align: center;
+//                 margin: unset;
+//                 margin-bottom: 10px;
+
+//                 .alert-button-inner {
+//                     text-align: center;
+//                     justify-content: center;
+//                 }
+//             }
+
+//             .alert-button.cancel {
+//                 display: block;
+//                 background: transparent;
+//                 border-radius: 10px;
+//                 padding-bottom: unset;
+//                 color: white;
+//                 text-align: center;
+//                 margin: unset;
+//                 margin-bottom: 0px;
+
+//                 .alert-button-inner {
+//                     text-align: center;
+//                     justify-content: center;
+//                 }
+//             }
+//         }
+//     }
+
+//     &.nohead {
+//         .alert-head {
+//             display: none;
+//         }
+//     }
+
+//     &.modalqr {
+//         .alert-message {
+//             img {
+//                 width: 89px;
+//                 padding-bottom: 5px;
+//             }
+//         }
+//     }
+// }

@@ -1,0 +1,54 @@
+<ion-content [fullscreen]="true">
+
+  <div class="ion-text-center">
+    <img src="../../../assets/images/medsmanual-logo.png"> <br>
+    <ion-text class="red" style="font-weight: 700;">MEDS Manual - LOGIN</ion-text>
+
+    <div class="ion-padding">
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-input label="Email" label-placement="floating" placeholder="..." type="email" style="color: grey;"
+          [(ngModel)]="email"></ion-input>
+          <ion-icon name="mail" slot="end"></ion-icon>
+      </ion-item>
+      <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-input label="Password" label-placement="floating" placeholder="..." type="password"
+          [(ngModel)]="password"></ion-input>
+          <ion-icon name="key" slot="end"></ion-icon>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-row>
+    <ion-col class="ion-text-end">
+      <ion-text class="red">Lupa Password ?</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <div class="ion-text-center">
+    <ion-button color="meds-red">Masuk</ion-button> <br>
+    <ion-text>Belum ada akun?</ion-text>
+    <span>&nbsp;</span>
+    <ion-text class="red" (click)="Register()">Daftar Sekarang</ion-text>
+    <hr style="height: 20px;">
+
+    <img src="../../../assets/images/undraw_medicine_b-1-ol.png"> <br>
+    <hr style="height: 20px;">
+    <ion-text class="red">Terima kasih atas dukungan Anda!</ion-text> <br>
+    <ion-text class="red">Saran dan kritikan dapat dikirimkan melalui:</ion-text> <br>
+    <hr style="height: 20px;">
+
+    <img src="../../../assets/images/instagram.png">
+    <span style="margin: 16px;">&nbsp;</span>
+    <img src="../../../assets/images/whatsapp.png">
+    <span style="margin: 16px;">&nbsp;</span>
+    <img src="../../../assets/images/web.png">
+    <span style="margin: 16px;">&nbsp;</span>
+    <img src="../../../assets/images/email.png">
+  </div>
+
+  <div class="ion-text-center footer">
+    <ion-text class="red">Meds Manual 2023</ion-text>
+  </div>
+
+</ion-content>

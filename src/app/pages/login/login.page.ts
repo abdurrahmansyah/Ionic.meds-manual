@@ -38,4 +38,9 @@ export class LoginPage implements OnInit {
     // this.router.navigateByUrl('/register', { replaceUrl: false });
   }
 
+  Login() {
+    console.log('email: ', this.email);
+    console.log('password: ', this.password);
+  }
+
 }

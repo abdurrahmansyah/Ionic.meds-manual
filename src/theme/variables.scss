@@ -22,6 +22,14 @@
   --ion-color-meds-red-shade: #e04141;
   --ion-color-meds-red-tint: #ff5c5c;
 
+  /** meds-red-opposite **/
+  --ion-color-meds-red-opposite: #FEE6E6;
+  --ion-color-meds-red-opposite-rgb: 0, 0, 0;
+  --ion-color-meds-red-opposite-contrast: #FF4A4A;
+  --ion-color-meds-red-opposite-contrast-rgb: 255, 74, 74;
+  --ion-color-meds-red-opposite-shade: #ff5c5c;
+  --ion-color-meds-red-opposite-tint: #e04141;
+
   /** meds-pink **/
   --ion-color-meds-pink: #FEE6E6;
   --ion-color-meds-pink-rgb: 254, 230, 230;
@@ -122,6 +130,15 @@
   --ion-color-contrast-rgb: var(--ion-color-meds-red-contrast-rgb);
   --ion-color-shade: var(--ion-color-meds-red-shade);
   --ion-color-tint: var(--ion-color-meds-red-tint);
+}
+
+.ion-color-meds-red-opposite {
+  --ion-color-base: var(--ion-color-meds-red-opposite);
+  --ion-color-base-rgb: var(--ion-color-meds-red-opposite-rgb);
+  --ion-color-contrast: var(--ion-color-meds-red-opposite-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-meds-red-opposite-contrast-rgb);
+  --ion-color-shade: var(--ion-color-meds-red-opposite-shade);
+  --ion-color-tint: var(--ion-color-meds-red-opposite-tint);
 }
 
 .ion-color-meds-pink {

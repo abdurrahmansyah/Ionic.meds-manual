@@ -25,8 +25,17 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+.fz09 {
+    font-size: 0.9em;
+}
+
 .red {
     color: var(--ion-color-meds-red);
+}
+
+.red09 {
+    color: var(--ion-color-meds-red);
+    font-size: 0.9em;
 }
 
 .red10 {
@@ -46,9 +55,7 @@
 
 ion-modal {
     &.modalTermAndCond {
-        --width: 85vw; // calc(100% - 20px);
-        // height: 
-        // --min-height: fit-content;
+        --width: 85vw;
         --min-height: 40%;
         --max-height: 90%;
         --border-radius: 16px;
@@ -59,16 +66,6 @@ ion-modal {
             --color: black;
         }
     }
-}
-
-// ion-modal::part(backdrop) {
-//     background: rgba(209, 213, 219);
-//     opacity: 1;
-// }
-
-ion-modal ion-toolbar {
-    --background: rgb(14 116 144);
-    --color: white;
 }
 
 // ion-alert {

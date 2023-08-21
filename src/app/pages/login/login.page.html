@@ -3,40 +3,50 @@
   <div class="ion-text-center">
     <img src="../../../assets/images/medsmanual-logo.png"> <br>
     <ion-text class="red" style="font-weight: 700;">MEDS Manual - LOGIN</ion-text>
+    <hr style="height: 24px;" class="ion-no-padding ion-no-margin">
 
-    <div class="ion-padding">
+    <div style="padding: 0px 10%;">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-input label="Email" label-placement="floating" placeholder="..." type="email" style="color: grey;"
+        <ion-input aria-label="Email" placeholder="Email" type="email" class="form" style="color: grey;"
           [(ngModel)]="email"></ion-input>
-          <ion-icon name="mail" slot="end"></ion-icon>
+        <ion-icon style="margin-right: 12px;" name="mail" slot="end"></ion-icon>
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-input label="Password" label-placement="floating" placeholder="..." type="password"
+        <ion-input aria-label="Password" placeholder="Password" type="password" class="form" style="color: grey;"
           [(ngModel)]="password"></ion-input>
-          <ion-icon name="key" slot="end"></ion-icon>
+        <ion-icon style="margin-right: 12px;" name="key" slot="end"></ion-icon>
       </ion-item>
+
+      <ion-row>
+        <ion-col class="ion-text-end">
+          <ion-text class="red09">Lupa Password ?</ion-text>
+        </ion-col>
+      </ion-row>
     </div>
   </div>
-
-  <ion-row>
-    <ion-col class="ion-text-end">
-      <ion-text class="red">Lupa Password ?</ion-text>
-    </ion-col>
-  </ion-row>
+  <hr style="height: 4px;" class="ion-no-padding ion-no-margin">
 
   <div class="ion-text-center">
-    <ion-button color="meds-red">Masuk</ion-button> <br>
-    <ion-text>Belum ada akun?</ion-text>
+    <ion-row class="ion-justify-content-center ion-no-margin ion-no-padding">
+      <ion-col size="5">
+        <div class="button ion-activatable" button (click)="Login()">
+          <ion-ripple-effect class="ripple-effect"></ion-ripple-effect>
+          <ion-text>Masuk</ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-text class="fz09">Belum ada akun?</ion-text>
     <span>&nbsp;</span>
-    <ion-text class="red" (click)="Register()">Daftar Sekarang</ion-text>
+    <ion-text class="red09" (click)="Register()">Daftar Sekarang</ion-text>
     <hr style="height: 20px;">
 
     <img src="../../../assets/images/undraw_medicine_b-1-ol.png"> <br>
     <hr style="height: 20px;">
     <ion-text class="red">Terima kasih atas dukungan Anda!</ion-text> <br>
     <ion-text class="red">Saran dan kritikan dapat dikirimkan melalui:</ion-text> <br>
-    <hr style="height: 20px;">
+    <hr style="height: 8px;">
 
     <img src="../../../assets/images/instagram.png">
     <span style="margin: 16px;">&nbsp;</span>

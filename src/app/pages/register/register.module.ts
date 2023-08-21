@@ -8,6 +8,7 @@ import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
 import { MaskitoModule } from '@maskito/angular';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MaskitoModule } from '@maskito/angular';
     FormsModule,
     IonicModule,
     RegisterPageRoutingModule,
-    MaskitoModule
+    MaskitoModule,
+    ComponentsModule
   ],
   declarations: [RegisterPage]
 })

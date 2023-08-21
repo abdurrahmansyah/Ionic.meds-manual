@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonInput, ToastController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 
 @Component({
@@ -24,9 +24,10 @@ export class RegisterPage implements OnInit {
   profesi: string = '';
   lampiran: string = '';
   iconIAgree: string = 'square-outline';
+  @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
 
   constructor(private router: Router,
-    public activatedRoute: ActivatedRoute, private alertController: AlertController) { }
+    public activatedRoute: ActivatedRoute, private alertController: AlertController, private toastController: ToastController) { }
 
   ngOnInit() {
     this.GetExtras();
@@ -41,6 +42,35 @@ export class RegisterPage implements OnInit {
         }
       }
     });
+  }
+
+  onInputName(ev: any) {
+    const value = ev.target!.value;
+    // const filteredValue = value.replace(/[^a-zA-Z0-9]+/g, '');
+    const filteredValue = value.replace(/[^a-zA-Z ]+/g, '');
+    this.ionInputElName.value = this.nama = filteredValue;
+  }
+
+  onChangeTglLahir() {
+    if (isNaN(new Date(this.tglLahir).valueOf()) || new Date(this.tglLahir).valueOf() > new Date().valueOf()) {
+      this.PresentToast('Tanggal lahir tidak valid!');
+      this.tglLahir = '';
+      return;
+    }
+  }
+
+  private async PresentToast(message: string) {
+    const alert = await this.toastController.create({ message: message, duration: 1500 });
+    await alert.present();
+  }
+
+  Register() {
+    console.log('email: ', this.email);
+    console.log('password: ', this.password);
+    console.log('nama: ', this.nama);
+    console.log('tglLahir: ', this.tglLahir);
+    console.log('profesi: ', this.profesi);
+    console.log('lampiran: ', this.lampiran);
   }
 
   Login() {

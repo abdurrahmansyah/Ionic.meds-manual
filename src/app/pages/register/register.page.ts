@@ -3,6 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController, IonInput, ToastController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +16,6 @@ export class RegisterPage implements OnInit {
   readonly tglLahirMask: MaskitoOptions = {
     mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
   };
-
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   email: string = '';
@@ -27,7 +28,11 @@ export class RegisterPage implements OnInit {
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
 
   constructor(private router: Router,
-    public activatedRoute: ActivatedRoute, private alertController: AlertController, private toastController: ToastController) { }
+    public activatedRoute: ActivatedRoute, 
+    private alertController: AlertController, 
+    private toastController: ToastController,
+    private globalService: GlobalService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.GetExtras();
@@ -71,6 +76,13 @@ export class RegisterPage implements OnInit {
     console.log('tglLahir: ', this.tglLahir);
     console.log('profesi: ', this.profesi);
     console.log('lampiran: ', this.lampiran);
+
+    if (this.iconIAgree == 'checkbox-outline') {
+      this.email = this.email.toLowerCase();
+      this.authService.Register(this.email, this.password);
+      // this.globalService.Register(this.credentials.value);
+    }
+    else this.globalService.PresentToast("Silahkan menyetujui Syarat dan Ketentuan");
   }
 
   Login() {
@@ -82,25 +94,6 @@ export class RegisterPage implements OnInit {
     this.router.navigate(['login'], navigationExtras);
 
     // this.router.navigateByUrl('/register', { replaceUrl: false });
-  }
-
-  public async TermAndCond(message = 'alert') {
-    const alert = await this.alertController.create({
-      header: '<h3>Pemberitahuan</h3><p>' + message + '</p>',
-      // cssClass: 'globalMessage',
-      message:
-        '<div>Icon<ion-icon name="calculator"></ion-icon></div>',
-      backdropDismiss: true,
-      buttons: [{
-        text: 'Tutup',
-        role: 'cancel',
-        cssClass: 'secondary',
-        handler: (blah) => {
-        }
-      }
-      ]
-    });
-    await alert.present();
   }
 
   public toggleIAgree() {

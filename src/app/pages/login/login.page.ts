@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,9 @@ export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router, public activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, 
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.GetExtras();
@@ -41,6 +44,8 @@ export class LoginPage implements OnInit {
   Login() {
     console.log('email: ', this.email);
     console.log('password: ', this.password);
+
+    this.authService.Login(this.email, this.password);
   }
 
 }

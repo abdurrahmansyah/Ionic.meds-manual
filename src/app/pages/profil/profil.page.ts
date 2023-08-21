@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-profil',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilPage implements OnInit {
 
-  constructor() { }
+  constructor(private globalService: GlobalService,
+    private authService: AuthService) { }
 
   ngOnInit() {
   }
 
+  Logout() {
+    this.authService.Logout();
+  }
 }

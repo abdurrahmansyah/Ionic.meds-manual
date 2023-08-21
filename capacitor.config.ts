@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ridhtech.meds-manual',
+  appId: 'com.meds.medsmanual',
   appName: 'Meds Manual',
   webDir: 'www',
   server: {

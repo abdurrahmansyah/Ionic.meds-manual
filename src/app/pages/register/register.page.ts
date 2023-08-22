@@ -24,6 +24,7 @@ export class RegisterPage implements OnInit {
   tglLahir: string = '';
   profesi: string = '';
   lampiran: string = '';
+  photo: string = '';
   iconIAgree: string = 'square-outline';
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
 
@@ -70,17 +71,9 @@ export class RegisterPage implements OnInit {
   }
 
   Register() {
-    console.log('email: ', this.email);
-    console.log('password: ', this.password);
-    console.log('nama: ', this.nama);
-    console.log('tglLahir: ', this.tglLahir);
-    console.log('profesi: ', this.profesi);
-    console.log('lampiran: ', this.lampiran);
-
     if (this.iconIAgree == 'checkbox-outline') {
       this.email = this.email.toLowerCase();
-      this.authService.Register(this.email, this.password);
-      // this.globalService.Register(this.credentials.value);
+      this.authService.Register(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran, this.photo);
     }
     else this.globalService.PresentToast("Silahkan menyetujui Syarat dan Ketentuan");
   }

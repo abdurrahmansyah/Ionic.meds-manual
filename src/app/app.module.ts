@@ -19,7 +19,7 @@ import { AngularFireModule } from '@angular/fire/compat';
   imports: [BrowserModule, MaskitoModule, IonicModule.forRoot(), AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    // provideFirestore(() => getFirestore()),
+    provideFirestore(() => getFirestore()),
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],

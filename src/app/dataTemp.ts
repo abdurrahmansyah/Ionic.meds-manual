@@ -21,4 +21,12 @@ export var dataTemp = {
         'urlIconProfil': '/assets/icons/profil.svg',
         'urlIconProfilSelected': '/assets/icons/profil-selected.svg',
     },
+    log: {
+        'login': 'login',
+        'logout': 'logout',
+        'register': 'register',
+        'subscibe': 'subscibe',
+        'browse': 'browse',
+        'search': 'search',
+    },
 }

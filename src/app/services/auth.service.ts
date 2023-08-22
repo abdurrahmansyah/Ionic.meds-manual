@@ -2,7 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, createUserWithEmailAndPassword, onAuthStateChanged } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GlobalService } from './global.service';
+import { GlobalService, LogData, UserData } from './global.service';
+import { FirebaseService } from './firebase.service';
+import { dataTemp } from '../dataTemp';
 
 @Injectable({
   providedIn: 'root'
@@ -11,62 +13,92 @@ export class AuthService {
   private auth: Auth = inject(Auth);
   user$ = user(this.auth);
   userSubscription;
+  email: string | undefined;
+  oldEmail: string | undefined;
 
   constructor(private router: Router,
     public authFireCompat: AngularFireAuth,
-    private globalService: GlobalService) {
+    private globalService: GlobalService,
+    private firebaseService: FirebaseService) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-      // console.log("aUser", aUser);
+      this.email = aUser?.email!;
+      this.oldEmail = this.email;
     })
 
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        // const uid = user.uid;
-        // console.log("uid", uid);
-        console.log("Log: User telah login");
+        this.email = user.email!;
+        console.log("Log: Sesi user authenticated");
       } else {
-        console.log("Log: User telah logout");
+        this.email = this.oldEmail;
+        console.log("Log: Sesi user not authenticated");
       }
     });
   }
 
-  Register(email: string, password: string) {
-    createUserWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => {
-        // const user = userCredential.user;
-        // console.log("user register", user);
-        this.router.navigateByUrl('/tabs', { replaceUrl: true });
-      })
-      .catch((error) => {
-        var errorMessage = this.GetEror(error.code, error.message);
-        this.globalService.PresentToast(errorMessage);
-      });
+  async Register(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, photo: string) {
+    try {
+      await createUserWithEmailAndPassword(this.auth, email, password);
+      var userData: UserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, photo: photo, isAdmin: false };
+      await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
+      var msg = "Register Berhasil";
+      console.log('Log:', msg);
+      this.CreateLog(dataTemp.log.register, msg);
+      this.globalService.PresentToast(msg);
+      this.router.navigateByUrl('/tabs', { replaceUrl: true });
+    } catch (error: any) {
+      var errorMessage = this.GetEror(error.code, error.message);
+      var msg = "Register Gagal: " + errorMessage;
+      console.log('Log:', msg);
+      if (email) this.CreateLog(dataTemp.log.register, msg, email);
+      this.globalService.PresentToast(errorMessage);
+    }
   }
 
-  Login(email: string, password: string) {
-    this.authFireCompat.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // const user = userCredential.user;
-        // console.log("user login", user);
-        this.router.navigateByUrl('/tabs', { replaceUrl: true });
-      })
-      .catch((error) => {
-        var errorMessage = this.GetEror(error.code, error.message);
-        this.globalService.PresentToast(errorMessage);
-      });
+  async Login(email: string, password: string) {
+    try {
+      await this.authFireCompat.signInWithEmailAndPassword(email, password);
+      var msg = "Login Berhasil";
+      console.log('Log:', msg);
+      this.CreateLog(dataTemp.log.login, msg);
+      this.globalService.PresentToast(msg);
+      this.router.navigateByUrl('/tabs', { replaceUrl: true });
+    } catch (error: any) {
+      console.log('HAPUS NANTI', error.code);
+      console.log('HAPUS NANTI', email);
+      console.log('HAPUS NANTI', password);
+
+      var errorMessage = this.GetEror(error.code, error.message);
+      var msg = "Login Gagal: " + errorMessage;
+      console.log('Log:', msg);
+      if (email) this.CreateLog(dataTemp.log.login, msg, email);
+      this.globalService.PresentToast(errorMessage);
+    };
   }
 
-  Logout() {
-    this.auth.signOut().then(() => {
-      // this.storage.remove('idKaryawan').then(() =>
+  async Logout() {
+    try {
+      await this.auth.signOut();
+      var msg = "Logout Berhasil";
+      console.log('Log:', msg);
+      this.CreateLog(dataTemp.log.logout, msg);
+      this.globalService.PresentToast(msg);
       this.router.navigateByUrl('/login', { replaceUrl: true })
-      // );
-    })
+    } catch (error: any) {
+      var errorMessage = this.GetEror(error.code, error.message);
+      var msg = "Logout Gagal: " + errorMessage;
+      this.CreateLog(dataTemp.log.logout, msg);
+      this.globalService.PresentToast(msg);
+    }
   }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
+  }
+
+  CreateLog(log: string, logDetail: string, email?: string) {
+    var logData: LogData = { email: email ? email : this.email!, log: log, logDetail: logDetail, dateTime: this.globalService.GetDate().todayDateTimeFormatted };
+    this.firebaseService.logDataListCollection.add(logData);
   }
 
   GetEror(errCode: string, errMsg: string): string {
@@ -92,7 +124,10 @@ export class AuthService {
     if (errCode == 'auth/session-cookie-revoked') return 'Sesi telah habis! Silahkan coba lagi';
     if (errCode == 'auth/missing-password') return 'Password tidak boleh kosong';
     if (errCode == 'auth/wrong-password') return 'Password salah! Minimal 6 karakter';
-    if (errCode == 'auth') return 'ditemukan';
+    if (errCode == 'auth/email-already-in-use') return 'Email sudah terdaftar';
+    if (errCode == 'auth/network-request-failed') return 'Koneksi Bermasalah! Silahkan coba beberapa saat lagi (#C001)';
+    if (errCode == 'invalid-argument') return 'Koneksi Bermasalah! Silahkan coba beberapa saat lagi (#C002)';
+    if (errCode == 'auth') return 'ERROR: BUG';
     else return errMsg;
   }
 }

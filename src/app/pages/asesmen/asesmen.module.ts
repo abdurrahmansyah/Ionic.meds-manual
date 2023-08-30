@@ -13,7 +13,7 @@ import { AsesmenPage } from './asesmen.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AsesmenPageRoutingModule
+    AsesmenPageRoutingModule,
   ],
   declarations: [AsesmenPage]
 })

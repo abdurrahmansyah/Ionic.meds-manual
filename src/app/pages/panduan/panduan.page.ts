@@ -12,4 +12,8 @@ export class PanduanPage implements OnInit {
   ngOnInit() {
   }
 
+  PanduanKasus(){
+    
+  }
+
 }

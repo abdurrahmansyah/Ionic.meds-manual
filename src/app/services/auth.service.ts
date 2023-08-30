@@ -28,10 +28,10 @@ export class AuthService {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.email = user.email!;
-        console.log("Log: Sesi user authenticated");
+        console.log("Log: Authenticated user session");
       } else {
         this.email = this.oldEmail;
-        console.log("Log: Sesi user not authenticated");
+        console.log("Log: Not authenticated user session");
       }
     });
   }
@@ -42,16 +42,13 @@ export class AuthService {
       var userData: UserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, photo: photo, isAdmin: false };
       await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
       var msg = "Register Berhasil";
-      console.log('Log:', msg);
-      this.CreateLog(dataTemp.log.register, msg);
-      this.globalService.PresentToast(msg);
+      this.CreateSaveAndShowLog(msg, dataTemp.log.register);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
     } catch (error: any) {
       var errorMessage = this.GetEror(error.code, error.message);
       var msg = "Register Gagal: " + errorMessage;
-      console.log('Log:', msg);
-      if (email) this.CreateLog(dataTemp.log.register, msg, email);
-      this.globalService.PresentToast(errorMessage);
+      if (email) this.CreateSaveAndShowLog(msg, dataTemp.log.register);
+      else this.CreateSaveAndShowLog(msg, dataTemp.log.register, true);
     }
   }
 
@@ -59,19 +56,14 @@ export class AuthService {
     try {
       await this.authFireCompat.signInWithEmailAndPassword(email, password);
       var msg = "Login Berhasil";
-      console.log('Log:', msg);
-      this.CreateLog(dataTemp.log.login, msg);
-      this.globalService.PresentToast(msg);
+        this.CreateSaveAndShowLog(msg, dataTemp.log.login);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
     } catch (error: any) {
-      console.log('HAPUS NANTI', error.code);
-      console.log('HAPUS NANTI', email);
-      console.log('HAPUS NANTI', password);
-
       var errorMessage = this.GetEror(error.code, error.message);
       var msg = "Login Gagal: " + errorMessage;
-      console.log('Log:', msg);
-      if (email) this.CreateLog(dataTemp.log.login, msg, email);
+      // console.log('Log:', msg);
+      if (email) this.CreateSaveAndShowLog(msg, dataTemp.log.login);
+      else this.CreateSaveAndShowLog(msg, dataTemp.log.login, true);
       this.globalService.PresentToast(errorMessage);
     };
   }
@@ -80,23 +72,26 @@ export class AuthService {
     try {
       await this.auth.signOut();
       var msg = "Logout Berhasil";
-      console.log('Log:', msg);
-      this.CreateLog(dataTemp.log.logout, msg);
-      this.globalService.PresentToast(msg);
+      this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
       this.router.navigateByUrl('/login', { replaceUrl: true })
     } catch (error: any) {
       var errorMessage = this.GetEror(error.code, error.message);
       var msg = "Logout Gagal: " + errorMessage;
-      this.CreateLog(dataTemp.log.logout, msg);
-      this.globalService.PresentToast(msg);
+      this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
     }
+  }
+
+  CreateSaveAndShowLog(msg: string, log: string, isNotSaveLog?: boolean) {
+    console.log('Log:', msg);
+    if (!isNotSaveLog) this.SaveLog(log, msg);
+    this.globalService.PresentToast(msg);
   }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
   }
 
-  CreateLog(log: string, logDetail: string, email?: string) {
+  SaveLog(log: string, logDetail: string, email?: string) {
     var logData: LogData = { email: email ? email : this.email!, log: log, logDetail: logDetail, dateTime: this.globalService.GetDate().todayDateTimeFormatted };
     this.firebaseService.logDataListCollection.add(logData);
   }

@@ -1,0 +1,21 @@
+<ion-content>
+  <ion-row class="header ion-align-items-center">
+    <ion-back-button class="buttonBack" text="Triase" defaultHref="tabs/asesmen" mode="ios"></ion-back-button>
+  </ion-row>
+  <div class="ion-text-center">
+
+    <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar>
+
+    <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
+    <div *ngFor="let x of triaseDataList" style="padding: 0px 10%;">
+      <ion-button expand="full" style="min-height: 48px;" (click)="TriaseChild(x)">{{x.title}}</ion-button>
+      <hr style="height: 16px;">
+    </div>
+
+
+    <div class=" footer">
+      <img src="../../../assets/images/undraw_warning_re_eoyh.png">
+    </div>
+
+  </div>
+</ion-content>

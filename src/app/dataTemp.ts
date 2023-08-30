@@ -4,10 +4,28 @@ export var dataTemp = {
     urlHit: environment.production ? 'https://ppid.hutamakarya.com/api/' : 'https://ppiddev.hutamakarya.com/api/',
     tab: {
         'asesmen': 'asesmen',
+        'triase': 'triase',
+        'triaseChild': 'triase-child',
+        'surveiPrimer': 'survei-primer',
+        'surveiSekunder': 'survei-sekunder',
+        'tandaVital': 'tanda-vital',
         'penunjang': 'penunjang',
         'panduan': 'panduan',
         'obat': 'obat',
         'profil': 'profil',
+        'admin': 'admin',
+        'master': 'master',
+        'createEditMaster': 'create-edit-master',
+    },
+    title: {
+        'triase': 'Triase',
+        'surveiPrimer': 'Survei Primer',
+        'surveiSekunder': 'Survei Sekunder',
+        'tandaVital': 'Tanda Vital',
+    },
+    aksi: {
+        'create': 'create',
+        'edit': 'edit',
     },
     icon: {
         'urlIconAsesmen': '/assets/icons/asesmen.svg',
@@ -28,5 +46,18 @@ export var dataTemp = {
         'subscibe': 'subscibe',
         'browse': 'browse',
         'search': 'search',
+        'editMaster': 'edit-master',
+    },
+    subCategory: {
+        'text': 'text',
+        'sub': 'sub',
+        'img': 'img',
+        'ref': 'ref',
+    },
+    subCategoryString: {
+        'text': 'Teks',
+        'sub': 'Sub Judul',
+        'img': 'Image',
+        'ref': 'Referensi',
     },
 }

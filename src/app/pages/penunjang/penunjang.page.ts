@@ -12,4 +12,8 @@ export class PenunjangPage implements OnInit {
   ngOnInit() {
   }
 
+  Penunjang(){
+    
+  }
+
 }

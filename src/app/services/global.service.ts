@@ -113,3 +113,12 @@ export class LogData {
 
   constructor() { }
 }
+
+export class TriaseData {
+  public title: string = '';
+  public data: string = '';
+  // public logDetail: string = '';
+  // public dateTime: string = '';
+
+  constructor() { }
+}

@@ -28,6 +28,30 @@ const routes: Routes = [
         loadChildren: () => import('../pages/profil/profil.module').then(m => m.ProfilPageModule)
       },
       {
+        path: 'asesmen/triase',
+        loadChildren: () => import('../pages/triase/triase.module').then(m => m.TriasePageModule)
+      },
+      {
+        path: 'asesmen/triase/triase-child',
+        loadChildren: () => import('../pages/triase-child/triase-child.module').then( m => m.TriaseChildPageModule)
+      },
+      {
+        path: 'profil/admin',
+        loadChildren: () => import('../pages/admin/admin.module').then( m => m.AdminPageModule)
+      },
+      {
+        path: 'profil/admin/master',
+        loadChildren: () => import('../pages/master/master.module').then( m => m.MasterPageModule)
+      },
+      {
+        path: 'profil/admin/master/master-child',
+        loadChildren: () => import('../pages/master-child/master-child.module').then( m => m.MasterChildPageModule)
+      },
+       {
+        path: 'profil/admin/master/create-edit-master',
+        loadChildren: () => import('../pages/create-edit-master/create-edit-master.module').then( m => m.CreateEditMasterPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/asesmen',
         pathMatch: 'full'
@@ -44,4 +68,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { uploadString } from '@angular/fire/storage';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { AlertController, IonInput, ToastController } from '@ionic/angular';
+import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
+import { AlertController, IonInput, LoadingController, ToastController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
   selector: 'app-register',
@@ -24,16 +27,21 @@ export class RegisterPage implements OnInit {
   tglLahir: string = '';
   profesi: string = '';
   lampiran: string = '';
-  photo: string = '';
+  lampiranString: string = '';
+  photoImg: any;
+  photo: Photo | undefined;
+  profile: any;
   iconIAgree: string = 'square-outline';
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
 
   constructor(private router: Router,
-    public activatedRoute: ActivatedRoute, 
-    private alertController: AlertController, 
+    public activatedRoute: ActivatedRoute,
+    private alertController: AlertController,
     private toastController: ToastController,
     private globalService: GlobalService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private photoService: PhotoService,
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.GetExtras();
@@ -65,17 +73,69 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  async ChangeImage() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      this.photo = await this.photoService.TakeAPhoto();
+      this.photoImg = this.photoService.ConvertPhotoBase64ToImage(this.photo.base64String);
+      loading.dismiss()
+    } catch (error) {
+      loading.dismiss();
+      this.globalService.PresentToast('Gagal memuat foto! Coba lagi');
+    }
+  }
+
+  async EditLampiran() {
+    const image = await this.photoService.TakeAPhoto();
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      const name = 'meds-manual-' + (Math.random() + 1).toString(36).substring(5);
+      this.lampiranString = name + '.png';
+      this.lampiran = await this.photoService.UploadFile(image, name);
+      console.log('this.lampiran', this.lampiran);
+      if (this.lampiran == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
+    } catch (error: any) {
+      loading.dismiss()
+      this.globalService.PresentToast(error);
+    }
+  }
+
   private async PresentToast(message: string) {
     const alert = await this.toastController.create({ message: message, duration: 1500 });
     await alert.present();
   }
 
-  Register() {
-    if (this.iconIAgree == 'checkbox-outline') {
+  async Register() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      this.ValidateData();
+      let r = (Math.random() + 1).toString(36).substring(3);
+      var name = this.email ? this.email + '_' + this.globalService.GetDate().todayDateTimeFormatted : r;
+      var photo = this.photo ? await this.photoService.UploadFile(this.photo!, name) : '';
       this.email = this.email.toLowerCase();
-      this.authService.Register(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran, this.photo);
+      await this.authService.Register(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran, photo);
+      loading.dismiss();
+    } catch (error: any) {
+      loading.dismiss();
+      this.globalService.PresentToast(error);
     }
-    else this.globalService.PresentToast("Silahkan menyetujui Syarat dan Ketentuan");
+  }
+
+  ValidateData() {
+    if (!this.email) throw ('Email tidak boleh kosong!');
+    if (!this.password) throw ('Password tidak boleh kosong!');
+    if (!this.nama) throw ('Nama tidak boleh kosong!');
+    if (!this.tglLahir) throw ('Tanggal Lahir tidak boleh kosong!');
+    if (!this.profesi) throw ('Profesi tidak boleh kosong!');
+    if (!this.lampiran) throw ('Foto Ijazah/STR/Kartu Mahasiswa tidak boleh kosong!');
+    // if (!this.photo) throw ('Foto avatar tidak boleh kosong!');
+    if (this.iconIAgree == 'square-outline') throw ('Silahkan menyetujui Syarat dan Ketentuan');
   }
 
   Login() {
@@ -85,7 +145,6 @@ export class RegisterPage implements OnInit {
       }
     }
     this.router.navigate(['login'], navigationExtras);
-
     // this.router.navigateByUrl('/register', { replaceUrl: false });
   }
 

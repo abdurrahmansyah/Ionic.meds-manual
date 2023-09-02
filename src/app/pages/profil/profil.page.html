@@ -12,7 +12,44 @@
   </ion-header>
 
   <div class="ion-padding">
-    <!-- <ion-button shape="round" expand="block" color="meds-red" (click)="Admin()">Admin</ion-button> -->
+    <ion-button shape="round" expand="block" color="meds-red" (click)="Admin()">Admin</ion-button>
     <ion-button shape="round" expand="block" color="meds-red" (click)="Logout()">Log Out</ion-button>
   </div>
+  <ion-row>
+    <ion-col size="8" style="padding: 0px;">
+      <!-- <ion-item class="border" lines="none">
+        <ion-input type="text" placeholder="Foto KTP" formControlName="ktp_data"></ion-input>
+      </ion-item> -->
+      <ion-item color="meds-red" button>
+        <ion-input label="Urut" labelPlacement="floating" [(ngModel)]="photoString" [readonly]="true"></ion-input>
+      </ion-item>
+    </ion-col>
+    <ion-col size="4" style="padding: 0px 0px 0px 16px;" class="ion-text-end">
+      <div class="border ion-text-center" style="background-color: var(--ion-color-meds-red); height: 100%;">
+        <ion-button expand="full" color="transparent" style="height: 100%; padding: 0px; margin: 0px;"
+          (click)="TakeAPhoto()">Foto
+        </ion-button>
+        <!-- [disabled]="isDisableBtnFoto" -->
+      </div>
+      <!-- <ion-item class="border" lines="none" color="hk-ppid-main">
+        <ion-text>AA</ion-text>
+      </ion-item> -->
+    </ion-col>
+  </ion-row>
+  <div *ngIf="photo" class="ion-padding-top ion-padding-bottom">
+    <img style="max-height: 200px; " class="center" src="{{ photo }}" />
+  </div>
+
+  <div class="preview">
+    <ion-avatar (click)="changeImage()">
+      <img *ngIf="profile?.photo; else placeholder_avatar" [src]="profile.photo">
+
+      <ng-template #placeholder_avatar>
+        <div class="fallback">
+          <p>Select Avatar</p>
+        </div>
+      </ng-template>
+    </ion-avatar>
+  </div>
+
 </ion-content>

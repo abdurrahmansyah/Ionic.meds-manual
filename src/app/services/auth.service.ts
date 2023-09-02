@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GlobalService, LogData, UserData } from './global.service';
 import { FirebaseService } from './firebase.service';
 import { dataTemp } from '../dataTemp';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthService {
   constructor(private router: Router,
     public authFireCompat: AngularFireAuth,
     private globalService: GlobalService,
-    private firebaseService: FirebaseService) {
+    private firebaseService: FirebaseService,
+    private storageFireCompat: AngularFireStorage) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       this.email = aUser?.email!;
       this.oldEmail = this.email;
@@ -42,13 +44,13 @@ export class AuthService {
       var userData: UserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, photo: photo, isAdmin: false };
       await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
       var msg = "Register Berhasil";
-      this.CreateSaveAndShowLog(msg, dataTemp.log.register);
+      await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
     } catch (error: any) {
       var errorMessage = this.GetEror(error.code, error.message);
       var msg = "Register Gagal: " + errorMessage;
-      if (email) this.CreateSaveAndShowLog(msg, dataTemp.log.register);
-      else this.CreateSaveAndShowLog(msg, dataTemp.log.register, true);
+      if (email) await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
+      else await this.CreateSaveAndShowLog(msg, dataTemp.log.register, true);
     }
   }
 
@@ -56,14 +58,14 @@ export class AuthService {
     try {
       await this.authFireCompat.signInWithEmailAndPassword(email, password);
       var msg = "Login Berhasil";
-        this.CreateSaveAndShowLog(msg, dataTemp.log.login);
+      await this.CreateSaveAndShowLog(msg, dataTemp.log.login);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
     } catch (error: any) {
       var errorMessage = this.GetEror(error.code, error.message);
       var msg = "Login Gagal: " + errorMessage;
       // console.log('Log:', msg);
-      if (email) this.CreateSaveAndShowLog(msg, dataTemp.log.login);
-      else this.CreateSaveAndShowLog(msg, dataTemp.log.login, true);
+      if (email) await this.CreateSaveAndShowLog(msg, dataTemp.log.login);
+      else await this.CreateSaveAndShowLog(msg, dataTemp.log.login, true);
       this.globalService.PresentToast(errorMessage);
     };
   }
@@ -72,18 +74,18 @@ export class AuthService {
     try {
       await this.auth.signOut();
       var msg = "Logout Berhasil";
-      this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
+      await this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
       this.router.navigateByUrl('/login', { replaceUrl: true })
     } catch (error: any) {
       var errorMessage = this.GetEror(error.code, error.message);
       var msg = "Logout Gagal: " + errorMessage;
-      this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
+      await this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
     }
   }
 
-  CreateSaveAndShowLog(msg: string, log: string, isNotSaveLog?: boolean) {
+  async CreateSaveAndShowLog(msg: string, log: string, isNotSaveLog?: boolean) {
     console.log('Log:', msg);
-    if (!isNotSaveLog) this.SaveLog(log, msg);
+    if (!isNotSaveLog) await this.SaveLog(log, msg);
     this.globalService.PresentToast(msg);
   }
 
@@ -91,9 +93,9 @@ export class AuthService {
     this.userSubscription.unsubscribe();
   }
 
-  SaveLog(log: string, logDetail: string, email?: string) {
+  async SaveLog(log: string, logDetail: string, email?: string) {
     var logData: LogData = { email: email ? email : this.email!, log: log, logDetail: logDetail, dateTime: this.globalService.GetDate().todayDateTimeFormatted };
-    this.firebaseService.logDataListCollection.add(logData);
+    await this.firebaseService.logDataListCollection.add(logData);
   }
 
   GetEror(errCode: string, errMsg: string): string {

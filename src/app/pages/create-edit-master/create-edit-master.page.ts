@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { take } from 'rxjs';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
 import { Category, SubCategory } from 'src/app/services/firebase.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
   selector: 'app-create-edit-master',
@@ -25,10 +27,10 @@ export class CreateEditMasterPage implements OnInit {
 
   // Model Data
   id: number = 0;
-  type: string | undefined;
+  type: string = dataTemp.subCategory.text;
   typeString: string = '';
   data: string | undefined;
-
+  isImg: boolean = false;
 
   public actionSheetButtons = [
     { text: dataTemp.subCategoryString.text, data: { action: dataTemp.subCategory.text }, },
@@ -42,7 +44,9 @@ export class CreateEditMasterPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private afs: AngularFirestore,
     private authService: AuthService,
-    private globalService: GlobalService) {
+    private globalService: GlobalService,
+    private photoService: PhotoService,
+    private loadingController: LoadingController) {
     this.subCategoryDataDoc = this.afs.doc<SubCategory>(`example/1`);
     this.subCategoryDataListCollection = this.afs.collection<SubCategory>('example');
   }
@@ -50,8 +54,9 @@ export class CreateEditMasterPage implements OnInit {
   async ngOnInit() {
     await this.GetExtras();
     this.GetTitle();
-    if (this.aksi != dataTemp.aksi.create) this.InitializeData();
+    if (this.aksi != dataTemp.aksi.create) await this.InitializeData();
     else this.PrepareData();
+    this.SetView();
   }
 
   private async GetExtras() {
@@ -78,7 +83,7 @@ export class CreateEditMasterPage implements OnInit {
       })
     })
     this.id = this.param!.id;
-    this.type = this.param?.type;
+    this.type = this.param?.type!;
     this.typeString = this.GetTypeString();
     this.data = this.param?.data;
     // console.log('dtsss', this.param);
@@ -88,6 +93,14 @@ export class CreateEditMasterPage implements OnInit {
     this.subCategoryDataListCollection = this.afs.collection<SubCategory>(this.dataParent!.data);
     // this.id = this.dataParent?.id + 1;
 
+  }
+
+  SetView() {
+    console.log('this.type', this.type);
+    console.log('this.typeString', this.typeString);
+
+    this.isImg = this.type == dataTemp.subCategory.img ? true : false;
+    console.log('isImg', this.isImg);
   }
 
   GetTypeString() {
@@ -113,28 +126,45 @@ export class CreateEditMasterPage implements OnInit {
     else return false;
   }
 
+  async ChangeImage() {
+    const image = await this.photoService.TakeAPhoto();
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      const name = 'img-' + (Math.random() + 1).toString(36).substring(3);
+      // this.lampiranString = name + '.png';
+      this.data = await this.photoService.UploadFile(image, name);
+      console.log('this.data', this.data);
+      if (this.data == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
+    } catch (error: any) {
+      loading.dismiss()
+      this.globalService.PresentToast(error);
+    }
+  }
+
   async CreateEdit() {
-    console.log('id', this.id);
-    console.log('type', this.type);
-    console.log('data', this.data);
+    const loading = await this.loadingController.create();
+    await loading.present();
 
     try {
       var subCategoryData: SubCategory = { id: this.id ? this.id : 0, type: this.type!, data: this.data! }
-      console.log(subCategoryData);
 
-      // if (this.IsCreate()) {
-      //   await this.subCategoryDataListCollection.add(subCategoryData);
-      //   var msg = "Berhasil menambah data baru";
-      //   this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
-      // } else {
-      //   await this.subCategoryDataDoc.update(subCategoryData);
-      //   var msg = "Data Berhasil Diperbarui";
-      //   this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
-      //   // this.router.navigateByUrl('/tabs', { replaceUrl: true });
-      // }
+      if (this.IsCreate()) {
+        await this.subCategoryDataListCollection.add(subCategoryData);
+        var msg = "Berhasil menambah data baru";
+        await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+      } else {
+        await this.subCategoryDataDoc.update(subCategoryData);
+        var msg = "Data Berhasil Diperbarui";
+        await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+        // this.router.navigateByUrl('/tabs', { replaceUrl: true });
+      }
+      loading.dismiss();
     } catch (error) {
       var msg = this.IsCreate() ? "Gagal menambah data baru" : "Gagal memperbarui data";
-      this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+      await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+      loading.dismiss();
     }
   }
 

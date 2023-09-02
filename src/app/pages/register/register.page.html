@@ -5,16 +5,19 @@
     <ion-text class="red" style="font-weight: 700;">MEDS Manual - REGISTER</ion-text>
 
     <div style="padding: 0px 10%;">
-      <ion-row>
-        <ion-col style="display: flex; justify-content: center;">
-          <div
-            style="height: 84px; width: 84px; border-radius: 84px; background-color: var(--ion-color-meds-pink-two);">
-            <img style="padding-top: 10px;" src="../../../assets/images/gallery.png"> <br>
-            <ion-text style="font-size: small; color: #a6a6a6;">Foto</ion-text> <br>
-            <ion-text style="font-size: small; color: #a6a6a6;">Profil</ion-text>
-          </div>
-        </ion-col>
-      </ion-row>
+      <div class="avatar ion-padding">
+        <ion-avatar (click)="ChangeImage()">
+          <img *ngIf="photoImg; else placeholder_avatar" src="{{ photoImg }}">
+
+          <ng-template #placeholder_avatar>
+            <div class="preview">
+              <img style="padding-top: 10px;" src="../../../assets/images/gallery.png"> <br>
+              <ion-text style="font-size: small; color: grey;">Foto</ion-text> <br>
+              <ion-text style="font-size: small; color: grey;">Profil</ion-text>
+            </div>
+          </ng-template>
+        </ion-avatar>
+      </div>
 
       <ion-item class="border" lines="none" color="meds-pink">
         <ion-input aria-label="Email" placeholder="Email" type="email" class="form" style="color: grey;"
@@ -56,8 +59,8 @@
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-input label="Foto Ijazah/STR/Kartu Mahasiswa" class="form" style="color: grey;"
-          [(ngModel)]="lampiran"></ion-input>
+        <ion-input aria-label="Foto Ijazah/STR/Kartu Mahasiswa" placeholder="Foto Ijazah/STR/Kartu Mahasiswa"
+          class="form" style="color: grey;" [(ngModel)]="lampiranString" [readonly]="true" (click)="EditLampiran()"></ion-input>
         <ion-icon style="margin-right: 12px;" name="images" slot="end"></ion-icon>
       </ion-item>
     </div>

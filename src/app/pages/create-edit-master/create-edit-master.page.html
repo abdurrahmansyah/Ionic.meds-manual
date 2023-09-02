@@ -10,13 +10,16 @@
 
     <ion-list [inset]="true" mode="ios">
       <ion-item color="meds-red" button>
-        <ion-input label="Urut" labelPlacement="floating"  placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
+        <ion-input label="Urut" labelPlacement="floating" placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
       </ion-item>
       <ion-item color="meds-red" button id="open-action-sheet">
-        <ion-input label="Tipe" labelPlacement="floating"  [(ngModel)]="typeString" [readonly]="true"></ion-input>
+        <ion-input label="Tipe" labelPlacement="floating" [(ngModel)]="typeString" [readonly]="true"></ion-input>
       </ion-item>
       <ion-item color="meds-red" button>
-        <ion-textarea label="Data" labelPlacement="floating"  placeholder="Ketik disini" [(ngModel)]="data"></ion-textarea>
+        <ion-textarea *ngIf="!isImg" label="Data" labelPlacement="floating" placeholder="Ketik disini" [autoGrow]="true"
+          [(ngModel)]="data"></ion-textarea>
+        <ion-textarea *ngIf="isImg" label="Data" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="data"
+          [readonly]="true" (click)="ChangeImage()"></ion-textarea>
       </ion-item>
     </ion-list>
 

@@ -11,7 +11,8 @@
   <div *ngFor="let x of datas" style="padding: 0px 10%;">
     <p *ngIf="IsText(x.type)" class="text">{{x.data}}</p>
     <p *ngIf="IsSub(x.type)" class="sub">{{x.data}}</p>
-    <p *ngIf="IsImg(x.type)" class="img">{{x.data}}</p>
+    <img *ngIf="IsImg(x.type)" [src]="x.data">
+    <!-- <p *ngIf="IsImg(x.type)" class="img">{{x.data}}</p> -->
     <p *ngIf="IsRef(x.type)" class="ref">{{x.data}}</p>
   </div>
   <hr style="height: 20px;" class="ion-no-padding ion-no-margin">

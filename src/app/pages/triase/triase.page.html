@@ -8,8 +8,13 @@
 
     <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
     <div *ngFor="let x of triaseDataList" style="padding: 0px 10%;">
-      <ion-button expand="full" style="min-height: 48px;" (click)="TriaseChild(x)">{{x.title}}</ion-button>
-      <hr style="height: 16px;">
+      <ion-list [inset]="true" mode="ios">
+        <ion-item color="meds-red" button (click)="TriaseChild(x)" lines="none">
+          <ion-label>{{x.title}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- <br> -->
     </div>
 
 

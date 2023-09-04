@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { take } from 'rxjs';
+import { PhotoviewerComponent } from 'src/app/comp/photoviewer/photoviewer.component';
 import { Category, SubCategory } from 'src/app/services/firebase.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-triase-child',
@@ -16,8 +19,10 @@ export class TriaseChildPage implements OnInit {
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
-    private afs: AngularFirestore) { }
-
+    private afs: AngularFirestore,
+    private modalController: ModalController,
+    private globalService: GlobalService
+  ) { }
   ngOnInit() {
     this.GetExtras();
     this.InitializeData();
@@ -93,5 +98,21 @@ export class TriaseChildPage implements OnInit {
 
   Triase(x: Category) {
     console.log(x);
+  }
+
+  async ViewImage(data: string) {
+    try {
+      const modal = await this.modalController.create({
+        component: PhotoviewerComponent,
+        componentProps: {
+          'dataSend': data
+        }
+      });
+
+      return await modal.present();
+    } catch (e: any) {
+      console.log(e);
+      this.globalService.PresentToast(e);
+    }
   }
 }

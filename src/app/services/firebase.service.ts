@@ -4,6 +4,7 @@ import { GlobalService, LogData, TriaseData, UserData } from './global.service';
 import { Observable } from 'rxjs';
 import { doc, setDoc, Firestore, getFirestore, collection, collectionData, docData, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { initializeApp } from '@angular/fire/app';
+import { dataTemp } from '../dataTemp';
 
 export interface Category {
   idx?: string;
@@ -28,7 +29,9 @@ export class FirebaseService {
   public userDataList: Observable<UserData[]>;
 
   public triaseDataListCollection: AngularFirestoreCollection<Category>;
+  public surveiPrimerDataListCollection: AngularFirestoreCollection<Category>;
   public triaseDataList: Observable<Category[]> | undefined;
+  public surveiPrimerDataList: Observable<Category[]> | undefined;
   public masterDataList: Observable<Category[]> | undefined;
 
   constructor(
@@ -38,7 +41,8 @@ export class FirebaseService {
     this.userDataListCollection = this.afs.collection<UserData>('users', ref => ref.orderBy('nama'));
     this.logDataListCollection = this.afs.collection<LogData>('logs');
 
-    this.triaseDataListCollection = this.afs.collection<Category>('triase', ref => ref.orderBy('id'));
+    this.triaseDataListCollection = this.afs.collection<Category>(dataTemp.tab.triase, ref => ref.orderBy('id'));
+    this.surveiPrimerDataListCollection = this.afs.collection<Category>(dataTemp.tab.surveiPrimer, ref => ref.orderBy('id'));
 
     this.userDataList = this.userDataListCollection.valueChanges({ idField: 'id' });
 

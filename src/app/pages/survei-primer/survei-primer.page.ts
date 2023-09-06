@@ -6,24 +6,24 @@ import { dataTemp } from 'src/app/dataTemp';
 import { Category, FirebaseService, SubCategory } from 'src/app/services/firebase.service';
 
 @Component({
-  selector: 'app-triase',
-  templateUrl: './triase.page.html',
-  styleUrls: ['./triase.page.scss'],
+  selector: 'app-survei-primer',
+  templateUrl: './survei-primer.page.html',
+  styleUrls: ['./survei-primer.page.scss'],
 })
-export class TriasePage implements OnInit {
-  triaseDataList: Category[] = []
-  title: string = dataTemp.title.triase;
-  
+export class SurveiPrimerPage implements OnInit {
+  surveiPrimerDataList: Category[] = []
+  title: string = dataTemp.title.surveiPrimer;
+ 
   constructor(private firebaseService: FirebaseService,
     private router: Router) {
     this.InitializeData();
   }
 
   async InitializeData() {
-    this.firebaseService.triaseDataList = this.firebaseService.triaseDataListCollection.valueChanges({ idField: 'idx' });
+    this.firebaseService.surveiPrimerDataList = this.firebaseService.surveiPrimerDataListCollection.valueChanges({ idField: 'idx' });
 
-    this.triaseDataList = await new Promise(resolve => {
-      this.firebaseService.triaseDataList!.pipe(take(1)).subscribe((data: any) => {
+    this.surveiPrimerDataList = await new Promise(resolve => {
+      this.firebaseService.surveiPrimerDataList!.pipe(take(1)).subscribe((data: any) => {
         console.log(data);
         resolve(data);
       });
@@ -43,7 +43,7 @@ export class TriasePage implements OnInit {
     // });
   }
 
-  TriaseChild(data: Category) {
+  SurveiPrimerChild(data: Category) {
     let navigationExtras: NavigationExtras = {
       state: {
         data: data

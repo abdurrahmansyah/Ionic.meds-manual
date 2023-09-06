@@ -63,6 +63,7 @@ export class MasterChildPage implements OnInit {
         aksi: data ? 'edit' : 'create',
         dataParent: this.param,
         data: data,
+        lastNumber: this.datas.length
       }
     }
     this.router.navigate(['/tabs/profil/admin/master/create-edit-master'], navigationExtras);

@@ -33,23 +33,27 @@ const routes: Routes = [
       },
       {
         path: 'asesmen/triase/triase-child',
-        loadChildren: () => import('../pages/triase-child/triase-child.module').then( m => m.TriaseChildPageModule)
+        loadChildren: () => import('../pages/triase-child/triase-child.module').then(m => m.TriaseChildPageModule)
       },
       {
         path: 'profil/admin',
-        loadChildren: () => import('../pages/admin/admin.module').then( m => m.AdminPageModule)
+        loadChildren: () => import('../pages/admin/admin.module').then(m => m.AdminPageModule)
       },
       {
         path: 'profil/admin/master',
-        loadChildren: () => import('../pages/master/master.module').then( m => m.MasterPageModule)
+        loadChildren: () => import('../pages/master/master.module').then(m => m.MasterPageModule)
       },
       {
         path: 'profil/admin/master/master-child',
-        loadChildren: () => import('../pages/master-child/master-child.module').then( m => m.MasterChildPageModule)
+        loadChildren: () => import('../pages/master-child/master-child.module').then(m => m.MasterChildPageModule)
       },
-       {
+      {
         path: 'profil/admin/master/create-edit-master',
-        loadChildren: () => import('../pages/create-edit-master/create-edit-master.module').then( m => m.CreateEditMasterPageModule)
+        loadChildren: () => import('../pages/create-edit-master/create-edit-master.module').then(m => m.CreateEditMasterPageModule)
+      },
+      {
+        path: 'asesmen/survei-primer',
+        loadChildren: () => import('../pages/survei-primer/survei-primer.module').then(m => m.SurveiPrimerPageModule)
       },
       {
         path: '',

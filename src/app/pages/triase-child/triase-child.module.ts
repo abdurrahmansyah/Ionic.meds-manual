@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { TriaseChildPageRoutingModule } from './triase-child-routing.module';
 
 import { TriaseChildPage } from './triase-child.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TriaseChildPageRoutingModule
+    TriaseChildPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [TriaseChildPage]
 })

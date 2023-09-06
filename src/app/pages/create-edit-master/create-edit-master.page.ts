@@ -19,6 +19,7 @@ export class CreateEditMasterPage implements OnInit {
   aksi: string | undefined;
   dataParent: Category | undefined;
   param: SubCategory | undefined;
+  lastNumber: number = 0;
 
   // datas: Category[] = [];
   title: string | undefined;
@@ -64,6 +65,7 @@ export class CreateEditMasterPage implements OnInit {
       this.activatedRoute.queryParams.subscribe((param: any) => {
         this.aksi = this.router.getCurrentNavigation()?.extras.state!['aksi'];
         this.dataParent = this.router.getCurrentNavigation()?.extras.state!['dataParent'];
+        this.lastNumber = this.router.getCurrentNavigation()?.extras.state!['lastNumber'];
         var data = this.router.getCurrentNavigation()?.extras.state!['data'];
         resolve(data);
       });
@@ -72,6 +74,7 @@ export class CreateEditMasterPage implements OnInit {
     console.log('aksi', this.aksi);
     console.log('dataParent', this.dataParent);
     console.log('param', this.param);
+    console.log('lastNumber', this.lastNumber);
   }
 
   async InitializeData() {
@@ -91,6 +94,7 @@ export class CreateEditMasterPage implements OnInit {
 
   async PrepareData() {
     this.subCategoryDataListCollection = this.afs.collection<SubCategory>(this.dataParent!.data);
+    this.id = this.lastNumber;
     // this.id = this.dataParent?.id + 1;
 
   }
@@ -117,8 +121,7 @@ export class CreateEditMasterPage implements OnInit {
   GetType(ev: any) {
     this.type = ev.detail.data.action
     this.typeString = this.GetTypeString();
-    console.log(this.type);
-    console.log(this.typeString);
+    this.SetView();
   }
 
   IsCreate() {

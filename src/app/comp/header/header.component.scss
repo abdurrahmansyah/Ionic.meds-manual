@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    background-color: var(--ion-color-meds-red);
+    flex-direction: column;
+    height: 100px;
+    align-items: flex-start;
+    color: #fff;
+    font-size: 1.8em;
+    font-weight: 700;
+
+    .buttonBack {
+        padding-left: 16px;
+        font-size: 28px;
+        font-weight: 700;
+        color: white;
+    }
+}

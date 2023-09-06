@@ -7,9 +7,9 @@
     <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar>
 
     <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
-    <div *ngFor="let x of triaseDataList" style="padding: 0px 10%;">
+    <div *ngFor="let x of surveiPrimerDataList" style="padding: 0px 10%;">
       <ion-list [inset]="true" mode="ios">
-        <ion-item color="meds-red" button (click)="TriaseChild(x)" lines="none">
+        <ion-item color="meds-red" button (click)="SurveiPrimerChild(x)" lines="none">
           <ion-label>{{x.title}}</ion-label>
         </ion-item>
       </ion-list>

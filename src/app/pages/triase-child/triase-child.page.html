@@ -1,19 +1,24 @@
 <ion-content>
-  <ion-row class="header ion-align-items-center">
-    <ion-back-button class="buttonBack" text={{triaseData!.title}} defaultHref="tabs/triase"
-      mode="ios"></ion-back-button>
-  </ion-row>
-  <div class="ion-text-center">
-    <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar>
+  <div class="flexContainer">
+    <app-header [title]="triaseData!.title"></app-header>
+    <!-- <ion-row class="header ion-align-items-center">
+      <ion-back-button class="buttonBack" text={{triaseData!.title}} defaultHref="tabs/triase"
+        mode="ios"></ion-back-button>
+    </ion-row> -->
+    <div class="ion-text-center">
+      <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search"
+        style="padding: 0px 5%;"></ion-searchbar>
+    </div>
+    <hr style="height: 10px;" class="ion-no-padding ion-no-margin">
+    <div class="scrollYnew">
+      <div *ngFor="let x of datas" style="padding: 0px 10%;">
+        <p *ngIf="IsText(x.type)" class="text">{{x.data}}</p>
+        <p *ngIf="IsSub(x.type)" class="sub">{{x.data}}</p>
+        <img *ngIf="IsImg(x.type)" [src]="x.data" button (click)="ViewImage(x.data)">
+        <!-- <p *ngIf="IsImg(x.type)" class="img">{{x.data}}</p> -->
+        <p *ngIf="IsRef(x.type)" class="ref">{{x.data}}</p>
+      </div>
+    </div>
+    <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
   </div>
-  <hr style="height: 10px;" class="ion-no-padding ion-no-margin">
-
-  <div *ngFor="let x of datas" style="padding: 0px 10%;">
-    <p *ngIf="IsText(x.type)" class="text">{{x.data}}</p>
-    <p *ngIf="IsSub(x.type)" class="sub">{{x.data}}</p>
-    <img *ngIf="IsImg(x.type)" [src]="x.data" button (click)="ViewImage(x.data)">
-    <!-- <p *ngIf="IsImg(x.type)" class="img">{{x.data}}</p> -->
-    <p *ngIf="IsRef(x.type)" class="ref">{{x.data}}</p>
-  </div>
-  <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
 </ion-content>

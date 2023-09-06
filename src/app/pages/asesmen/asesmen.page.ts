@@ -23,4 +23,6 @@ export class AsesmenPage implements OnInit {
   }
 
   Triase() { this.router.navigate(['/tabs/asesmen/triase']); }
+  
+  SurveiPrimer() { this.router.navigate(['/tabs/asesmen/survei-primer']); }
 }

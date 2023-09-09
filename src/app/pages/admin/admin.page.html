@@ -25,9 +25,9 @@
         <ion-item slot="header" color="meds-pink">
           <ion-label>Penunjang</ion-label>
         </ion-item>
-        <ion-item slot="content" class="item" button>Radio Imaging</ion-item>
-        <ion-item slot="content" class="item" button>Nilai Normal Laboratorium</ion-item>
-        <ion-item slot="content" class="item" button>Elektrokardiografi</ion-item>
+        <ion-item slot="content" class="item" button (click)="Master(data.radioimaging)">Radioimaging</ion-item>
+        <ion-item slot="content" class="item" button (click)="Master(data.nilaiNormalLab)">Nilai Normal Laboratorium</ion-item>
+        <ion-item slot="content" class="item" button (click)="Master(data.ekg)">Elektrokardiografi</ion-item>
       </ion-accordion>
       <ion-accordion value="panduan">
         <ion-item slot="header" color="meds-pink">

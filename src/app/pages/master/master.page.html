@@ -1,32 +1,33 @@
 <ion-content>
-  <ion-row class="header ion-align-items-center">
-    <ion-back-button class="buttonBack" text="Master Data" defaultHref="tabs/profil/admin" mode="ios"></ion-back-button>
-  </ion-row>
-  <div class="ion-text-center">
-    <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
-
+  <div class="flexContainer">
+    <app-header [title]="titleHeader" [defaultHref]="defaultHref"></app-header>
+    <div class="ion-text-center">
+      <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
+    </div>
     <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
 
-    <ion-list [inset]="true" mode="ios">
-      <ion-item-sliding *ngFor="let x of datas">
-        <ion-item color="meds-red" button (click)="CreateEdit(x)">
-          <ion-label>{{x.title}}</ion-label>
-          <ion-icon name="create" slot="end" style="margin-right: 10px;"></ion-icon>
-          <ion-icon name="trash" slot="end"></ion-icon>
+    <div class="scrollYnew">
+      <ion-list [inset]="true" mode="ios">
+        <ion-item-sliding *ngFor="let x of datas">
+          <ion-item color="meds-red" button (click)="Open(x)">
+            <ion-label>{{x.title}}</ion-label>
+            <ion-icon name="create" slot="end" style="margin-right: 10px;"></ion-icon>
+            <ion-icon name="trash" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="meds-pink" button (click)="CreateEdit(x)">Ubah</ion-item-option>
+            <ion-item-option color="warning">Hapus</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+
+      <ion-list [inset]="true" mode="ios">
+        <ion-item color="meds-red" button (click)="CreateEdit()" lines="none">
+          <ion-label>Tambah Data</ion-label>
         </ion-item>
-        <ion-item-options>
-          <ion-item-option color="meds-pink">Ubah</ion-item-option>
-          <ion-item-option color="warning">Hapus</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
+      </ion-list>
+    </div>
 
-    <ion-list [inset]="true" mode="ios">
-      <ion-item color="meds-red" button (click)="CreateEdit()" lines="none">
-        <ion-label>Tambah Data</ion-label>
-      </ion-item>
-    </ion-list>
-
+    <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
   </div>
-  <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
 </ion-content>

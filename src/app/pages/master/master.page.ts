@@ -16,6 +16,8 @@ export class MasterPage implements OnInit {
   triaseData: Category | undefined;
   datas: Category[] = [];
   title: string | undefined;
+  titleHeader: string = 'Master Data';
+  defaultHref: string = 'tabs/profil/admin';
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -33,24 +35,26 @@ export class MasterPage implements OnInit {
         resolve(data);
       });
     });
-    console.log('param', this.param);
+    // console.log('param', this.param);
   }
 
   async InitializeData() {
     this.GetTitle();
-    console.log('param 2', this.param);
+    // console.log('param 2', this.param);
 
     var listCollection = this.afs.collection<Category>(this.param!, ref => ref.orderBy('id'));
-    // var listCollection = this.afs.collection<Category>('triase', ref => ref.orderBy('id'));
-    // var listCollection = this.afs.collection<Category>(this.param!);
-    var list = listCollection.valueChanges({ idField: 'idx' });
+    listCollection.valueChanges({ idField: 'idx' }).subscribe(data => {
+      this.datas = data;
+      console.log('dtx', this.datas);
+    });
+    // var list = listCollection.valueChanges({ idField: 'idx' });
 
-    this.datas = await new Promise(resolve => {
-      list.pipe(take(1)).subscribe((data: any) => {
-        resolve(data);
-      })
-    })
-    console.log('dtx', this.datas);
+    // this.datas = await new Promise(resolve => {
+    //   list.pipe(take(1)).subscribe((data: any) => {
+    //     resolve(data);
+    //   })
+    // })
+    // console.log('dtx master', this.datas);
 
     /////////////////////////////////////////// DEL LATER ///////////////////////////////////////////
     // COBA TELUSUR COLL GROUP
@@ -88,7 +92,21 @@ export class MasterPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         aksi: data ? 'edit' : 'create',
+        dataParent: this.param,
         data: data,
+        lastNumber: this.datas.length
+      }
+    }
+    this.router.navigate(['/tabs/profil/admin/create-edit-parent-master'], navigationExtras);
+  }
+
+  Open(data: Category) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        // aksi: data ? 'edit' : 'create',
+        dataParent: this.param,
+        data: data,
+        lastNumber: this.datas.length
       }
     }
     this.router.navigate(['/tabs/profil/admin/master/master-child'], navigationExtras);

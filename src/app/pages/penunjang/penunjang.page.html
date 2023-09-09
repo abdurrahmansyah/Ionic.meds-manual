@@ -12,11 +12,11 @@
     <ion-text>PENUNJANG</ion-text>
     <div class="ion-padding red09">
       <ion-row>
-        <ion-col button (click)="Penunjang()">
+        <ion-col button (click)="Radioimaging()">
           <img src="../../../assets/images/radioimaging.png">
           <ion-text>RADIOIMAGING</ion-text>
         </ion-col>
-        <ion-col>
+        <ion-col button (click)="NilaiNormalLab()">
           <img src="../../../assets/images/nilai-normal-lab.png">
           <ion-text>NILAI NORMAL LABORATORIUM</ion-text>
         </ion-col>
@@ -24,7 +24,7 @@
       <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
 
       <ion-row>
-        <ion-col size="6">
+        <ion-col size="6" button (click)="EKG()">
           <img src="../../../assets/images/elektrokardiografi.png">
           <ion-text>ELEKTROKARDIOGRAFI</ion-text>
         </ion-col>

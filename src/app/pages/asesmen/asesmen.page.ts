@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { dataTemp } from 'src/app/dataTemp';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { TabsPage } from 'src/app/tabs/tabs.page';
 
 @Component({
   selector: 'app-asesmen',
@@ -11,18 +9,15 @@ import { TabsPage } from 'src/app/tabs/tabs.page';
 })
 export class AsesmenPage implements OnInit {
 
-  constructor(private firebaseService: FirebaseService,
-    private router: Router,
-    private tabsPage: TabsPage) {
-    // this.firebaseService.getNotes().subscribe(res => {
-    //   console.log(res);
-    // });
-  }
+  constructor(private router: Router,) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  Triase() { this.router.navigate(['/tabs/asesmen/triase']); }
-  
-  SurveiPrimer() { this.router.navigate(['/tabs/asesmen/survei-primer']); }
+  Triase() { this.router.navigate([dataTemp.route.triase]); }
+
+  SurveiPrimer() { this.router.navigate([dataTemp.route.surveiPrimer]); }
+
+  SurveiSekunder() { this.router.navigate([dataTemp.route.surveiSekunder]); }
+
+  TandaVital() { this.router.navigate([dataTemp.route.tandaVital]); }
 }

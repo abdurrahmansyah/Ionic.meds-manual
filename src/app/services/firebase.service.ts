@@ -11,6 +11,8 @@ export interface Category {
   id: number;
   data: string;
   title: string;
+  titleAlias?: string;
+  image?: string
 }
 
 export interface SubCategory {
@@ -18,6 +20,8 @@ export interface SubCategory {
   id: number;
   type: string;
   data: string;
+  image?: string
+  title?: string;
 }
 
 @Injectable({
@@ -30,9 +34,16 @@ export class FirebaseService {
 
   public triaseDataListCollection: AngularFirestoreCollection<Category>;
   public surveiPrimerDataListCollection: AngularFirestoreCollection<Category>;
+  public surveiSekunderDataListCollection: AngularFirestoreCollection<Category>;
+  public tandaVitalDataListCollection: AngularFirestoreCollection<Category>;
+  public categoryDataListCollection!: AngularFirestoreCollection<Category>;
+  
   public triaseDataList: Observable<Category[]> | undefined;
   public surveiPrimerDataList: Observable<Category[]> | undefined;
+  public surveiSekunderDataList: Observable<Category[]> | undefined;
+  public tandaVitalDataList: Observable<Category[]> | undefined;
   public masterDataList: Observable<Category[]> | undefined;
+  public categoryDataList: Observable<Category[]> | undefined;
 
   constructor(
     private firestore: Firestore,
@@ -43,6 +54,8 @@ export class FirebaseService {
 
     this.triaseDataListCollection = this.afs.collection<Category>(dataTemp.tab.triase, ref => ref.orderBy('id'));
     this.surveiPrimerDataListCollection = this.afs.collection<Category>(dataTemp.tab.surveiPrimer, ref => ref.orderBy('id'));
+    this.surveiSekunderDataListCollection = this.afs.collection<Category>(dataTemp.tab.surveiSekunder, ref => ref.orderBy('id'));
+    this.tandaVitalDataListCollection = this.afs.collection<Category>(dataTemp.tab.tandaVital, ref => ref.orderBy('id'));
 
     this.userDataList = this.userDataListCollection.valueChanges({ idField: 'id' });
 

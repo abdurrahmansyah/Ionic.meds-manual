@@ -1,0 +1,26 @@
+<ion-content>
+  <ion-row class="header ion-align-items-center">
+    <ion-back-button class="buttonBack" text={{title}} defaultHref="tabs/asesmen" mode="ios"></ion-back-button>
+  </ion-row>
+  <div class="ion-text-center">
+
+    <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar>
+
+    <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
+    <div *ngFor="let x of surveiSekunderDataList" style="padding: 0px 10%;">
+      <ion-list [inset]="true" mode="ios">
+        <ion-item color="meds-red" button (click)="CategoryChild(x)" lines="none">
+          <ion-label>{{x.title}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- <br> -->
+    </div>
+
+
+    <div class=" footer">
+      <img src="../../../assets/images/undraw_injured_9757 (1) 1.png">
+    </div>
+
+  </div>
+</ion-content>

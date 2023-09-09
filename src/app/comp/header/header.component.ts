@@ -7,9 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HeaderComponent  implements OnInit {
   @Input('title') title: string = '';
+  @Input('defaultHref') defaultHref: string = '';
 
   constructor() { }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.defaultHref = this.defaultHref == '' ? 'tabs/asesmen' : this.defaultHref;
+  }
 }

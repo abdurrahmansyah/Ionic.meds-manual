@@ -2,6 +2,18 @@ import { environment } from "src/environments/environment";
 export var dataTemp = {
     // urlHit: environment.production ? 'https://kip.hutamakarya.com/api/' :  'http://kipdev.hutamakarya.com/',
     urlHit: environment.production ? 'https://ppid.hutamakarya.com/api/' : 'https://ppiddev.hutamakarya.com/api/',
+    route: {
+        'detail': '/tabs/detail',
+        'triase': '/tabs/asesmen/triase',
+        'surveiPrimer': '/tabs/asesmen/survei-primer',
+        'surveiSekunder': '/tabs/asesmen/survei-sekunder',
+        'tandaVital': '/tabs/asesmen/tanda-vital',
+        'asesmenDetail': '/tabs/asesmen/asesmen-detail',
+        'radioimaging': '/tabs/penunjang/radioimaging',
+        'nilaiNormalLab': '/tabs/penunjang/nilai-normal-lab',
+        'ekg': '/tabs/penunjang/ekg',
+        'penunjangDetail': '/tabs/penunjang/penunjang-detail',
+    },
     tab: {
         'asesmen': 'asesmen',
         'triase': 'triase',
@@ -10,6 +22,9 @@ export var dataTemp = {
         'surveiSekunder': 'survei-sekunder',
         'tandaVital': 'tanda-vital',
         'penunjang': 'penunjang',
+        'radioimaging': 'radioimaging',
+        'nilaiNormalLab': 'nilai-normal-lab',
+        'ekg': 'ekg',
         'panduan': 'panduan',
         'obat': 'obat',
         'profil': 'profil',
@@ -22,6 +37,9 @@ export var dataTemp = {
         'surveiPrimer': 'Survei Primer',
         'surveiSekunder': 'Survei Sekunder',
         'tandaVital': 'Tanda Vital',
+        'radioimaging': 'Radioimaging',
+        'nilaiNormalLab': 'Nilai Normal Lab',
+        'ekg': 'Elektrokardiografi',
     },
     aksi: {
         'create': 'create',
@@ -51,13 +69,17 @@ export var dataTemp = {
     subCategory: {
         'text': 'text',
         'sub': 'sub',
+        'subsub': 'subsub',
         'img': 'img',
         'ref': 'ref',
+        'btn': 'btn',
     },
     subCategoryString: {
         'text': 'Teks',
         'sub': 'Sub Judul',
+        'subsub': 'Sub Sub Judul',
         'img': 'Image',
         'ref': 'Referensi',
+        'btn': 'Button',
     },
 }

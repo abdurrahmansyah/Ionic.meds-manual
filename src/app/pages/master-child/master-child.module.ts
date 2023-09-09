@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MasterChildPageRoutingModule } from './master-child-routing.module';
 
 import { MasterChildPage } from './master-child.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MasterChildPageRoutingModule
+    MasterChildPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [MasterChildPage]
 })

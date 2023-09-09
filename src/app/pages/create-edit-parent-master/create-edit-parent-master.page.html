@@ -1,0 +1,40 @@
+<ion-content>
+  <ion-row class="header ion-align-items-center">
+    <ion-back-button class="buttonBack" text="Master Data" defaultHref="tabs/profil/admin" mode="ios"></ion-back-button>
+  </ion-row>
+  <div class="ion-text-center">
+    <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
+
+    <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
+
+    <ion-list [inset]="true" mode="ios">
+      <ion-item color="meds-red" button>
+        <ion-input label="Urut" labelPlacement="floating" placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
+      </ion-item>
+      <ion-item color="meds-red" button>
+        <ion-input label="Title" labelPlacement="floating" placeholder="Title" [(ngModel)]="titleCategory"></ion-input>
+      </ion-item>
+      <ion-item color="meds-red" button>
+        <ion-input label="Title Alias" labelPlacement="floating" placeholder="Title Alias" [(ngModel)]="titleAliasCategory"></ion-input>
+      </ion-item>
+      <ion-item color="meds-red" button>
+        <ion-input label="Data" labelPlacement="floating" placeholder="Tidak boleh ada spasi"
+          [(ngModel)]="data"></ion-input>
+      </ion-item>
+      <ion-item color="meds-red" button>
+        <ion-textarea label="Image Button" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="imageCategory"
+          [readonly]="true" (click)="ChangeImage(true)"></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-list [inset]="true" mode="ios">
+      <ion-item color="meds-red" button (click)="CreateEdit()" lines="none">
+        <ion-label *ngIf="IsCreate()">Tambah Data</ion-label>
+        <ion-label *ngIf="!IsCreate()">Perbarui Data</ion-label>
+      </ion-item>
+    </ion-list>
+
+  </div>
+  <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
+</ion-content>

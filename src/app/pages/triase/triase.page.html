@@ -8,15 +8,17 @@
 
     <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
     <div *ngFor="let x of triaseDataList" style="padding: 0px 10%;">
-      <ion-list [inset]="true" mode="ios">
-        <ion-item color="meds-red" button (click)="TriaseChild(x)" lines="none">
+      <ion-list *ngIf="!IsWithImage(x)" [inset]="true" mode="ios">
+        <ion-item color="meds-red" button (click)="CategoryChild(x)" lines="none">
           <ion-label>{{x.title}}</ion-label>
         </ion-item>
       </ion-list>
-
-      <!-- <br> -->
+      <div *ngIf="IsWithImage(x)" style="width: 100%;" button (click)="CategoryChild(x)">
+        <img src="{{x.image}}"> <br>
+        <ion-label color="meds-red">{{x.title}}</ion-label>
+        <hr style="height: 20px;">
+      </div>
     </div>
-
 
     <div class=" footer">
       <img src="../../../assets/images/undraw_warning_re_eoyh.png">

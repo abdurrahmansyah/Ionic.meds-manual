@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NavigationExtras, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { dataTemp } from 'src/app/dataTemp';
@@ -43,13 +42,19 @@ export class TriasePage implements OnInit {
     // });
   }
 
-  TriaseChild(data: Category) {
+  IsWithImage(data: Category) {
+    if (data.image) return true
+    else return false;
+  }
+
+  CategoryChild(data: Category) {
     let navigationExtras: NavigationExtras = {
       state: {
-        data: data
+        data: data,
+        defaultHref: dataTemp.route.triase
       }
     }
-    this.router.navigate(['/tabs/asesmen/triase/triase-child'], navigationExtras);
+    this.router.navigate([dataTemp.route.asesmenDetail], navigationExtras);
   }
 
   ngOnInit() {

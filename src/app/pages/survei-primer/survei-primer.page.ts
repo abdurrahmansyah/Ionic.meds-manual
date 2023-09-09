@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { NavigationExtras, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { dataTemp } from 'src/app/dataTemp';
-import { Category, FirebaseService, SubCategory } from 'src/app/services/firebase.service';
+import { Category, FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-survei-primer',
@@ -43,13 +42,14 @@ export class SurveiPrimerPage implements OnInit {
     // });
   }
 
-  SurveiPrimerChild(data: Category) {
+  CategoryChild(data: Category) {
     let navigationExtras: NavigationExtras = {
       state: {
-        data: data
+        data: data,
+        defaultHref: dataTemp.route.surveiPrimer
       }
     }
-    this.router.navigate(['/tabs/asesmen/triase/triase-child'], navigationExtras);
+    this.router.navigate([dataTemp.route.asesmenDetail], navigationExtras);
   }
 
   ngOnInit() {

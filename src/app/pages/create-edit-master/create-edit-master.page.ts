@@ -31,13 +31,18 @@ export class CreateEditMasterPage implements OnInit {
   type: string = dataTemp.subCategory.text;
   typeString: string = '';
   data: string | undefined;
+  titleBtn: string | undefined;
+  imageBtn: string | undefined;
   isImg: boolean = false;
+  isBtn: boolean = false;
 
   public actionSheetButtons = [
     { text: dataTemp.subCategoryString.text, data: { action: dataTemp.subCategory.text }, },
     { text: dataTemp.subCategoryString.sub, data: { action: dataTemp.subCategory.sub }, },
+    { text: dataTemp.subCategoryString.subsub, data: { action: dataTemp.subCategory.subsub }, },
     { text: dataTemp.subCategoryString.img, data: { action: dataTemp.subCategory.img }, },
     { text: dataTemp.subCategoryString.ref, data: { action: dataTemp.subCategory.ref }, },
+    { text: dataTemp.subCategoryString.btn, data: { action: dataTemp.subCategory.btn }, },
     { text: 'Cancel', role: 'cancel', data: { action: 'cancel', }, },
   ];
 
@@ -100,18 +105,21 @@ export class CreateEditMasterPage implements OnInit {
   }
 
   SetView() {
-    console.log('this.type', this.type);
-    console.log('this.typeString', this.typeString);
+    // console.log('this.type', this.type);
+    // console.log('this.typeString', this.typeString);
 
     this.isImg = this.type == dataTemp.subCategory.img ? true : false;
-    console.log('isImg', this.isImg);
+    this.isBtn = this.type == dataTemp.subCategory.btn ? true : false;
+    // console.log('isImg', this.isImg);
   }
 
   GetTypeString() {
     return this.type == dataTemp.subCategory.text ? dataTemp.subCategoryString.text :
       this.type == dataTemp.subCategory.sub ? dataTemp.subCategoryString.sub :
-        this.type == dataTemp.subCategory.img ? dataTemp.subCategoryString.img :
-          this.type == dataTemp.subCategory.ref ? dataTemp.subCategoryString.ref : 'Data Tidak Valid';
+        this.type == dataTemp.subCategory.subsub ? dataTemp.subCategoryString.subsub :
+          this.type == dataTemp.subCategory.img ? dataTemp.subCategoryString.img :
+            this.type == dataTemp.subCategory.ref ? dataTemp.subCategoryString.ref :
+              this.type == dataTemp.subCategory.btn ? dataTemp.subCategoryString.btn : 'Data Tidak Valid';
   }
 
   GetTitle() {
@@ -129,7 +137,7 @@ export class CreateEditMasterPage implements OnInit {
     else return false;
   }
 
-  async ChangeImage() {
+  async ChangeImage(isImageBtn?: boolean) {
     const image = await this.photoService.TakeAPhoto();
     const loading = await this.loadingController.create();
     await loading.present();
@@ -137,7 +145,8 @@ export class CreateEditMasterPage implements OnInit {
     try {
       const name = 'img-' + (Math.random() + 1).toString(36).substring(3);
       // this.lampiranString = name + '.png';
-      this.data = await this.photoService.UploadFile(image, name);
+      if (isImageBtn) this.imageBtn = await this.photoService.UploadFile(image, name);
+      else this.data = await this.photoService.UploadFile(image, name);
       console.log('this.data', this.data);
       if (this.data == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
     } catch (error: any) {
@@ -151,9 +160,13 @@ export class CreateEditMasterPage implements OnInit {
     await loading.present();
 
     try {
-      var subCategoryData: SubCategory = { id: this.id ? this.id : 0, type: this.type!, data: this.data! }
+      if (this.isBtn && this.imageBtn) var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, image: this.imageBtn };
+      if (this.isBtn ) var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn! };
+      else var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, };
 
       if (this.IsCreate()) {
+        console.log('subCategoryData utk dipost', subCategoryData);
+        
         await this.subCategoryDataListCollection.add(subCategoryData);
         var msg = "Berhasil menambah data baru";
         await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { take } from 'rxjs';
 import { PhotoviewerComponent } from 'src/app/comp/photoviewer/photoviewer.component';
+import { dataTemp } from 'src/app/dataTemp';
 import { Category, SubCategory } from 'src/app/services/firebase.service';
 import { GlobalService } from 'src/app/services/global.service';
 
@@ -13,9 +13,12 @@ import { GlobalService } from 'src/app/services/global.service';
   styleUrls: ['./triase-child.page.scss'],
 })
 export class TriaseChildPage implements OnInit {
-  triaseDataList: Category[] = []
-  triaseData: Category | undefined;
   datas: SubCategory[] = [];
+  param: Category | undefined;
+
+  // header
+  title: string | undefined;
+  defaultHref: string | undefined;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -23,81 +26,61 @@ export class TriaseChildPage implements OnInit {
     private modalController: ModalController,
     private globalService: GlobalService
   ) { }
-  ngOnInit() {
-    this.GetExtras();
+
+  async ngOnInit() {
+    await this.GetExtras();
     this.InitializeData();
   }
 
   private async GetExtras() {
-    // this.triaseData = await new Promise(resolve => {
-    //   this.activatedRoute.queryParams.subscribe((param: any) => {
-    //     var data = this.router.getCurrentNavigation()?.extras.state!['data'];
-    //     resolve(data);
-    //   });
-    // });
-
     this.activatedRoute.queryParams.subscribe(params => {
-      this.triaseData = this.router.getCurrentNavigation()?.extras.state!['data'];
+      this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
+      this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
+      this.defaultHref = this.router.getCurrentNavigation()?.extras.state!['defaultHref'];
+      console.log('this.param', this.param);
     });
   }
 
   async InitializeData() {
-    var listCollection = this.afs.collection<SubCategory>(this.triaseData!.data, ref => ref.orderBy('id'));
-    var list = listCollection.valueChanges({ idField: 'idx' });
-
-    this.datas = await new Promise(resolve => {
-      list.pipe(take(1)).subscribe((data: any) => {
-        resolve(data);
-      })
-    })
-    console.log(this.datas);
-
-    /////////////////////////////////////////// DEL LATER ///////////////////////////////////////////
-    // COBA TELUSUR COLL GROUP
-    // var comments = this.afs.collectionGroup<SubCategory>(this.triaseData!.data, ref => ref.orderBy('id'));
-    // // var comments = this.afs.collectionGroup<SubCategory>(this.triaseData!.data, ref => ref.where('id', '==', '6'));
-    // var asdfasdf = comments.valueChanges({ idField: 'idx' });
-    // console.log('comments', comments);
-    // console.log('asdfasdf', asdfasdf);
-
-    // var datt: [] = await new Promise(resolve => {
-    //   asdfasdf.pipe(take(1)).subscribe((dddd: any) => {
-    //     console.log(dddd);
-    //     resolve(dddd);
-    //   })
-    // })
-    // console.log(datt);
-
-    // comments$.subscribe(datt => {
-    //   console.log('datt', datt);
-    // })
-    // console.log('cmnt', comments$);
-    /////////////////////////////////////////// DEL LATER ///////////////////////////////////////////
-
+    var listCollection = this.afs.collection<SubCategory>(this.param!.data, ref => ref.orderBy('id'));
+    listCollection.valueChanges({ idField: 'idx' }).subscribe(data => {
+      this.datas = data;
+    });
   }
 
   IsText(type: string) {
-    if (type == 'text') return true;
+    if (type == dataTemp.subCategory.text) return true;
     else return false;
   }
 
   IsSub(type: string) {
-    if (type == 'sub') return true;
+    if (type == dataTemp.subCategory.sub) return true;
+    else return false;
+  }
+
+  IsSubSub(type: string) {
+    if (type == dataTemp.subCategory.subsub) return true;
     else return false;
   }
 
   IsImg(type: string) {
-    if (type == 'img') return true;
+    if (type == dataTemp.subCategory.img) return true;
     else return false;
   }
 
   IsRef(type: string) {
-    if (type == 'ref') return true;
+    if (type == dataTemp.subCategory.ref) return true;
     else return false;
   }
 
-  Triase(x: Category) {
-    console.log(x);
+  IsBtn(type: string) {
+    if (type == dataTemp.subCategory.btn) return true;
+    else return false;
+  }
+
+  IsWithImage(data: SubCategory) {
+    if (data.image) return true
+    else return false;
   }
 
   async ViewImage(data: string) {
@@ -114,5 +97,16 @@ export class TriaseChildPage implements OnInit {
       console.log(e);
       this.globalService.PresentToast(e);
     }
+  }
+
+  BtnThru(data: SubCategory) { // PERLU EDIT
+    console.log('btnThru: PERLU EDIT', data);
+
+    // let navigationExtras: NavigationExtras = {
+    //   state: {
+    //     data: data
+    //   }
+    // }
+    // this.router.navigate(['/tabs/asesmen/triase/triase-child'], navigationExtras);
   }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, IonInput, LoadingController } from '@ionic/angular';
+import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { GlobalService } from 'src/app/services/global.service';
+import { GlobalService, UserData } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
@@ -16,6 +17,19 @@ export class ProfilPage implements OnInit {
   photoString: string = '';
   profile: any;
 
+  readonly tglLahirMask: MaskitoOptions = {
+    mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
+  };
+  readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
+
+  email: string = '';
+  // password: string = '';
+  nama: string = '';
+  tglLahir: string = '';
+  profesi: string = '';
+  photoImg: any;
+  @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
+
   constructor(private globalService: GlobalService,
     private authService: AuthService,
     private router: Router,
@@ -24,6 +38,14 @@ export class ProfilPage implements OnInit {
     private loadingController: LoadingController) {
     this.photoService.getUserProfile().subscribe((data) => {
       this.profile = data;
+      this.email = data['email'];
+      this.nama = data['nama'];
+      this.tglLahir = data['tglLahir'];
+      this.profesi = data['profesi'];
+
+      console.log('profile', this.profile);
+      console.log('email', this.email);
+      
     })
   }
 
@@ -63,27 +85,41 @@ export class ProfilPage implements OnInit {
     });
   }
 
-  async changeImage() {
-    const image = await Camera.getPhoto({
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Camera,
-      quality: 90,
-      saveToGallery: true,
-      allowEditing: false
-    });
-    console.log(image);
+  async ChangeImage() {
+    const loading = await this.loadingController.create();
+    await loading.present();
 
-    if (image) {
-      const loading = await this.loadingController.create();
-      await loading.present();
+    try {
+      // this.photo = await this.photoService.TakeAPhoto();
+      // // this.photoImg = this.photoService.ConvertPhotoBase64ToImage(this.photo.base64String);
 
-      const result = await this.photoService.uploadImage(image);
+      // let r = (Math.random() + 1).toString(36).substring(3);
+      // var name = this.email ? this.email + '_' + this.globalService.GetDate().todayDateTimeFormatted : r;
+      // var photo = this.photo ? await this.photoService.UploadFile(this.photo!, name) : '';
+      await this.authService.UpdateUser(this.nama, this.tglLahir, this.profesi, 'photo');
+
       loading.dismiss()
-
-      if (!result) {
-        this.globalService.PresentAlert('There was problem uploading your Avatar');
-      }
+    } catch (error) {
+      loading.dismiss();
+      this.globalService.PresentToast('Gagal memuat foto! Coba lagi');
     }
-    // return image;
   }
+
+  ////////////////////////////////////////////////////////////////
+
+  onInputName(ev: any) {
+    const value = ev.target!.value;
+    // const filteredValue = value.replace(/[^a-zA-Z0-9]+/g, '');
+    const filteredValue = value.replace(/[^a-zA-Z ]+/g, '');
+    this.ionInputElName.value = this.nama = filteredValue;
+  }
+
+  onChangeTglLahir() {
+    if (isNaN(new Date(this.tglLahir).valueOf()) || new Date(this.tglLahir).valueOf() > new Date().valueOf()) {
+      this.globalService.PresentToast('Tanggal lahir tidak valid!');
+      this.tglLahir = '';
+      return;
+    }
+  }
+
 }

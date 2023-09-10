@@ -56,10 +56,6 @@ const routes: Routes = [
         loadChildren: () => import('../pages/triase/triase.module').then(m => m.TriasePageModule)
       },
       {
-        path: 'asesmen/triase/triase-child',
-        loadChildren: () => import('../pages/triase-child/triase-child.module').then(m => m.TriaseChildPageModule)
-      },
-      {
         path: 'asesmen/survei-primer',
         loadChildren: () => import('../pages/survei-primer/survei-primer.module').then(m => m.SurveiPrimerPageModule)
       },

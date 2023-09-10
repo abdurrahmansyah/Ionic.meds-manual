@@ -1,55 +1,94 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profil</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="ion-text-center">
+    <ion-row class="header ion-align-items-center">
+      <ion-col>
+        <ion-text>MEDS Manual</ion-text>
+      </ion-col>
+    </ion-row>
 
-  <div class="ion-padding">
-    <ion-button shape="round" expand="block" color="meds-red" (click)="Admin()">Admin</ion-button>
-    <ion-button shape="round" expand="block" color="meds-red" (click)="Logout()">Log Out</ion-button>
-  </div>
-  <ion-row>
-    <ion-col size="8" style="padding: 0px;">
-      <!-- <ion-item class="border" lines="none">
+    <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
+    <ion-text color="meds-red">PROFIL</ion-text>
+    <span>&nbsp;</span>
+    <ion-icon color="meds-red" style="margin-right: 12px;" name="create-outline" slot="end"></ion-icon>
+
+    <div style="padding: 0px 10%;">
+      <div class="avatar ion-padding">
+        <ion-avatar (click)="ChangeImage()">
+          <img *ngIf="profile?.photo; else placeholder_avatar" [src]="profile.photo">
+
+          <ng-template #placeholder_avatar>
+            <div class="preview">
+              <img style="padding-top: 10px;" src="../../../assets/images/gallery.png"> <br>
+              <ion-text style="font-size: small; color: grey;">Foto</ion-text> <br>
+              <ion-text style="font-size: small; color: grey;">Profil</ion-text>
+            </div>
+          </ng-template>
+        </ion-avatar>
+      </div>
+
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-input aria-label="Email" placeholder="Email" type="email" class="form" style="color: grey;"
+          [(ngModel)]="email"></ion-input>
+        <ion-icon style="margin-right: 12px;" name="mail" slot="end"></ion-icon>
+      </ion-item>
+      <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-input aria-label="Nama Lengkap" placeholder="Nama Lengkap" class="form" style="color: grey;"
+          [(ngModel)]="nama" (ionInput)="onInputName($event)" #ionInputElName></ion-input>
+        <ion-icon style="margin-right: 12px;" name="person" slot="end"></ion-icon>
+      </ion-item>
+      <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-input aria-label="Tanggal Lahir" placeholder="Tanggal Lahir (mm/dd/yyyy)" [maskito]="tglLahirMask"
+          [maskitoElement]="maskPredicate" class="form" style="color: grey;" [(ngModel)]="tglLahir"
+          (ionChange)="onChangeTglLahir()"></ion-input>
+        <ion-icon style="margin-right: 12px;" name="calendar" slot="end"></ion-icon>
+      </ion-item>
+      <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-select mode="ios" [(ngModel)]="profesi" label="Profesi" interface="action-sheet" class="always-flip"
+          toggleIcon="caret-down" style="margin: 0px 12px; color: grey;">
+          <!-- <ion-select-option *ngFor="let x of pekerjaanDataList" [value]="x.md_pekerjaan_id">{{x.md_pekerjaan_name}}
+            </ion-select-option> -->
+          <ion-select-option value="Dokter">Dokter</ion-select-option>
+          <ion-select-option value="Perawat">Perawat</ion-select-option>
+          <ion-select-option value="Bidan">Bidan</ion-select-option>
+          <ion-select-option value="Tenaga Kesehatan Lain">Tenaga Kesehatan Lain</ion-select-option>
+          <ion-select-option value="Mahasiswa Kesehatan">Mahasiswa Kesehatan</ion-select-option>
+        </ion-select>
+        <!-- <ion-icon name="caret-down" slot="end"></ion-icon> -->
+      </ion-item>
+    </div>
+
+
+    <div class="ion-padding">
+      <!-- <ion-button shape="round" expand="block" color="meds-red" (click)="Admin()">Admin</ion-button>
+      <ion-button shape="round" expand="block" color="meds-red" (click)="Logout()">Log Out</ion-button> -->
+    </div>
+    <ion-row>
+      <ion-col size="8" style="padding: 0px;">
+        <!-- <ion-item class="border" lines="none">
         <ion-input type="text" placeholder="Foto KTP" formControlName="ktp_data"></ion-input>
       </ion-item> -->
-      <ion-item color="meds-red" button>
-        <ion-input label="Urut" labelPlacement="floating" [(ngModel)]="photoString" [readonly]="true"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="4" style="padding: 0px 0px 0px 16px;" class="ion-text-end">
-      <div class="border ion-text-center" style="background-color: var(--ion-color-meds-red); height: 100%;">
-        <ion-button expand="full" color="transparent" style="height: 100%; padding: 0px; margin: 0px;"
-          (click)="TakeAPhoto()">Foto
-        </ion-button>
-        <!-- [disabled]="isDisableBtnFoto" -->
-      </div>
-      <!-- <ion-item class="border" lines="none" color="hk-ppid-main">
+        <!-- <ion-item color="meds-red" button>
+          <ion-input label="Urut" labelPlacement="floating" [(ngModel)]="photoString" [readonly]="true"></ion-input>
+        </ion-item> -->
+      </ion-col>
+      <ion-col size="4" style="padding: 0px 0px 0px 16px;" class="ion-text-end">
+        <!-- <div class="border ion-text-center" style="background-color: var(--ion-color-meds-red); height: 100%;">
+          <ion-button expand="full" color="transparent" style="height: 100%; padding: 0px; margin: 0px;"
+            (click)="TakeAPhoto()">Foto
+          </ion-button>
+        </div> -->
+        <!-- <ion-item class="border" lines="none" color="hk-ppid-main">
         <ion-text>AA</ion-text>
       </ion-item> -->
-    </ion-col>
-  </ion-row>
-  <div *ngIf="photo" class="ion-padding-top ion-padding-bottom">
-    <img style="max-height: 200px; " class="center" src="{{ photo }}" />
-  </div>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="photo" class="ion-padding-top ion-padding-bottom">
+      <img style="max-height: 200px; " class="center" src="{{ photo }}" />
+    </div>
 
-  <div class="preview">
-    <ion-avatar (click)="changeImage()">
-      <img *ngIf="profile?.photo; else placeholder_avatar" [src]="profile.photo">
-
-      <ng-template #placeholder_avatar>
-        <div class="fallback">
-          <p>Select Avatar</p>
-        </div>
-      </ng-template>
-    </ion-avatar>
   </div>
 
 </ion-content>

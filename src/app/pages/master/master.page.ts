@@ -106,7 +106,7 @@ export class MasterPage implements OnInit {
         // aksi: data ? 'edit' : 'create',
         dataParent: this.param,
         data: data,
-        lastNumber: this.datas.length
+        // lastNumber: this.datas.length
       }
     }
     this.router.navigate(['/tabs/profil/admin/master/master-child'], navigationExtras);

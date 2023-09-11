@@ -94,6 +94,7 @@ export class CreateEditMasterPage implements OnInit {
     this.type = this.param?.type!;
     this.typeString = this.GetTypeString();
     this.data = this.param?.data;
+    this.titleBtn = this.param?.title;
     // console.log('dtsss', this.param);
   }
 
@@ -161,12 +162,12 @@ export class CreateEditMasterPage implements OnInit {
 
     try {
       if (this.isBtn && this.imageBtn) var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, image: this.imageBtn };
-      if (this.isBtn ) var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn! };
+      if (this.isBtn) var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn! };
       else var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, };
 
       if (this.IsCreate()) {
         console.log('subCategoryData utk dipost', subCategoryData);
-        
+
         await this.subCategoryDataListCollection.add(subCategoryData);
         var msg = "Berhasil menambah data baru";
         await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
@@ -184,4 +185,17 @@ export class CreateEditMasterPage implements OnInit {
     }
   }
 
+  SeeData() {
+    const data: Category = { id: 0, data: this.data!, title: this.titleBtn! }
+    let navigationExtras: NavigationExtras = {
+      state: {
+        // aksi: data ? 'edit' : 'create',
+        // dataParent: this.param,
+        data: data,
+      }
+    }
+    console.log('masuk ga nih', data);
+    
+    this.router.navigate(['/tabs/profil/admin/master/master-child'], navigationExtras); // cek kenapa extras tidak ngefek
+  }
 }

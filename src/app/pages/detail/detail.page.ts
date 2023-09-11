@@ -14,7 +14,7 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class DetailPage implements OnInit {
   datas: SubCategory[] = [];
-  param: Category | undefined;
+  param: any; // bisa category bisa sub category // Category | undefined;
 
   // header
   title: string | undefined;

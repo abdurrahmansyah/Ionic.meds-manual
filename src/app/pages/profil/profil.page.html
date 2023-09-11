@@ -1,4 +1,15 @@
 <ion-content [fullscreen]="true">
+  <!-- <ion-fab vertical="top" horizontal="start" style="margin-top: 100px;" >
+    <ion-fab-button (click)="Admin()" color="meds-red">
+      <ion-icon name="settings"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+  <ion-fab vertical="top" horizontal="end" style="margin-top: 100px;">
+    <ion-fab-button (click)="Logout()" color="meds-red">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <div class="ion-text-center">
     <ion-row class="header ion-align-items-center">
       <ion-col>
@@ -7,9 +18,11 @@
     </ion-row>
 
     <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
-    <ion-text color="meds-red">PROFIL</ion-text>
-    <span>&nbsp;</span>
-    <ion-icon color="meds-red" style="margin-right: 12px;" name="create-outline" slot="end"></ion-icon>
+    <div button (click)="StartStopEdit()">
+      <ion-text color="meds-red">PROFIL</ion-text>
+      <span>&nbsp;</span>
+      <ion-icon color="meds-red" style="margin-right: 12px;" name="create-outline" slot="end"></ion-icon>
+    </div>
 
     <div style="padding: 0px 10%;">
       <div class="avatar ion-padding">
@@ -58,8 +71,30 @@
         </ion-select>
         <!-- <ion-icon name="caret-down" slot="end"></ion-icon> -->
       </ion-item>
+      <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+      <ion-item class="border" lines="none" color="meds-pink">
+        <ion-input aria-label="Nama Lengkap" placeholder="Daftar Akses Full Membership" class="form" style="color: grey;"
+          [(ngModel)]="nama" (ionInput)="onInputName($event)" #ionInputElName></ion-input>
+        <ion-icon style="margin-right: 12px;" name="person" slot="end"></ion-icon>
+      </ion-item>
     </div>
+    <hr style="height: 20px;">
 
+    <div class="ion-text-center">
+      <img src="../../../assets/images/undraw_medicine_b-1-ol.png"> <br>
+      <hr style="height: 20px;">
+      <ion-text class="red">Terima kasih atas dukungan Anda!</ion-text> <br>
+      <ion-text class="red">Saran dan kritikan dapat dikirimkan melalui:</ion-text> <br>
+      <hr style="height: 8px;">
+  
+      <img src="../../../assets/images/instagram.png">
+      <span style="margin: 16px;">&nbsp;</span>
+      <img src="../../../assets/images/whatsapp.png">
+      <span style="margin: 16px;">&nbsp;</span>
+      <img src="../../../assets/images/web.png">
+      <span style="margin: 16px;">&nbsp;</span>
+      <img src="../../../assets/images/email.png">
+    </div>
 
     <div class="ion-padding">
       <!-- <ion-button shape="round" expand="block" color="meds-red" (click)="Admin()">Admin</ion-button>

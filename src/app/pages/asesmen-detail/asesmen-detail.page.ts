@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { PhotoviewerComponent } from 'src/app/comp/photoviewer/photoviewer.component';
 import { dataTemp } from 'src/app/dataTemp';
@@ -101,6 +101,15 @@ export class AsesmenDetailPage implements OnInit {
 
   BtnThru(data: SubCategory) { // PERLU EDIT
     console.log('btnThru: PERLU EDIT', data);
+
+    // let navigationExtras: NavigationExtras = {
+    //   state: {
+    //     data: data,
+    //     defaultHref: dataTemp.route.asesmenDetail
+    //   }
+    // }
+    // this.router.navigate([dataTemp.route.detail], navigationExtras);
+
 
     // let navigationExtras: NavigationExtras = {
     //   state: {

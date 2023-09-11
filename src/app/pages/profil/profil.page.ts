@@ -23,12 +23,13 @@ export class ProfilPage implements OnInit {
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
   email: string = '';
-  // password: string = '';
   nama: string = '';
   tglLahir: string = '';
   profesi: string = '';
   photoImg: any;
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
+
+  isEdit: boolean = false;
 
   constructor(private globalService: GlobalService,
     private authService: AuthService,
@@ -45,7 +46,6 @@ export class ProfilPage implements OnInit {
 
       console.log('profile', this.profile);
       console.log('email', this.email);
-      
     })
   }
 
@@ -57,6 +57,16 @@ export class ProfilPage implements OnInit {
   }
 
   Admin() { this.router.navigate(['/tabs/profil/admin']); }
+
+  StartStopEdit() {
+    if (this.isEdit) {
+      this.isEdit = false
+    } else {
+      this.isEdit = true;
+    }
+    console.log('isEdit', this.isEdit);
+    
+  }
 
   public async TakeAPhoto() {
     this.alertController.create({

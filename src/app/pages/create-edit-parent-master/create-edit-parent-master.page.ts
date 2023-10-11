@@ -149,7 +149,7 @@ export class CreateEditParentMasterPage implements OnInit {
       console.log('this.imageCategory', this.imageCategory);
       if (this.data == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
     } catch (error: any) {
-      loading.dismiss()
+      loading.dismiss();
       this.globalService.PresentToast(error);
     }
   }

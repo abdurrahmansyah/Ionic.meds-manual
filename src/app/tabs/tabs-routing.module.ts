@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/detail/detail.module').then(m => m.DetailPageModule)
       },
       {
+        path: 'asesmen/asesmen-detail/detail',
+        loadChildren: () => import('../pages/detail/detail.module').then(m => m.DetailPageModule)
+      },
+      {
         path: 'profil/admin',
         loadChildren: () => import('../pages/admin/admin.module').then(m => m.AdminPageModule)
       },
@@ -48,10 +52,18 @@ const routes: Routes = [
         loadChildren: () => import('../pages/master-child/master-child.module').then(m => m.MasterChildPageModule)
       },
       {
+        path: 'profil/admin/master/create-edit-master/master-child-two',
+        loadChildren: () => import('../pages/master-child-two/master-child-two.module').then(m => m.MasterChildTwoPageModule)
+      },
+      {
         path: 'profil/admin/master/create-edit-master',
         loadChildren: () => import('../pages/create-edit-master/create-edit-master.module').then(m => m.CreateEditMasterPageModule)
       },
- {
+      {
+        path: 'profil/admin/master/create-edit-master/master-child-two/create-edit-master-two',
+        loadChildren: () => import('../pages/create-edit-master-two/create-edit-master-two.module').then( m => m.CreateEditMasterTwoPageModule)
+      },
+      {
         path: 'asesmen/triase',
         loadChildren: () => import('../pages/triase/triase.module').then(m => m.TriasePageModule)
       },
@@ -69,9 +81,9 @@ const routes: Routes = [
       },
       {
         path: 'asesmen/asesmen-detail',
-        loadChildren: () => import('../pages/asesmen-detail/asesmen-detail.module').then( m => m.AsesmenDetailPageModule)
+        loadChildren: () => import('../pages/asesmen-detail/asesmen-detail.module').then(m => m.AsesmenDetailPageModule)
       },
-       {
+      {
         path: 'penunjang/radioimaging',
         loadChildren: () => import('../pages/radioimaging/radioimaging.module').then(m => m.RadioimagingPageModule)
       },

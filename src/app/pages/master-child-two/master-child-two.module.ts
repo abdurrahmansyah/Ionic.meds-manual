@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EkgPageRoutingModule } from './ekg-routing.module';
+import { MasterChildTwoPageRoutingModule } from './master-child-two-routing.module';
 
-import { EkgPage } from './ekg.page';
+import { MasterChildTwoPage } from './master-child-two.page';
 import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { ComponentsModule } from 'src/app/comp/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    EkgPageRoutingModule,
+    MasterChildTwoPageRoutingModule,
     ComponentsModule
   ],
-  declarations: [EkgPage]
+  declarations: [MasterChildTwoPage]
 })
-export class EkgPageModule {}
+export class MasterChildTwoPageModule {}

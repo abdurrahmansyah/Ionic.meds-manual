@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { ActionSheetController, LoadingController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { take } from 'rxjs';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
@@ -10,11 +10,11 @@ import { GlobalService } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
-  selector: 'app-create-edit-master',
-  templateUrl: './create-edit-master.page.html',
-  styleUrls: ['./create-edit-master.page.scss'],
+  selector: 'app-create-edit-master-two',
+  templateUrl: './create-edit-master-two.page.html',
+  styleUrls: ['./create-edit-master-two.page.scss'],
 })
-export class CreateEditMasterPage implements OnInit {
+export class CreateEditMasterTwoPage implements OnInit {
   //Nav Data
   aksi: string | undefined;
   dataParent: Category | undefined;
@@ -166,7 +166,7 @@ export class CreateEditMasterPage implements OnInit {
   }
 
   GetType(ev: any) {
-    this.type = ev.detail.data.action;
+    this.type = ev.detail.data.action
     this.typeString = this.GetTypeString();
     this.SetView();
   }
@@ -194,7 +194,6 @@ export class CreateEditMasterPage implements OnInit {
       // this.lampiranString = name + '.png';
       if (this.isBtn) this.imageBtn = await this.photoService.UploadFile(image, name);
       else this.data = await this.photoService.UploadFile(image, name);
-      console.log('this.imageBtn', this.imageBtn);
       console.log('this.data', this.data);
       if (this.data == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
     } catch (error: any) {
@@ -215,9 +214,9 @@ export class CreateEditMasterPage implements OnInit {
         { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, tabParent: this.bagianBtn };
       else var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, };
 
-      console.log('subCategoryData utk dipost', subCategoryData);
-
       if (this.IsCreate()) {
+        console.log('subCategoryData utk dipost', subCategoryData);
+
         await this.subCategoryDataListCollection.add(subCategoryData);
         var msg = "Berhasil menambah data baru";
         await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);

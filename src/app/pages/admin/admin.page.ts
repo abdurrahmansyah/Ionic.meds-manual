@@ -42,4 +42,20 @@ export class AdminPage implements OnInit {
     }
     this.router.navigate(['/tabs/profil/admin/master'], navigationExtras);
   }
+
+  MasterChild(dt: string) {
+    const title = dt == dataTemp.tab.nilaiNormalLab ? 'Nilai Normal Laboratorium' : 'Error';
+    const titleAlias = dt == dataTemp.tab.nilaiNormalLab ? 'Laboratorium' : 'Error';
+    const data: Category = { id: 0, data: dt, title: title, titleAlias: titleAlias };
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        // aksi: data ? 'edit' : 'create',
+        // dataParent: this.param,
+        data: data,
+        // lastNumber: this.datas.length
+      }
+    }
+    this.router.navigate(['/tabs/profil/admin/master/master-child'], navigationExtras);
+  }
 }

@@ -22,6 +22,8 @@ export interface SubCategory {
   data: string;
   image?: string
   title?: string;
+  titleAlias?: string;
+  tabParent?: string;
 }
 
 @Injectable({

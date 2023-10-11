@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { PhotoviewerComponent } from 'src/app/comp/photoviewer/photoviewer.component';
 import { dataTemp } from 'src/app/dataTemp';
@@ -45,6 +45,13 @@ export class DetailPage implements OnInit {
     var listCollection = this.afs.collection<SubCategory>(this.param!.data, ref => ref.orderBy('id'));
     listCollection.valueChanges({ idField: 'idx' }).subscribe(data => {
       this.datas = data;
+
+      if (this.datas.filter(x => x.type == dataTemp.subCategory.audio).length > 0) {
+        const url = '../../../assets/audios/'
+        this.datas.forEach(x => {
+          if (x.type == dataTemp.subCategory.audio) x.data = url + x.data + '.mp3'
+        })
+      }
     });
   }
 
@@ -78,6 +85,11 @@ export class DetailPage implements OnInit {
     else return false;
   }
 
+  IsAudio(type: string) {
+    if (type == dataTemp.subCategory.audio) return true;
+    else return false;
+  }
+
   IsWithImage(data: SubCategory) {
     if (data.image) return true
     else return false;
@@ -100,14 +112,43 @@ export class DetailPage implements OnInit {
   }
 
   BtnThru(data: SubCategory) { // PERLU EDIT
-    console.log('btnThru: PERLU EDIT', data);
+    try {
+      const newData: Category = { id: 0, data: data.data, title: data.title! };
+      var tabParent = this.GetTabParent(data.tabParent!);
+      var tabTo = this.GetTabTo(data.tabParent!);
 
-    // let navigationExtras: NavigationExtras = {
-    //   state: {
-    //     data: data
-    //   }
-    // }
-    // this.router.navigate(['/tabs/asesmen/triase/triase-child'], navigationExtras);
+      console.log('btnThru data: PERLU EDIT', data);
+      console.log('btnThru newData: PERLU EDIT', newData);
+      console.log('tabParent', tabParent);
+      console.log('tabTo', tabTo);
+
+      let navigationExtras: NavigationExtras = {
+        state: {
+          data: newData,
+          defaultHref: tabParent
+        }
+      }
+      this.router.navigate([tabTo], navigationExtras);
+    } catch (e: any) {
+      console.log(e);
+      this.globalService.PresentToast(e);
+
+    }
   }
 
+  GetTabParent(tab: string): string {
+    if (!tab) throw 'Eror: Tab parent kosong';
+    if (tab == dataTemp.bagian.asesmen) return dataTemp.route.asesmen;
+    else if (tab == dataTemp.bagian.penunjang) return dataTemp.route.penunjang;
+    else if (tab == dataTemp.bagian.panduan) return dataTemp.route.panduan;
+    else return dataTemp.route.obat;
+  }
+
+  GetTabTo(tab: string): string {
+    if (!tab) throw 'Eror: Tab parent kosong';
+    // if (tab == dataTemp.bagian.asesmen) return dataTemp.route.asesmenDetail;
+    if (tab == dataTemp.bagian.asesmen) return dataTemp.route.detail;
+    else if (tab == dataTemp.bagian.penunjang) return dataTemp.route.penunjangDetail;
+    else return dataTemp.route.panduanDetail;
+  }
 }

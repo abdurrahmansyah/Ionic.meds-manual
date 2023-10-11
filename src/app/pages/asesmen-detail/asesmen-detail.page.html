@@ -6,7 +6,7 @@
         style="padding: 0px 5%;"></ion-searchbar>
     </div>
     <hr style="height: 10px;" class="ion-no-padding ion-no-margin">
-   
+
     <div class="scrollYnew">
       <div *ngFor="let x of datas" style="padding: 0px 10%;">
         <p *ngIf="IsText(x.type)" class="text">{{x.data}}</p>
@@ -20,12 +20,13 @@
               <ion-label>{{x.title}}</ion-label>
             </ion-item>
           </ion-list>
-          <div *ngIf="IsWithImage(x)" style="width: 100%;" button (click)="BtnThru(x)">
+          <div *ngIf="IsWithImage(x)" style="width: 100%;" button (click)="BtnThru(x)" class="ion-text-center">
             <img src="{{x.image}}"> <br>
             <ion-label color="meds-red">{{x.title}}</ion-label>
             <hr style="height: 20px;">
           </div>
         </div>
+        <audio *ngIf="IsAudio(x.type)" [src]="x.data" controls></audio>
       </div>
     </div>
     <hr style="height: 20px;" class="ion-no-padding ion-no-margin">

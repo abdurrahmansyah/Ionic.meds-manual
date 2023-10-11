@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { dataTemp } from 'src/app/dataTemp';
+import { Category } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-penunjang',
@@ -15,7 +16,18 @@ export class PenunjangPage implements OnInit {
 
   Radioimaging() { this.router.navigate([dataTemp.route.radioimaging]); }
 
-  NilaiNormalLab() { this.router.navigate([dataTemp.route.nilaiNormalLab]); }
+  NilaiNormalLab() { 
+    const data: Category = { id: 0, data: dataTemp.tab.nilaiNormalLab, title: dataTemp.title.nilaiNormalLab, titleAlias: 'Laboratorium' };
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        data: data,
+        defaultHref: dataTemp.route.penunjang
+      }
+    }
+    this.router.navigate([dataTemp.route.penunjangDetail], navigationExtras);
+    // this.router.navigate([dataTemp.route.nilaiNormalLab]); 
+  }
 
   EKG() { this.router.navigate([dataTemp.route.ekg]); }
 }

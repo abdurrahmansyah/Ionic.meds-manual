@@ -12,7 +12,7 @@
       <ion-item color="meds-red" button>
         <ion-input label="Urut*" labelPlacement="floating" placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
       </ion-item>
-      <ion-item color="meds-red" button id="open-action-sheet">
+      <ion-item color="meds-red" button id="open-action-sheet-two">
         <ion-input label="Tipe*" labelPlacement="floating" [(ngModel)]="typeString" [readonly]="true"></ion-input>
       </ion-item>
       <ion-item *ngIf="!isAudio" color="meds-red" button>
@@ -38,7 +38,7 @@
         <ion-textarea label="Image Button" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="imageBtn"
           [readonly]="true" (click)="ChangeImage(true)"></ion-textarea>
       </ion-item>
-      <ion-item *ngIf="isBtn" color="meds-red" button id="open-bagian">
+      <ion-item *ngIf="isBtn" color="meds-red" button id="open-bagian-two">
         <ion-label *ngIf="bagianBtn">
           <ion-text style="font-size: 12px;">Bagian*</ion-text>
           <hr class="ion-no-margin ion-no-padding" style="height: 5px;">
@@ -48,13 +48,13 @@
       </ion-item>
     </ion-list>
 
-    <ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons" (didDismiss)="GetType($event)"
+    <ion-action-sheet trigger="open-action-sheet-two" [buttons]="actionSheetButtons" (didDismiss)="GetType($event)"
       mode="ios"></ion-action-sheet>
     <span></span>
     <ion-action-sheet *ngIf="isAudio" trigger="open-audio-two" [buttons]="actionSheetAudioButtons"
       (didDismiss)="GetAudio($event)" mode="ios"></ion-action-sheet>
     <span></span>
-    <ion-action-sheet *ngIf="isBtn" trigger="open-bagian" [buttons]="actionSheetBagianButtons"
+    <ion-action-sheet *ngIf="isBtn" trigger="open-bagian-two" [buttons]="actionSheetBagianButtons"
       (didDismiss)="GetBagian($event)" mode="ios"></ion-action-sheet>
 
     <ion-list *ngIf="isBtn" [inset]="true" mode="ios">

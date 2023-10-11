@@ -35,7 +35,7 @@ export class MasterPage implements OnInit {
         resolve(data);
       });
     });
-    // console.log('param', this.param);
+    console.log('param', this.param);
   }
 
   async InitializeData() {
@@ -47,37 +47,6 @@ export class MasterPage implements OnInit {
       this.datas = data;
       console.log('dtx', this.datas);
     });
-    // var list = listCollection.valueChanges({ idField: 'idx' });
-
-    // this.datas = await new Promise(resolve => {
-    //   list.pipe(take(1)).subscribe((data: any) => {
-    //     resolve(data);
-    //   })
-    // })
-    // console.log('dtx master', this.datas);
-
-    /////////////////////////////////////////// DEL LATER ///////////////////////////////////////////
-    // COBA TELUSUR COLL GROUP
-    // var comments = this.afs.collectionGroup<SubCategory>(this.triaseData!.data, ref => ref.orderBy('id'));
-    // // var comments = this.afs.collectionGroup<SubCategory>(this.triaseData!.data, ref => ref.where('id', '==', '6'));
-    // var asdfasdf = comments.valueChanges({ idField: 'idx' });
-    // console.log('comments', comments);
-    // console.log('asdfasdf', asdfasdf);
-
-    // var datt: [] = await new Promise(resolve => {
-    //   asdfasdf.pipe(take(1)).subscribe((dddd: any) => {
-    //     console.log(dddd);
-    //     resolve(dddd);
-    //   })
-    // })
-    // console.log(datt);
-
-    // comments$.subscribe(datt => {
-    //   console.log('datt', datt);
-    // })
-    // console.log('cmnt', comments$);
-    /////////////////////////////////////////// DEL LATER ///////////////////////////////////////////
-
   }
 
   GetTitle() {

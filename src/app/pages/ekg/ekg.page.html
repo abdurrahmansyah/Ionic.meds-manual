@@ -1,13 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>ekg</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="flexContainer">
+    <app-header [title]="title" [defaultHref]="defaultHref"></app-header>
+    <div class="ion-text-center">
+      <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search"
+        style="padding: 0px 5%;"></ion-searchbar>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">ekg</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <!-- <div class=" footer">
+        <img src="../../../assets/images/undraw_warning_re_eoyh.png">
+      </div> -->
+    </div>
+
+    <div class="scrollYnew">
+      <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
+      <div *ngFor="let x of categoryDataList" style="padding: 0px 10%;">
+        <ion-list *ngIf="!IsWithImage(x)" [inset]="true" mode="ios">
+          <ion-item color="meds-red" button (click)="CategoryChild(x)" lines="none">
+            <ion-label>{{x.title}}</ion-label>
+          </ion-item>
+        </ion-list>
+        <div *ngIf="IsWithImage(x)" style="width: 100%;" button (click)="CategoryChild(x)">
+          <img src="{{x.image}}"> <br>
+          <ion-label color="meds-red">{{x.title}}</ion-label>
+          <hr style="height: 20px;">
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

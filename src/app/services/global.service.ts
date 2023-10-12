@@ -82,7 +82,20 @@ export class DateData {
 }
 
 export class UserData {
-  public id?: string = '';
+  public fire_user_id?: string = '';
+  public email: string = '';
+  public nama: string = '';
+  public tglLahir: string = '';
+  public profesi: string = '';
+  public lampiran: string = '';
+  public photo?: string = '';
+  public isAdmin: boolean = false;
+
+  constructor() { }
+}
+
+export class FireUserData {
+  public fire_user_id?: string = '';
   public email: string = '';
   public nama: string = '';
   public tglLahir: string = '';
@@ -110,6 +123,19 @@ export class LogData {
   public log: string = '';
   public logDetail: string = '';
   public dateTime: string = '';
+
+  constructor() { }
+}
+
+export class ContentData {
+  public content_id?: number = 0;
+  public parent_name: string = '';
+  public urut: number = 0;
+  public type: string = '';
+  public data: string = '';
+  public title?: string = '';
+  public title_alias?: string = '';
+  public image?: string = '';
 
   constructor() { }
 }

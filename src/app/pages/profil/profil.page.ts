@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AlertController, IonInput, LoadingController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
+import { FetchService } from 'src/app/services/fetch.service';
 import { GlobalService, UserData } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 
@@ -36,20 +38,34 @@ export class ProfilPage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private photoService: PhotoService,
+    private fetchService: FetchService,
     private loadingController: LoadingController) {
-    this.photoService.getUserProfile().subscribe((data) => {
-      this.profile = data;
-      this.email = data['email'];
-      this.nama = data['nama'];
-      this.tglLahir = data['tglLahir'];
-      this.profesi = data['profesi'];
-
-      console.log('profile', this.profile);
-      console.log('email', this.email);
-    })
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    try {
+      const profile = await this.fetchService.getUserProfile();
+      this.profile = profile;
+      this.email = profile.email;
+      this.nama = profile.nama;
+      this.tglLahir = profile.tglLahir;
+      this.profesi = profile.profesi;
+      console.log('this.profile', this.profile);
+
+      // this.photoService.getUserProfile().subscribe((data) => {
+      //   this.profile = data;
+      //   this.email = data['email'];
+      //   this.nama = data['nama'];
+      //   this.tglLahir = data['tglLahir'];
+      //   this.profesi = data['profesi'];
+
+      //   console.log('profile', this.profile);
+      //   console.log('email', this.email);
+      // })
+    } catch (error: any) {
+      var msg = error ? error : "Gagal memuat data";
+      await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.fetch);
+    }
   }
 
   Logout() {
@@ -65,7 +81,7 @@ export class ProfilPage implements OnInit {
       this.isEdit = true;
     }
     console.log('isEdit', this.isEdit);
-    
+
   }
 
   public async TakeAPhoto() {

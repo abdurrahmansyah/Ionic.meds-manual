@@ -7,6 +7,8 @@ import { FirebaseService } from './firebase.service';
 import { dataTemp } from '../dataTemp';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { FetchService } from './fetch.service';
+import { take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,7 @@ export class AuthService {
     public authFireCompat: AngularFireAuth,
     private globalService: GlobalService,
     private firebaseService: FirebaseService,
+    private fetchService: FetchService,
     private storageFireCompat: AngularFireStorage,
     private afs: AngularFirestore) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
@@ -60,9 +63,38 @@ export class AuthService {
     }
   }
 
+  async RegisterWithDBWP(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, photo?: string) {
+    try {
+      await createUserWithEmailAndPassword(this.auth, email, password);
+      var userData: UserData = photo ? { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, photo: photo, isAdmin: false } :
+        { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, isAdmin: false };
+      var isCreateSuccess: any = await this.CreateFireUser(userData);
+
+      console.log('isCreateSuccess', isCreateSuccess);
+      if (isCreateSuccess.status == 'failed') throw ('Tidak berhasil membuat akun baru');
+      // await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
+
+      var msg = "Register Berhasil";
+      await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
+      this.router.navigateByUrl('/tabs', { replaceUrl: true });
+    } catch (error: any) {
+      var errorMessage = this.GetEror(error.code, error.message);
+      var msg = "Register Gagal: " + errorMessage;
+      if (email) await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
+      else await this.CreateSaveAndShowLog(msg, dataTemp.log.register, true);
+    }
+  }
+
+  private async CreateFireUser(userData: UserData) {
+    const result = this.fetchService.CreateFireUser(userData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
   async UpdateUser(nama: string, tglLahir: string, profesi: string, photo: string) {
     console.log('currentUser', this.user$);
-    
+
     // try {
     //   public email: string = '';
     //   public nama: string = '';
@@ -71,7 +103,7 @@ export class AuthService {
     //   public lampiran: string = '';
     //   public photo: string = '';
     //   public isAdmin: boolean = false;
-    
+
     //   var userData: UserData = { email: this.email!, nama: nama,  };
     //   await this.userDataDoc.update(userData);
 

@@ -127,6 +127,21 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  async RegisterWithFirebase() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      this.ValidateData();
+      this.email = this.email.toLowerCase();
+      await this.authService.RegisterWithDBWP(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran, this.photo?.base64String);
+      loading.dismiss();
+    } catch (error: any) {
+      loading.dismiss();
+      this.globalService.PresentToast(error);
+    }
+  }
+
   ValidateData() {
     if (!this.email) throw ('Email tidak boleh kosong!');
     if (!this.password) throw ('Password tidak boleh kosong!');

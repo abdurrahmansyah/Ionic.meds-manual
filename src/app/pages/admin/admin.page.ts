@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { NavigationExtras, Router } from '@angular/router';
 import { dataTemp } from 'src/app/dataTemp';
+import { FetchService } from 'src/app/services/fetch.service';
 import { Category, FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class AdminPage implements OnInit {
 
   constructor(private firebaseService: FirebaseService,
     private router: Router,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore,
+    private fetchService: FetchService) {
     // this.InitializeData();
   }
 
@@ -30,7 +32,9 @@ export class AdminPage implements OnInit {
     // });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const a = await this.fetchService.GetContents();
+    console.log('contents', a);
   }
 
   Master(dt: string) {

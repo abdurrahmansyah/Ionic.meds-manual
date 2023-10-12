@@ -1,4 +1,9 @@
 import { environment } from "src/environments/environment";
+
+export var url = {
+    urlHit: environment.production ? 'https://medsmanual.com/wp-json/api/' : 'https://medsmanual.com/wp-json/api/',
+}
+
 export var dataTemp = {
     // urlHit: environment.production ? 'https://kip.hutamakarya.com/api/' :  'http://kipdev.hutamakarya.com/',
     urlHit: environment.production ? 'https://ppid.hutamakarya.com/api/' : 'https://ppiddev.hutamakarya.com/api/',
@@ -18,6 +23,20 @@ export var dataTemp = {
         'panduan': '/tabs/panduan',
         'panduanDetail': '/tabs/panduan/panduan-detail',
         'obat': '/tabs/obat',
+    },
+    url: {
+        'login': url.urlHit + 'login',
+        'getUsers': url.urlHit + 'getUsers',
+        'getContents': url.urlHit + 'getContents',
+        'getContentsbyId': url.urlHit + 'getContentsbyId',
+        'getContentsbyName': url.urlHit + 'getContentsbyName',
+        'createContent': url.urlHit + 'createContent',
+        'updateContent': url.urlHit + 'updateContent',
+        'getFireUsers': url.urlHit + 'getFireUsers',
+        'getFireUsersbyId': url.urlHit + 'getFireUsersbyId',
+        'getFireUsersbyEmail': url.urlHit + 'getFireUsersbyEmail',
+        'createFireUser': url.urlHit + 'createFireUser',
+        'updateFireUser': url.urlHit + 'updateFireUser'
     },
     tab: {
         'asesmen': 'asesmen',
@@ -70,6 +89,7 @@ export var dataTemp = {
         'browse': 'browse',
         'search': 'search',
         'editMaster': 'edit-master',
+        'fetch': 'fetch',
     },
     subCategory: {
         'text': 'text',

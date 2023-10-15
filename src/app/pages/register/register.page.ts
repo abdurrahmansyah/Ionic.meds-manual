@@ -109,7 +109,7 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
-  async Register() {
+  async RegisterWithFirebase() {
     const loading = await this.loadingController.create();
     await loading.present();
 
@@ -127,7 +127,7 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  async RegisterWithFirebase() {
+  async Register() {
     const loading = await this.loadingController.create();
     await loading.present();
 

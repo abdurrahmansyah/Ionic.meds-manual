@@ -5,10 +5,11 @@ import { IonicModule } from '@ionic/angular';
 import { TermAndCondPage } from './term-and-cond/term-and-cond.page';
 import { PhotoviewerComponent } from './photoviewer/photoviewer.component';
 import { HeaderComponent } from './header/header.component';
+import { ContentComponent } from './content/content.component';
 
 @NgModule({
-  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent],
-  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent],
+  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent],
+  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent],
   imports: [
     CommonModule,
     FormsModule,

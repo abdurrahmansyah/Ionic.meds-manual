@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
+import { NavigationExtras } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,14 @@ export class GlobalService {
     dateData.todayDateTimeFormatted = formatDate(date, 'YYYY-MM-dd HH:mm:ss', 'en-US');
 
     return dateData;
+  }
+
+  public SetExtras(data: { data: string; title: string; defaultHref: string }): NavigationExtras {
+    return {
+      state: {
+        data: data,
+      }
+    };
   }
 
   async PresentToast(msg: string) {

@@ -8,6 +8,54 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'content',
+        loadChildren: () => import('../pages/content/content.module').then(m => m.ContentPageModule)
+      },
+      {
+        path: 'content-two',
+        loadChildren: () => import('../pages/content-two/content-two.module').then(m => m.ContentTwoPageModule)
+      },
+      {
+        path: 'content-three',
+        loadChildren: () => import('../pages/content-three/content-three.module').then(m => m.ContentThreePageModule)
+      },
+      {
+        path: 'content-four',
+        loadChildren: () => import('../pages/content-four/content-four.module').then(m => m.ContentFourPageModule)
+      },
+      {
+        path: 'content-five',
+        loadChildren: () => import('../pages/content-five/content-five.module').then(m => m.ContentFivePageModule)
+      },
+      {
+        path: 'content-six',
+        loadChildren: () => import('../pages/content-six/content-six.module').then(m => m.ContentSixPageModule)
+      },
+      {
+        path: 'asesmen/content',
+        loadChildren: () => import('../pages/content/content.module').then(m => m.ContentPageModule)
+      },
+      {
+        path: 'asesmen/content-two',
+        loadChildren: () => import('../pages/content-two/content-two.module').then(m => m.ContentTwoPageModule)
+      },
+      {
+        path: 'asesmen/content-three',
+        loadChildren: () => import('../pages/content-three/content-three.module').then(m => m.ContentThreePageModule)
+      },
+      {
+        path: 'asesmen/content-four',
+        loadChildren: () => import('../pages/content-four/content-four.module').then(m => m.ContentFourPageModule)
+      },
+      {
+        path: 'asesmen/content-five',
+        loadChildren: () => import('../pages/content-five/content-five.module').then(m => m.ContentFivePageModule)
+      },
+      {
+        path: 'asesmen/content-six',
+        loadChildren: () => import('../pages/content-six/content-six.module').then(m => m.ContentSixPageModule)
+      },
+      {
         path: 'asesmen',
         loadChildren: () => import('../pages/asesmen/asesmen.module').then(m => m.AsesmenPageModule)
       },
@@ -61,7 +109,7 @@ const routes: Routes = [
       },
       {
         path: 'profil/admin/master/create-edit-master/master-child-two/create-edit-master-two',
-        loadChildren: () => import('../pages/create-edit-master-two/create-edit-master-two.module').then( m => m.CreateEditMasterTwoPageModule)
+        loadChildren: () => import('../pages/create-edit-master-two/create-edit-master-two.module').then(m => m.CreateEditMasterTwoPageModule)
       },
       {
         path: 'asesmen/triase',

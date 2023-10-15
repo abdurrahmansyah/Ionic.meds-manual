@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
+  selector: 'comp-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
@@ -12,6 +12,6 @@ export class HeaderComponent  implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.defaultHref = this.defaultHref == '' ? 'tabs/asesmen' : this.defaultHref;
+    // this.defaultHref = this.defaultHref == '' ? 'tabs/asesmen' : this.defaultHref;
   }
 }

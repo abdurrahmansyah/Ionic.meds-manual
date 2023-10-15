@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { dataTemp } from 'src/app/dataTemp';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-asesmen',
@@ -9,15 +10,27 @@ import { dataTemp } from 'src/app/dataTemp';
 })
 export class AsesmenPage implements OnInit {
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router,
+    private globalService: GlobalService) { }
 
   ngOnInit() { }
 
-  Triase() { this.router.navigate([dataTemp.route.triase]); }
+  Triase() {
+    const data = { data: dataTemp.tab.triase, title: dataTemp.title.triase, defaultHref: dataTemp.route.asesmen };
+    this.NavigatePage(data);
+  }
 
-  SurveiPrimer() { this.router.navigate([dataTemp.route.surveiPrimer]); }
+  SurveiPrimer() { 
+    const data = { data: dataTemp.tab.surveiPrimer, title: dataTemp.title.surveiPrimer, defaultHref: dataTemp.route.asesmen };
+    this.NavigatePage(data);
+  }
 
   SurveiSekunder() { this.router.navigate([dataTemp.route.surveiSekunder]); }
 
   TandaVital() { this.router.navigate([dataTemp.route.tandaVital]); }
+
+  private NavigatePage(data: { data: string; title: string; defaultHref: string; }) {
+    let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
+    this.router.navigate([dataTemp.route.contentAsesmen], navigationExtras);
+  }
 }

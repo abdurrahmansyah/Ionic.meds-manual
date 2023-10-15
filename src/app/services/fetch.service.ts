@@ -54,7 +54,7 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.getContentsbyId, { 'content_id': content_id });
   }
 
-  getContentsbyName(parent_name: string) {
+  private getContentsbyName(parent_name: string) {
     return this.httpClient.post(dataTemp.url.getContentsbyName, { 'parent_name': parent_name });
   }
 
@@ -86,6 +86,17 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.updateFireUser, userData);
   }
 
+  public async GetContentsbyName(parent_name: string) {
+    const res: any = await new Promise(resolve => {
+      this.getContentsbyName(parent_name).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal memuat data content: ' + parent_name);
+    return res.data;
+  }
+
   public async getUserProfile() {
     const user = this.auth.currentUser;
 
@@ -97,10 +108,6 @@ export class FetchService {
 
     if (res.status == 'failed') throw ('Gagal memuat data profile');
     return res.data.find((x: any) => x);
-
-    // const userDocRef = doc(this.firestore, `users/${user?.uid}`);
-    // const userDocRef = doc(this.firestore, `users/${user?.email}`);
-    // return docData(userDocRef);
   }
 
 }

@@ -17,4 +17,4 @@ import { CreateEditParentMasterPage } from './create-edit-parent-master.page';
   ],
   declarations: [CreateEditParentMasterPage]
 })
-export class CreateEditParentMasterPageModule {}
+export class CreateEditParentMasterPageModule { }

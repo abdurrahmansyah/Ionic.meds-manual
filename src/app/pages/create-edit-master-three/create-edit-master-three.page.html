@@ -1,13 +1,15 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>createEditMasterThree</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="flexContainer">
+    <comp-header [title]="'Master Data'" [defaultHref]="defaultHref!"></comp-header>
+    <div class="ion-text-center">
+      <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
+    </div>
+    <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">createEditMasterThree</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div class="scrollYnew">
+      <comp-create-edit-master [param]="param!" [defaultHref]="defaultHref!"></comp-create-edit-master>
+    </div>
+
+    <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
+  </div>
 </ion-content>

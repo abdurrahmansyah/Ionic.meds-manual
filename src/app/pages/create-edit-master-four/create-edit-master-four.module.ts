@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CreateEditMasterFourPageRoutingModule } from './create-edit-master-four-routing.module';
 
 import { CreateEditMasterFourPage } from './create-edit-master-four.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateEditMasterFourPageRoutingModule
+    CreateEditMasterFourPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [CreateEditMasterFourPage]
 })
-export class CreateEditMasterFourPageModule {}
+export class CreateEditMasterFourPageModule { }

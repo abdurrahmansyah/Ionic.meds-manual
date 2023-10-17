@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { CreateEditMasterSixPageRoutingModule } from './create-edit-master-six-routing.module';
 
 import { CreateEditMasterSixPage } from './create-edit-master-six.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CreateEditMasterSixPageRoutingModule
+    CreateEditMasterSixPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [CreateEditMasterSixPage]
 })
-export class CreateEditMasterSixPageModule {}
+export class CreateEditMasterSixPageModule { }

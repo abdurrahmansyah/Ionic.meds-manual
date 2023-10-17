@@ -1,3 +1,44 @@
-<p>
-  create-edit-master works!
-</p>
+<ion-list [inset]="true" mode="ios">
+  <ion-item color="meds-red" button>
+    <ion-input label="Urut*" labelPlacement="floating" placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
+  </ion-item>
+  <ion-item color="meds-red" button id="open-action-sheet">
+    <ion-input label="Tipe*" labelPlacement="floating" [(ngModel)]="type" [readonly]="true"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="!isAudio" color="meds-red" button>
+    <ion-textarea *ngIf="!isImg && !isBtn" label="Data*" labelPlacement="floating" placeholder="Ketik disini"
+      [autoGrow]="true" [(ngModel)]="data"></ion-textarea>
+    <ion-textarea *ngIf="isImg" label="Data*" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="data"
+      [readonly]="true" (click)="ChangeImage()"></ion-textarea>
+    <ion-input *ngIf="isBtn" label="Data*" labelPlacement="floating" placeholder="Tidak boleh ada spasi"
+      [(ngModel)]="data"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isAudio" color="meds-red" button id="open-audio-two">
+    <ion-input label="Data*" labelPlacement="floating" [(ngModel)]="data" [readonly]="true"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isBtn" color="meds-red" button>
+    <ion-input label="Title*" labelPlacement="floating" placeholder="Masukkan title" [(ngModel)]="titleBtn"></ion-input>
+  </ion-item>
+  <ion-item *ngIf="isBtn" color="meds-red" button>
+    <ion-input label="Title Alias" labelPlacement="floating" placeholder="Masukkan title alias"
+      [(ngModel)]="titleAliasBtn"></ion-input>
+  </ion-item>
+  <ion-item color="meds-red" button *ngIf="isBtn">
+    <ion-textarea label="Image Button" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="imageBtn"
+      [readonly]="true" (click)="ChangeImage()"></ion-textarea>
+  </ion-item>
+</ion-list>
+
+<ion-action-sheet trigger="open-action-sheet" [buttons]="actionSheetButtons" (didDismiss)="GetType($event)"
+  mode="ios"></ion-action-sheet>
+<span></span>
+<ion-action-sheet *ngIf="isAudio" trigger="open-audio-two" [buttons]="actionSheetAudioButtons"
+  (didDismiss)="GetAudio($event)" mode="ios"></ion-action-sheet>
+<span></span>
+
+<ion-list [inset]="true" mode="ios">
+  <ion-item color="meds-red" button (click)="CreateEdit()" lines="none">
+    <ion-label *ngIf="IsCreate()">Tambah Data</ion-label>
+    <ion-label *ngIf="!IsCreate()">Perbarui Data</ion-label>
+  </ion-item>
+</ion-list>

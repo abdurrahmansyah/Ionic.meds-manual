@@ -1,74 +1,15 @@
 <ion-content>
-  <!-- <div class="flexContainer">
+  <div class="flexContainer">
     <comp-header [title]="'Master Data'" [defaultHref]="defaultHref!"></comp-header>
-    <comp-master [datas]="datas!" [title]="title!" [defaultHref]="defaultHref!"></comp-master>
-  </div> -->
-
-  <ion-row class="header ion-align-items-center">
-    <ion-back-button class="buttonBack" text="Master Data" defaultHref="tabs/profil/admin/master"
-      mode="ios"></ion-back-button>
-  </ion-row>
-  <div class="ion-text-center">
-    <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
-
+    <div class="ion-text-center">
+      <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
+    </div>
     <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
 
-    <ion-list [inset]="true" mode="ios">
-      <ion-item color="meds-red" button>
-        <ion-input label="Urut*" labelPlacement="floating" placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
-      </ion-item>
-      <ion-item color="meds-red" button id="open-action-sheet-two">
-        <ion-input label="Tipe*" labelPlacement="floating" [(ngModel)]="type" [readonly]="true"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="!isAudio" color="meds-red" button>
-        <ion-textarea *ngIf="!isImg && !isBtn" label="Data*" labelPlacement="floating" placeholder="Ketik disini"
-          [autoGrow]="true" [(ngModel)]="data"></ion-textarea>
-        <ion-textarea *ngIf="isImg" label="Data*" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="data"
-          [readonly]="true" (click)="ChangeImage()"></ion-textarea>
-        <ion-input *ngIf="isBtn" label="Data*" labelPlacement="floating" placeholder="Tidak boleh ada spasi"
-          [(ngModel)]="data"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isAudio" color="meds-red" button id="open-audio-two">
-        <ion-input label="Data*" labelPlacement="floating" [(ngModel)]="data" [readonly]="true"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isBtn" color="meds-red" button>
-        <ion-input label="Title*" labelPlacement="floating" placeholder="Masukkan title"
-          [(ngModel)]="titleBtn"></ion-input>
-      </ion-item>
-      <ion-item *ngIf="isBtn" color="meds-red" button>
-        <ion-input label="Title Alias" labelPlacement="floating" placeholder="Masukkan title alias"
-          [(ngModel)]="titleAliasBtn"></ion-input>
-      </ion-item>
-      <ion-item color="meds-red" button *ngIf="isBtn">
-        <ion-textarea label="Image Button" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="imageBtn"
-          [readonly]="true" (click)="ChangeImage()"></ion-textarea>
-      </ion-item>
-    </ion-list>
+    <div class="scrollYnew">
+      <comp-create-edit-master [param]="param!" [defaultHref]="defaultHref!"></comp-create-edit-master>
+    </div>
 
-    <ion-action-sheet trigger="open-action-sheet-two" [buttons]="actionSheetButtons" (didDismiss)="GetType($event)"
-      mode="ios"></ion-action-sheet>
-    <span></span>
-    <ion-action-sheet *ngIf="isAudio" trigger="open-audio-two" [buttons]="actionSheetAudioButtons"
-      (didDismiss)="GetAudio($event)" mode="ios"></ion-action-sheet>
-    <span></span>
-    <!-- 
-    <ion-action-sheet *ngIf="isBtn" trigger="open-bagian" [buttons]="actionSheetBagianButtons"
-      (didDismiss)="GetBagian($event)" mode="ios"></ion-action-sheet>
-    -->
-
-    <ion-list *ngIf="isBtn" [inset]="true" mode="ios">
-      <ion-item color="meds-red" button (click)="SeeData()" lines="none">
-        <ion-label>See Data</ion-label>
-      </ion-item>
-    </ion-list>
-
-    <ion-list [inset]="true" mode="ios">
-      <ion-item color="meds-red" button (click)="CreateEdit()" lines="none">
-        <ion-label *ngIf="IsCreate()">Tambah Data</ion-label>
-        <ion-label *ngIf="!IsCreate()">Perbarui Data</ion-label>
-      </ion-item>
-    </ion-list>
-
+    <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
   </div>
-  <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
 </ion-content>

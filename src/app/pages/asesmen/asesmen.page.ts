@@ -18,7 +18,7 @@ export class AsesmenPage implements OnInit {
   ngOnInit() { }
 
   Content(dt: string, title: string){
-    const data = { data: dt, title: title, defaultHref: dataTemp.route.admin };
+    const data = { data: dt, title: title, defaultHref: dataTemp.route.asesmen };
     this.NavigatePage(data);
   }
 

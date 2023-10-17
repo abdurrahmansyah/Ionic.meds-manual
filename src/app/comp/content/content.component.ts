@@ -36,13 +36,13 @@ export class ContentComponent implements OnInit {
       this.thisRoute = dataTemp.route.contentAsesmenThree;
       this.nextRoute = dataTemp.route.contentAsesmenFour;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenThree) {
-      this.nextRoute = dataTemp.route.contentAsesmenFour;
+      this.thisRoute = dataTemp.route.contentAsesmenFour;
       this.nextRoute = dataTemp.route.contentAsesmenFive;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenFour) {
-      this.nextRoute = dataTemp.route.contentAsesmenFive;
+      this.thisRoute = dataTemp.route.contentAsesmenFive;
       this.nextRoute = dataTemp.route.contentAsesmenSix;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenFive) {
-      this.nextRoute = dataTemp.route.contentAsesmenSix;
+      this.thisRoute = dataTemp.route.contentAsesmenSix;
       this.nextRoute = dataTemp.route.contentAsesmenSix;
     }
   }

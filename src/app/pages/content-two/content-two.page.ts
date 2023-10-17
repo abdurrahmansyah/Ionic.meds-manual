@@ -43,10 +43,13 @@ export class ContentTwoPage implements OnInit {
 
   private async GetExtras() {
     this.activatedRoute.queryParams.subscribe(params => {
-      this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
+      if (this.param) return;
+      else {
+        this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
 
-      this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
-      this.defaultHref = this.param!.defaultHref;
+        this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
+        this.defaultHref = this.param!.defaultHref;
+      }
       console.log('this.param', this.param);
     });
   }

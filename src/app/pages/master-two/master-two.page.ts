@@ -42,11 +42,14 @@ export class MasterTwoPage implements OnInit {
   }
 
   private async GetExtras() {
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
+    this.activatedRoute.queryParams.subscribe(async params => {
+      if (this.param) await this.InitializeData();
+      else {
+        this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
 
-      this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
-      this.defaultHref = this.param!.defaultHref;
+        this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
+        this.defaultHref = this.param!.defaultHref;
+      }
       console.log('this.param', this.param);
     });
   }
@@ -55,12 +58,5 @@ export class MasterTwoPage implements OnInit {
     console.log('this.param.data', this.param.data);
     this.datas = await this.fetchService.GetContentsbyName(this.param.data);
     console.log('resbywpdb', this.datas);
-
-    // if (this.datas.filter(x => x.type == dataTemp.subCategory.audio).length > 0) {
-    //   const url = '../../../assets/audios/'
-    //   this.datas.forEach(x => {
-    //     if (x.type == dataTemp.subCategory.audio) x.data = url + x.data + '.mp3'
-    //   })
-    // }
   }
 }

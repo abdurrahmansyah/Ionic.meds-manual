@@ -53,6 +53,117 @@
     font-size: 12px;
 }
 
+.flexContainer {
+    display: flex;
+    flex-flow: column;
+    // height: calc(100vh - 82px);
+    height: 100%;
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollYnew {
+        overflow: auto;
+        flex-grow: 1 !important;
+    }
+}
+
+/*#region  Style Content*/
+
+.text {
+    margin-bottom: 0px;
+    text-align: justify;
+    font-size: 0.85em;
+}
+
+.textWithoutMargin {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: justify;
+    font-size: 0.85em;
+}
+
+.sub {
+    font-weight: 700;
+}
+
+.subWithoutMargin {
+    margin-bottom: 0px;
+    font-weight: 700;
+}
+
+.subsub {
+    font-weight: 700;
+    font-size: 0.85em;
+}
+
+.subsubWithoutMargin {
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-size: 0.85em;
+}
+
+.img {
+    font-size: 0.85em;
+}
+
+.ref {
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.8em;
+}
+
+.numbering0 {
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+.numbering1 {
+    margin-left: 10px;
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+.numbering2 {
+    margin-left: 20px;
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+.numbering3 {
+    margin-left: 30px;
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+.numbering4 {
+    margin-left: 40px;
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+.numbering5 {
+    margin-left: 50px;
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+.numbering6 {
+    margin-left: 60px;
+    margin-top: 0px;
+    // text-align: justify;
+    font-size: 0.85em;
+}
+
+/*#endregion Style Content*/
+
 ion-modal {
     &.modalTermAndCond {
         --width: 85vw;
@@ -60,7 +171,7 @@ ion-modal {
         --max-height: 90%;
         --border-radius: 16px;
         --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    
+
         ion-content {
             --background: var(--ion-color-meds-pink);
             --color: black;

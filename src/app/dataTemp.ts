@@ -43,6 +43,11 @@ export var dataTemp = {
         'masterFive': '/tabs/profil/admin/master-five',
         'masterSix': '/tabs/profil/admin/master-six',
         'createEditMaster': '/tabs/profil/admin/master/create-edit-master',
+        'createEditMasterTwo': '/tabs/profil/admin/master-two/create-edit-master-two',
+        'createEditMasterThree': '/tabs/profil/admin/master-three/create-edit-master-three',
+        'createEditMasterFour': '/tabs/profil/admin/master-four/create-edit-master-four',
+        'createEditMasterFive': '/tabs/profil/admin/master-five/create-edit-master-five',
+        'createEditMasterSix': '/tabs/profil/admin/master-six/create-edit-master-six',
     },
     url: {
         'login': url.urlHit + 'login',
@@ -111,7 +116,7 @@ export var dataTemp = {
         'editMaster': 'edit-master',
         'fetch': 'fetch',
     },
-    subCategory: {
+    typeOld: {
         'text': 'text',
         'sub': 'sub',
         'subsub': 'subsub',
@@ -120,14 +125,24 @@ export var dataTemp = {
         'btn': 'btn',
         'audio': 'audio',
     },
-    subCategoryString: {
+    type: {
         'text': 'Teks',
+        'textWithoutMargin': 'Teks Tanpa Margin',
         'sub': 'Sub Judul',
+        'subWithoutMargin': 'Sub Judul Tanpa Margin',
         'subsub': 'Sub Sub Judul',
+        'subsubWithoutMargin': 'Sub Sub Judul Tanpa Margin',
         'img': 'Image',
         'ref': 'Referensi',
         'btn': 'Button',
         'audio': 'Audio',
+        'numbering0': 'Numbering 0',
+        'numbering1': 'Numbering 1',
+        'numbering2': 'Numbering 2',
+        'numbering3': 'Numbering 3',
+        'numbering4': 'Numbering 4',
+        'numbering5': 'Numbering 5',
+        'numbering6': 'Numbering 6',
     },
     audio: {
         'auskultasiNormalVesikuler': 'auskultasi-normal-vesikuler',

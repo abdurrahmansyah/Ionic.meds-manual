@@ -1,4 +1,9 @@
 <ion-content>
+  <!-- <div class="flexContainer">
+    <comp-header [title]="'Master Data'" [defaultHref]="defaultHref!"></comp-header>
+    <comp-master [datas]="datas!" [title]="title!" [defaultHref]="defaultHref!"></comp-master>
+  </div> -->
+
   <ion-row class="header ion-align-items-center">
     <ion-back-button class="buttonBack" text="Master Data" defaultHref="tabs/profil/admin/master"
       mode="ios"></ion-back-button>
@@ -13,7 +18,7 @@
         <ion-input label="Urut*" labelPlacement="floating" placeholder="Masukkan angka" [(ngModel)]="id"></ion-input>
       </ion-item>
       <ion-item color="meds-red" button id="open-action-sheet-two">
-        <ion-input label="Tipe*" labelPlacement="floating" [(ngModel)]="typeString" [readonly]="true"></ion-input>
+        <ion-input label="Tipe*" labelPlacement="floating" [(ngModel)]="type" [readonly]="true"></ion-input>
       </ion-item>
       <ion-item *ngIf="!isAudio" color="meds-red" button>
         <ion-textarea *ngIf="!isImg && !isBtn" label="Data*" labelPlacement="floating" placeholder="Ketik disini"
@@ -36,15 +41,7 @@
       </ion-item>
       <ion-item color="meds-red" button *ngIf="isBtn">
         <ion-textarea label="Image Button" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="imageBtn"
-          [readonly]="true" (click)="ChangeImage(true)"></ion-textarea>
-      </ion-item>
-      <ion-item *ngIf="isBtn" color="meds-red" button id="open-bagian-two">
-        <ion-label *ngIf="bagianBtn">
-          <ion-text style="font-size: 12px;">Bagian*</ion-text>
-          <hr class="ion-no-margin ion-no-padding" style="height: 5px;">
-          <ion-text>{{bagianBtn}}</ion-text>
-        </ion-label>
-        <ion-label *ngIf="!bagianBtn">Bagian*</ion-label>
+          [readonly]="true" (click)="ChangeImage()"></ion-textarea>
       </ion-item>
     </ion-list>
 
@@ -54,8 +51,10 @@
     <ion-action-sheet *ngIf="isAudio" trigger="open-audio-two" [buttons]="actionSheetAudioButtons"
       (didDismiss)="GetAudio($event)" mode="ios"></ion-action-sheet>
     <span></span>
-    <ion-action-sheet *ngIf="isBtn" trigger="open-bagian-two" [buttons]="actionSheetBagianButtons"
+    <!-- 
+    <ion-action-sheet *ngIf="isBtn" trigger="open-bagian" [buttons]="actionSheetBagianButtons"
       (didDismiss)="GetBagian($event)" mode="ios"></ion-action-sheet>
+    -->
 
     <ion-list *ngIf="isBtn" [inset]="true" mode="ios">
       <ion-item color="meds-red" button (click)="SeeData()" lines="none">

@@ -17,7 +17,12 @@ export class AsesmenPage implements OnInit {
 
   ngOnInit() { }
 
-  Content(dt: string, title: string){
+  Content(dt: string, title: string) {
+    // const route = dt == this.tabs.triase ? dataTemp.route.triase :
+    //   dt == this.tabs.surveiPrimer ? dataTemp.route.surveiPrimer :
+    //     dt == this.tabs.surveiSekunder ? dataTemp.route.surveiSekunder :
+    //       dataTemp.route.tandaVital;
+    // this.router.navigate([route]);
     const data = { data: dt, title: title, defaultHref: dataTemp.route.asesmen };
     this.NavigatePage(data);
   }

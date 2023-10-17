@@ -45,48 +45,49 @@ export class AsesmenDetailPage implements OnInit {
     var listCollection = this.afs.collection<SubCategory>(this.param!.data, ref => ref.orderBy('id'));
     listCollection.valueChanges({ idField: 'idx' }).subscribe(data => {
       this.datas = data;
+      console.log('dtx', this.datas);
 
-      if (this.datas.filter(x => x.type == dataTemp.subCategory.audio).length > 0) {
+      if (this.datas.filter(x => x.type == dataTemp.typeOld.audio).length > 0) {
         const url = '../../../assets/audios/'
         this.datas.forEach(x => {
-          if (x.type == dataTemp.subCategory.audio) x.data = url + x.data + '.mp3'
+          if (x.type == dataTemp.typeOld.audio) x.data = url + x.data + '.mp3'
         })
       }
     });
   }
 
   IsText(type: string) {
-    if (type == dataTemp.subCategory.text) return true;
+    if (type == dataTemp.typeOld.text) return true;
     else return false;
   }
 
   IsSub(type: string) {
-    if (type == dataTemp.subCategory.sub) return true;
+    if (type == dataTemp.typeOld.sub) return true;
     else return false;
   }
 
   IsSubSub(type: string) {
-    if (type == dataTemp.subCategory.subsub) return true;
+    if (type == dataTemp.typeOld.subsub) return true;
     else return false;
   }
 
   IsImg(type: string) {
-    if (type == dataTemp.subCategory.img) return true;
+    if (type == dataTemp.typeOld.img) return true;
     else return false;
   }
 
   IsRef(type: string) {
-    if (type == dataTemp.subCategory.ref) return true;
+    if (type == dataTemp.typeOld.ref) return true;
     else return false;
   }
 
   IsBtn(type: string) {
-    if (type == dataTemp.subCategory.btn) return true;
+    if (type == dataTemp.typeOld.btn) return true;
     else return false;
   }
 
   IsAudio(type: string) {
-    if (type == dataTemp.subCategory.audio) return true;
+    if (type == dataTemp.typeOld.audio) return true;
     else return false;
   }
 

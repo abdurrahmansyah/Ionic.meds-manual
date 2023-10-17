@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { ActionSheetController, LoadingController } from '@ionic/angular';
 import { take } from 'rxjs';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
+import { FetchService } from 'src/app/services/fetch.service';
 import { Category, SubCategory } from 'src/app/services/firebase.service';
-import { GlobalService } from 'src/app/services/global.service';
+import { ContentData, GlobalService } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
@@ -15,81 +16,226 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['./create-edit-master-two.page.scss'],
 })
 export class CreateEditMasterTwoPage implements OnInit {
-  //Nav Data
-  aksi: string | undefined;
-  dataParent: Category | undefined;
-  param: SubCategory | undefined;
-  lastNumber: number = 0;
-
-  // datas: Category[] = [];
-  title: string | undefined;
-  private subCategoryDataDoc: AngularFirestoreDocument<SubCategory>;
-  private subCategoryDataListCollection: AngularFirestoreCollection<SubCategory>;
-
   // Model Data
   id: number = 0;
-  type: string = dataTemp.subCategory.text;
-  typeString: string = '';
+  type: string = dataTemp.type.text;
+  // typeString: string = '';
   data: string | undefined;
   titleBtn: string | undefined;
   titleAliasBtn: string | undefined;
   imageBtn: string | undefined;
-  bagianBtn: string | undefined = '';//'dataTemp.bagian.asesmen';
+
+  // condition
   isImg: boolean = false;
   isBtn: boolean = false;
   isAudio: boolean = false;
+  isCreate: boolean = false;
 
-  public actionSheetButtons = [
-    { text: dataTemp.subCategoryString.text, data: { action: dataTemp.subCategory.text }, },
-    { text: dataTemp.subCategoryString.sub, data: { action: dataTemp.subCategory.sub }, },
-    { text: dataTemp.subCategoryString.subsub, data: { action: dataTemp.subCategory.subsub }, },
-    { text: dataTemp.subCategoryString.img, data: { action: dataTemp.subCategory.img }, },
-    { text: dataTemp.subCategoryString.ref, data: { action: dataTemp.subCategory.ref }, },
-    { text: dataTemp.subCategoryString.btn, data: { action: dataTemp.subCategory.btn }, },
-    { text: dataTemp.subCategoryString.audio, data: { action: dataTemp.subCategory.audio }, },
-    { text: 'Cancel', role: 'cancel', data: { action: 'cancel', }, },
-  ];
+  datas: ContentData[] = [];
+  param: any;
 
-  public actionSheetAudioButtons = [
-    { text: dataTemp.audio.auskultasiNormalVesikuler, data: { action: dataTemp.audio.auskultasiNormalVesikuler }, },
-    { text: dataTemp.audio.crackles, data: { action: dataTemp.audio.crackles }, },
-    { text: dataTemp.audio.pleuralRub, data: { action: dataTemp.audio.pleuralRub }, },
-    { text: dataTemp.audio.stridor, data: { action: dataTemp.audio.stridor }, },
-    { text: dataTemp.audio.wheezing, data: { action: dataTemp.audio.wheezing }, },
-    { text: dataTemp.audio.suaraJantungNormal, data: { action: dataTemp.audio.suaraJantungNormal }, },
-    { text: dataTemp.audio.suaraS3, data: { action: dataTemp.audio.suaraS3 }, },
-    { text: dataTemp.audio.suaraS4, data: { action: dataTemp.audio.suaraS4 }, },
-    { text: dataTemp.audio.murmurBenign, data: { action: dataTemp.audio.murmurBenign }, },
-    { text: dataTemp.audio.lateArterialStenosis, data: { action: dataTemp.audio.lateArterialStenosis }, },
-    { text: dataTemp.audio.pulmonicStenosis, data: { action: dataTemp.audio.pulmonicStenosis }, },
-    { text: dataTemp.audio.mitralRegurgitation, data: { action: dataTemp.audio.mitralRegurgitation }, },
-    { text: dataTemp.audio.patentDuctusArteriosus, data: { action: dataTemp.audio.patentDuctusArteriosus }, },
-    { text: dataTemp.audio.ventricularSeptalDefect, data: { action: dataTemp.audio.ventricularSeptalDefect }, },
-    { text: dataTemp.audio.atrialSeptalDefect, data: { action: dataTemp.audio.atrialSeptalDefect }, },
-    { text: dataTemp.audio.aorticRegurgitation, data: { action: dataTemp.audio.aorticRegurgitation }, },
-    { text: dataTemp.audio.mitralStenosis, data: { action: dataTemp.audio.mitralStenosis }, },
-    { text: 'Cancel', role: 'cancel', data: { action: 'cancel', }, },
-  ];
+  // header
+  title: string | undefined;
+  defaultHref: string | undefined;
 
-  public actionSheetBagianButtons = [
-    { text: dataTemp.bagian.asesmen, data: { action: dataTemp.bagian.asesmen }, },
-    { text: dataTemp.bagian.penunjang, data: { action: dataTemp.bagian.penunjang }, },
-    { text: dataTemp.bagian.panduan, data: { action: dataTemp.bagian.panduan }, },
-    { text: dataTemp.bagian.obat, data: { action: dataTemp.bagian.obat }, },
-    { text: 'Cancel', role: 'cancel', data: { action: 'cancel', }, },
-  ];
+  actionSheetButtons = this.globalService.actionSheetButtons;
+  actionSheetAudioButtons = this.globalService.actionSheetAudioButtons;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
-    private afs: AngularFirestore,
+    private fetchService: FetchService,
+    private loadingController: LoadingController,
     private authService: AuthService,
     private globalService: GlobalService,
-    private photoService: PhotoService,
-    private loadingController: LoadingController) {
-    this.subCategoryDataDoc = this.afs.doc<SubCategory>(`example/1`);
-    this.subCategoryDataListCollection = this.afs.collection<SubCategory>('example');
+    private photoService: PhotoService
+  ) {
   }
 
+  async ngOnInit() {
+    await this.GetExtras();
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      if (this.IsCreate()) await this.PrepareData();
+      else {
+        this.InitializeData()
+        this.SetView();
+      }
+      loading.dismiss();
+    } catch (error: any) {
+      var msg = error;
+      await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.fetch);
+      loading.dismiss();
+    }
+  }
+
+  private async GetExtras() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
+
+      this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
+      this.defaultHref = this.param!.defaultHref;
+      console.log('this.param', this.param);
+    });
+  }
+
+  InitializeData() {
+    this.id = this.param.data.urut;
+    this.type = this.param?.data.type;
+    // this.typeString = this.GetTypeString();
+    this.data = this.param?.data.data;
+    this.titleBtn = this.param?.data.title;
+    this.titleAliasBtn = this.param?.data.titleAlias;
+    this.imageBtn = this.param?.data.image;
+  }
+
+  async PrepareData() {
+    const datas = await this.fetchService.GetContentsbyName(this.param.data);
+    this.id = Math.max.apply(null, datas.map(function (o: any) { return o.urut; })) + 1;
+    this.type = dataTemp.type.text;
+    // this.typeString = this.GetTypeString();
+    this.data = undefined;
+  }
+
+  SetView() {
+    this.isImg = this.type == dataTemp.type.img ? true : false;
+    this.isBtn = this.type == dataTemp.type.btn ? true : false;
+    this.isAudio = this.type == dataTemp.type.audio ? true : false;
+  }
+
+  // GetTypeString() {
+  //   return this.type == dataTemp.type.text ? dataTemp.typeString.text :
+  //     this.type == dataTemp.type.sub ? dataTemp.typeString.sub :
+  //       this.type == dataTemp.type.subsub ? dataTemp.typeString.subsub :
+  //         this.type == dataTemp.type.img ? dataTemp.typeString.img :
+  //           this.type == dataTemp.type.ref ? dataTemp.typeString.ref :
+  //             this.type == dataTemp.type.btn ? dataTemp.typeString.btn :
+  //               this.type == dataTemp.type.audio ? dataTemp.typeString.audio : 'Data Tidak Valid';
+  // }
+
+  // GetTitle() {
+  //   this.title = this.dataParent?.title;
+  // }
+
+  GetType(ev: any) {
+    this.type = ev.detail.data.action;
+    // this.typeString = this.GetTypeString();
+    this.SetView();
+  }
+
+  GetAudio(ev: any) {
+    this.data = ev.detail.data.action;
+  }
+
+  // GetBagian(ev: any) {
+  //   this.bagianBtn = ev.detail.data.action;
+  // }
+
+  IsCreate() {
+    if (this.param.data.data == null || undefined) return true;
+    else return false;
+  }
+
+  async ChangeImage() {
+    const image = await this.photoService.TakeAPhoto();
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      const name = 'img-' + (Math.random() + 1).toString(36).substring(3);
+      if (this.isBtn) this.imageBtn = await this.photoService.UploadFile(image, name);
+      else this.data = await this.photoService.UploadFile(image, name);
+      console.log('this.imageBtn', this.imageBtn);
+      console.log('this.data', this.data);
+      if (this.data == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss(); // cek lagi kenapa cuma data tidak imagebtn juga
+    } catch (error: any) {
+      var msg = "Gagal menambah data baru: " + error;
+      await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+      loading.dismiss();
+    }
+  }
+
+  async CreateEdit() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      if (!this.type) throw 'Tipe harus diisi';
+      if (!this.data) throw 'Data harus diisi';
+      if (this.isBtn) { if (!this.title) throw 'Title harus diisi'; }
+      // if (this.isBtn && this.imageBtn) var subCategoryData: SubCategory = this.titleAliasBtn ? { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, titleAlias: this.titleAliasBtn!, image: this.imageBtn!, tabParent: this.bagianBtn } :
+      //   { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, image: this.imageBtn!, tabParent: this.bagianBtn };
+      // else if (this.isBtn) var subCategoryData: SubCategory = this.titleAliasBtn ? { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, titleAlias: this.titleAliasBtn!, tabParent: this.bagianBtn } :
+      //   { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, tabParent: this.bagianBtn };
+      // else var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, };
+      console.log('cek create edit', this.param);
+
+      const contentData: ContentData = {
+        content_id: this.param.data.data == null || undefined ? '' : this.param.data.content_id,
+        parent_name: this.param.data.data == null || undefined ? this.param.data : this.param.data.parent_name,
+        urut: this.id, type: this.type, data: this.data!, title: this.titleBtn ? this.titleBtn : '',
+        title_alias: this.titleAliasBtn ? this.titleAliasBtn : '', image: this.imageBtn ? this.imageBtn : ''
+      };
+
+      console.log('contentData utk dipost', contentData);
+
+      if (this.IsCreate()) {
+        var isUpdateSuccess: any = await this.CreateContent(contentData);
+        console.log('isCreateSuccess', isUpdateSuccess);
+        if (isUpdateSuccess.status == 'failed') throw ('Tidak berhasil membuat akun baru');
+
+        // await this.subCategoryDataListCollection.add(subCategoryData);
+        var msg = "Berhasil menambah data baru";
+        await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+        await this.PrepareData();
+      } else { // TERAKHIR DISINI, BELUM COBAIN UPDATE DAN CREATE
+        var isUpdateSuccess: any = await this.UpdateContent(contentData);
+        console.log('isCreateSuccess', isUpdateSuccess);
+        if (isUpdateSuccess.status == 'failed') throw ('Tidak berhasil memperbarui akun baru');
+
+        // await this.subCategoryDataDoc.update(subCategoryData);
+        var msg = "Data Berhasil Diperbarui";
+        await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+        // this.router.navigateByUrl('/tabs', { replaceUrl: true });
+      }
+      loading.dismiss();
+    } catch (error) {
+      var msg = this.IsCreate() ? error ? "Gagal menambah data baru: " + error : "Gagal menambah data baru" : error ? "Gagal memperbarui data: " + error : "Gagal menambah data baru";
+      await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
+      loading.dismiss();
+    }
+  }
+
+  private async CreateContent(contentData: ContentData) {
+    const result = this.fetchService.CreateContent(contentData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
+  private async UpdateContent(contentData: ContentData) {
+    const result = this.fetchService.UpdateContent(contentData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
+  SeeData() {
+    const data: Category = { id: 0, data: this.data!, title: this.titleBtn! }
+    let navigationExtras: NavigationExtras = {
+      state: {
+        // aksi: data ? 'edit' : 'create',
+        // dataParent: this.param,
+        data: data,
+      }
+    }
+    console.log('masuk ga nih', data);
+
+    this.router.navigate(['/tabs/profil/admin/master/create-edit-master/master-child-two'], navigationExtras); // cek kenapa extras tidak ngefek
+  }
+
+  /*
   async ngOnInit() {
     await this.GetExtras();
     this.GetTitle();
@@ -166,7 +312,7 @@ export class CreateEditMasterTwoPage implements OnInit {
   }
 
   GetType(ev: any) {
-    this.type = ev.detail.data.action
+    this.type = ev.detail.data.action;
     this.typeString = this.GetTypeString();
     this.SetView();
   }
@@ -194,6 +340,7 @@ export class CreateEditMasterTwoPage implements OnInit {
       // this.lampiranString = name + '.png';
       if (this.isBtn) this.imageBtn = await this.photoService.UploadFile(image, name);
       else this.data = await this.photoService.UploadFile(image, name);
+      console.log('this.imageBtn', this.imageBtn);
       console.log('this.data', this.data);
       if (this.data == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
     } catch (error: any) {
@@ -214,9 +361,9 @@ export class CreateEditMasterTwoPage implements OnInit {
         { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, title: this.titleBtn!, tabParent: this.bagianBtn };
       else var subCategoryData: SubCategory = { id: this.id ? +this.id : 0, type: this.type!, data: this.data!, };
 
-      if (this.IsCreate()) {
-        console.log('subCategoryData utk dipost', subCategoryData);
+      console.log('subCategoryData utk dipost', subCategoryData);
 
+      if (this.IsCreate()) {
         await this.subCategoryDataListCollection.add(subCategoryData);
         var msg = "Berhasil menambah data baru";
         await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
@@ -247,4 +394,5 @@ export class CreateEditMasterTwoPage implements OnInit {
 
     this.router.navigate(['/tabs/profil/admin/master/create-edit-master/master-child-two'], navigationExtras); // cek kenapa extras tidak ngefek
   }
+  */
 }

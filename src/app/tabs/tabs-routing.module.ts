@@ -128,10 +128,26 @@ const routes: Routes = [
         loadChildren: () => import('../pages/create-edit-master/create-edit-master.module').then(m => m.CreateEditMasterPageModule)
       },
       {
-        path: 'profil/admin/master/create-edit-master/master-child-two/create-edit-master-two',
+        path: 'profil/admin/master-two/create-edit-master-two',
         loadChildren: () => import('../pages/create-edit-master-two/create-edit-master-two.module').then(m => m.CreateEditMasterTwoPageModule)
       },
       {
+        path: 'profil/admin/master-three/create-edit-master-three',
+        loadChildren: () => import('../pages/create-edit-master-three/create-edit-master-three.module').then( m => m.CreateEditMasterThreePageModule)
+      },
+      {
+        path: 'profil/admin/master-four/create-edit-master-four',
+        loadChildren: () => import('../pages/create-edit-master-four/create-edit-master-four.module').then( m => m.CreateEditMasterFourPageModule)
+      },
+      {
+        path: 'profil/admin/master-five/create-edit-master-five',
+        loadChildren: () => import('../pages/create-edit-master-five/create-edit-master-five.module').then( m => m.CreateEditMasterFivePageModule)
+      },
+      {
+        path: 'profil/admin/master-six/create-edit-master-six',
+        loadChildren: () => import('../pages/create-edit-master-six/create-edit-master-six.module').then( m => m.CreateEditMasterSixPageModule)
+      },
+    {
         path: 'asesmen/triase',
         loadChildren: () => import('../pages/triase/triase.module').then(m => m.TriasePageModule)
       },

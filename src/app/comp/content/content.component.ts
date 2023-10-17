@@ -47,19 +47,19 @@ export class ContentComponent implements OnInit {
     }
   }
 
-  IsText(type: string): boolean { if (type == dataTemp.subCategory.text) return true; else return false; }
+  IsText(type: string): boolean { if (type == dataTemp.type.text) return true; else return false; }
 
-  IsSub(type: string): boolean { if (type == dataTemp.subCategory.sub) return true; else return false; }
+  IsSub(type: string): boolean { if (type == dataTemp.type.sub) return true; else return false; }
 
-  IsSubSub(type: string): boolean { if (type == dataTemp.subCategory.subsub) return true; else return false; }
+  IsSubSub(type: string): boolean { if (type == dataTemp.type.subsub) return true; else return false; }
 
-  IsImg(type: string): boolean { if (type == dataTemp.subCategory.img) return true; else return false; }
+  IsImg(type: string): boolean { if (type == dataTemp.type.img) return true; else return false; }
 
-  IsRef(type: string): boolean { if (type == dataTemp.subCategory.ref) return true; else return false; }
+  IsRef(type: string): boolean { if (type == dataTemp.type.ref) return true; else return false; }
 
-  IsBtn(type: string): boolean { if (type == dataTemp.subCategory.btn) return true; else return false; }
+  IsBtn(type: string): boolean { if (type == dataTemp.type.btn) return true; else return false; }
 
-  IsAudio(type: string): boolean { if (type == dataTemp.subCategory.audio) return true; else return false; }
+  IsAudio(type: string): boolean { if (type == dataTemp.type.audio) return true; else return false; }
 
   IsWithImage(data: ContentData): boolean { if (data.image) return true; else return false; }
 

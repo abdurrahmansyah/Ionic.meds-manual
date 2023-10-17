@@ -30,26 +30,31 @@ export class MasterComponent implements OnInit {
     if (this.defaultHref == dataTemp.route.admin) {
       this.thisRoute = dataTemp.route.master;
       this.nextRoute = dataTemp.route.masterTwo;
-      this.createEditRoute = dataTemp.route.createEditMaster; // nanti nambah yang two three four five six
+      this.createEditRoute = dataTemp.route.createEditMaster;
     } else if (this.defaultHref == dataTemp.route.master) {
       this.thisRoute = dataTemp.route.masterTwo;
       this.nextRoute = dataTemp.route.masterThree;
+      this.createEditRoute = dataTemp.route.createEditMasterTwo;
     } else if (this.defaultHref == dataTemp.route.masterTwo) {
       this.thisRoute = dataTemp.route.masterThree;
       this.nextRoute = dataTemp.route.masterFour;
+      this.createEditRoute = dataTemp.route.createEditMasterThree;
     } else if (this.defaultHref == dataTemp.route.masterThree) {
       this.nextRoute = dataTemp.route.masterFour;
       this.nextRoute = dataTemp.route.masterFive;
+      this.createEditRoute = dataTemp.route.createEditMasterFour;
     } else if (this.defaultHref == dataTemp.route.masterFour) {
       this.nextRoute = dataTemp.route.masterFive;
       this.nextRoute = dataTemp.route.masterSix;
+      this.createEditRoute = dataTemp.route.createEditMasterFive;
     } else if (this.defaultHref == dataTemp.route.masterFive) {
       this.nextRoute = dataTemp.route.masterSix;
       this.nextRoute = dataTemp.route.masterSix;
+      this.createEditRoute = dataTemp.route.createEditMasterSix;
     }
   }
 
-  IsBtn(type: string): boolean { if (type == dataTemp.subCategory.btn) return true; else return false; }
+  IsBtn(type: string): boolean { if (type == dataTemp.type.btn) return true; else return false; }
 
   Open(x: ContentData) {
     const data = { data: x.data, title: x.title_alias ? x.title_alias : x.title!, defaultHref: this.thisRoute };

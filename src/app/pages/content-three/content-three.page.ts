@@ -59,10 +59,10 @@ export class ContentThreePage implements OnInit {
     this.datas = await this.fetchService.GetContentsbyName(this.param.data);
     console.log('resbywpdb', this.datas);
 
-    if (this.datas.filter(x => x.type == dataTemp.subCategory.audio).length > 0) {
+    if (this.datas.filter(x => x.type == dataTemp.type.audio).length > 0) {
       const url = '../../../assets/audios/'
       this.datas.forEach(x => {
-        if (x.type == dataTemp.subCategory.audio) x.data = url + x.data + '.mp3'
+        if (x.type == dataTemp.type.audio) x.data = url + x.data + '.mp3'
       })
     }
   }

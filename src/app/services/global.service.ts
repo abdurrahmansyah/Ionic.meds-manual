@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { NavigationExtras } from '@angular/router';
+import { dataTemp } from '../dataTemp';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,19 @@ export class GlobalService {
   // Master Data
   public userDataList: any = [];
 
+  public actionSheetButtons: any = [];
+  public actionSheetAudioButtons: any = [];
+
   constructor(private toastController: ToastController,
-    private alertController: AlertController) { }
+    private alertController: AlertController) {
+    const types: any = dataTemp.type;
+    for (var key in types) { this.actionSheetButtons.push({ text: types[key], data: { action: types[key] } }); }
+    this.actionSheetButtons.push({ text: 'Cancel', role: 'cancel', data: { action: undefined } });
+
+    const audios: any = dataTemp.audio;
+    for (var key in audios) { this.actionSheetAudioButtons.push({ text: audios[key], data: { action: audios[key] } }); }
+    this.actionSheetAudioButtons.push({ text: 'Cancel', role: 'cancel', data: { action: undefined } });
+  }
 
   public GetDate(param?: any): DateData {
     var dateData = new DateData();

@@ -15,7 +15,7 @@ export class ContentComponent implements OnInit {
   @Input('defaultHref') defaultHref: string = '';
 
   thisRoute: string = '';
-  nextDefaultHref: string = '';
+  nextRoute: string = '';
 
   constructor(private modalController: ModalController,
     private globalService: GlobalService,
@@ -28,22 +28,22 @@ export class ContentComponent implements OnInit {
   private GetThisRouteAndNextDefaultHref() {
     if (this.defaultHref == dataTemp.route.asesmen) {
       this.thisRoute = dataTemp.route.contentAsesmen;
-      this.nextDefaultHref = dataTemp.route.contentAsesmenTwo;
+      this.nextRoute = dataTemp.route.contentAsesmenTwo;
     } else if (this.defaultHref == dataTemp.route.contentAsesmen) {
       this.thisRoute = dataTemp.route.contentAsesmenTwo;
-      this.nextDefaultHref = dataTemp.route.contentAsesmenThree;
+      this.nextRoute = dataTemp.route.contentAsesmenThree;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenTwo) {
       this.thisRoute = dataTemp.route.contentAsesmenThree;
-      this.nextDefaultHref = dataTemp.route.contentAsesmenFour;
+      this.nextRoute = dataTemp.route.contentAsesmenFour;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenThree) {
-      this.nextDefaultHref = dataTemp.route.contentAsesmenFour;
-      this.nextDefaultHref = dataTemp.route.contentAsesmenFive;
+      this.nextRoute = dataTemp.route.contentAsesmenFour;
+      this.nextRoute = dataTemp.route.contentAsesmenFive;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenFour) {
-      this.nextDefaultHref = dataTemp.route.contentAsesmenFive;
-      this.nextDefaultHref = dataTemp.route.contentAsesmenSix;
+      this.nextRoute = dataTemp.route.contentAsesmenFive;
+      this.nextRoute = dataTemp.route.contentAsesmenSix;
     } else if (this.defaultHref == dataTemp.route.contentAsesmenFive) {
-      this.nextDefaultHref = dataTemp.route.contentAsesmenSix;
-      this.nextDefaultHref = dataTemp.route.contentAsesmenSix;
+      this.nextRoute = dataTemp.route.contentAsesmenSix;
+      this.nextRoute = dataTemp.route.contentAsesmenSix;
     }
   }
 
@@ -84,6 +84,6 @@ export class ContentComponent implements OnInit {
     let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
     console.log('data btn', data);
 
-    this.router.navigate([this.nextDefaultHref], navigationExtras);
+    this.router.navigate([this.nextRoute], navigationExtras);
   }
 }

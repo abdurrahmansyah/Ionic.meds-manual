@@ -1,12 +1,17 @@
 <ion-content>
   <div class="flexContainer">
+    <!-- 
     <comp-header [title]="titleHeader" [defaultHref]="defaultHref"></comp-header>
+     -->
+    <comp-header [title]="'Master Data'" [defaultHref]="defaultHref!"></comp-header>
     <div class="ion-text-center">
       <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
     </div>
     <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
 
     <div class="scrollYnew">
+      <comp-master [datas]="datas!" [title]="title!" [defaultHref]="defaultHref!"></comp-master>
+      <!--       
       <ion-list [inset]="true" mode="ios">
         <ion-item-sliding *ngFor="let x of datas">
           <ion-item color="meds-red" button (click)="Open(x)">
@@ -26,6 +31,7 @@
           <ion-label>Tambah Data</ion-label>
         </ion-item>
       </ion-list>
+       -->
     </div>
 
     <hr style="height: 20px;" class="ion-no-padding ion-no-margin">

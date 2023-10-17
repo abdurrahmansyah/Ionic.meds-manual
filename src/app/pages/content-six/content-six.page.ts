@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
-import { PhotoviewerComponent } from 'src/app/comp/photoviewer/photoviewer.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
 import { FetchService } from 'src/app/services/fetch.service';
-import { ContentData, GlobalService } from 'src/app/services/global.service';
+import { ContentData } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-content-six',

@@ -9,25 +9,18 @@ import { GlobalService } from 'src/app/services/global.service';
   styleUrls: ['./asesmen.page.scss'],
 })
 export class AsesmenPage implements OnInit {
+  tabs = dataTemp.tab;
+  titles = dataTemp.title;
 
   constructor(private router: Router,
     private globalService: GlobalService) { }
 
   ngOnInit() { }
 
-  Triase() {
-    const data = { data: dataTemp.tab.triase, title: dataTemp.title.triase, defaultHref: dataTemp.route.asesmen };
+  Content(dt: string, title: string){
+    const data = { data: dt, title: title, defaultHref: dataTemp.route.admin };
     this.NavigatePage(data);
   }
-
-  SurveiPrimer() { 
-    const data = { data: dataTemp.tab.surveiPrimer, title: dataTemp.title.surveiPrimer, defaultHref: dataTemp.route.asesmen };
-    this.NavigatePage(data);
-  }
-
-  SurveiSekunder() { this.router.navigate([dataTemp.route.surveiSekunder]); }
-
-  TandaVital() { this.router.navigate([dataTemp.route.tandaVital]); }
 
   private NavigatePage(data: { data: string; title: string; defaultHref: string; }) {
     let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);

@@ -1,0 +1,15 @@
+.flexContainer {
+    display: flex;
+    flex-flow: column;
+    // height: calc(100vh - 82px);
+    height: 100%;
+  
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  
+    .scrollYnew{
+        overflow: auto;
+        flex-grow: 1 !important;
+    }
+}

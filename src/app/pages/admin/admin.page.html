@@ -3,31 +3,31 @@
     <ion-back-button class="buttonBack" text="Admin" defaultHref="tabs/profil" mode="ios"></ion-back-button>
   </ion-row>
   <div class="ion-text-center">
-    <!-- <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar> -->
     <hr style="height: 10px;" class="ion-no-padding ion-no-margin">
-    <!-- <div *ngFor="let x of triaseDataList" style="padding: 0px 10%;">
-      <ion-button expand="full" style="min-height: 48px;" (click)="TriaseChild(x)">{{x.title}}</ion-button>
-      <ion-button expand="full" style="min-height: 48px;" (click)="TriaseChild(x)">{{x.title}}</ion-button>
-      <hr style="height: 16px;">
-    </div> -->
 
     <ion-accordion-group mode="md" expand="inset">
       <ion-accordion value="asesmen">
         <ion-item slot="header" color="meds-pink">
           <ion-label>Asesmen</ion-label>
         </ion-item>
-        <ion-item slot="content" class="item" button (click)="Master(data.triase)">Triase</ion-item>
-        <ion-item slot="content" class="item" button (click)="Master(data.surveiPrimer)">Survei Primer</ion-item>
-        <ion-item slot="content" class="item" button (click)="Master(data.surveiSekunder)">Survei Sekunder</ion-item>
-        <ion-item slot="content" class="item" button (click)="Master(data.tandaVital)">Tanda Vital</ion-item>
+        <ion-item slot="content" class="item" button
+          (click)="Master(tabs.triase, titles.triase)">{{titles.triase}}</ion-item>
+        <ion-item slot="content" class="item" button
+          (click)="Master(tabs.surveiPrimer, titles.surveiPrimer)">{{titles.surveiPrimer}}</ion-item>
+        <ion-item slot="content" class="item" button
+          (click)="Master(tabs.surveiSekunder, titles.surveiSekunder)">{{titles.surveiSekunder}}</ion-item>
+        <ion-item slot="content" class="item" button
+          (click)="Master(tabs.tandaVital, titles.tandaVital)">{{titles.tandaVital}}</ion-item>
       </ion-accordion>
       <ion-accordion value="penunjang">
         <ion-item slot="header" color="meds-pink">
           <ion-label>Penunjang</ion-label>
         </ion-item>
-        <ion-item slot="content" class="item" button (click)="Master(data.radioimaging)">Radioimaging</ion-item>
-        <ion-item slot="content" class="item" button (click)="MasterChild(data.nilaiNormalLab)">Nilai Normal Laboratorium</ion-item>
-        <ion-item slot="content" class="item" button (click)="Master(data.ekg)">Elektrokardiografi</ion-item>
+        <ion-item slot="content" class="item" button
+          (click)="Master(tabs.radioimaging, titles.radioimaging)">{{titles.radioimaging}}</ion-item>
+        <ion-item slot="content" class="item" button
+          (click)="Master(tabs.nilaiNormalLab, titles.nilaiNormalLab)">{{titles.nilaiNormalLab}}</ion-item>
+        <ion-item slot="content" class="item" button (click)="Master(tabs.ekg, titles.ekg)">{{titles.ekg}}</ion-item>
       </ion-accordion>
       <ion-accordion value="panduan">
         <ion-item slot="header" color="meds-pink">

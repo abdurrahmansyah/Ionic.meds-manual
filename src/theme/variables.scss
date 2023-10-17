@@ -22,6 +22,14 @@
   --ion-color-meds-red-shade: #e04141;
   --ion-color-meds-red-tint: #ff5c5c;
 
+  /** meds-darkred **/
+  --ion-color-meds-darkred: #c53939;
+  --ion-color-meds-darkred-rgb: 197, 57, 57;
+  --ion-color-meds-darkred-contrast: #ffffff;
+  --ion-color-meds-darkred-contrast-rgb: 255, 255, 255;
+  --ion-color-meds-darkred-shade: #ad3232;
+  --ion-color-meds-darkred-tint: #cb4d4d;
+
   /** meds-red-opposite **/
   --ion-color-meds-red-opposite: #FEE6E6;
   --ion-color-meds-red-opposite-rgb: 0, 0, 0;
@@ -138,6 +146,15 @@
   --ion-color-contrast-rgb: var(--ion-color-meds-red-contrast-rgb);
   --ion-color-shade: var(--ion-color-meds-red-shade);
   --ion-color-tint: var(--ion-color-meds-red-tint);
+}
+
+.ion-color-meds-darkred {
+  --ion-color-base: var(--ion-color-meds-darkred);
+  --ion-color-base-rgb: var(--ion-color-meds-darkred-rgb);
+  --ion-color-contrast: var(--ion-color-meds-darkred-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-meds-darkred-contrast-rgb);
+  --ion-color-shade: var(--ion-color-meds-darkred-shade);
+  --ion-color-tint: var(--ion-color-meds-darkred-tint);
 }
 
 .ion-color-meds-red-opposite {

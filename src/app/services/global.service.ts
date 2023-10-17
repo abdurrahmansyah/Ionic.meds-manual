@@ -42,7 +42,7 @@ export class GlobalService {
     return dateData;
   }
 
-  public SetExtras(data: { data: string; title: string; defaultHref: string }): NavigationExtras {
+  public SetExtras(data: { data: any; title: string; defaultHref: string }): NavigationExtras {
     return {
       state: {
         data: data,

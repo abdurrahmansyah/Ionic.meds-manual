@@ -6,10 +6,11 @@ import { TermAndCondPage } from './term-and-cond/term-and-cond.page';
 import { PhotoviewerComponent } from './photoviewer/photoviewer.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
+import { MasterComponent } from './master/master.component';
 
 @NgModule({
-  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent],
-  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent],
+  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent],
+  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent],
   imports: [
     CommonModule,
     FormsModule,

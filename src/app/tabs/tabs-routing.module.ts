@@ -92,6 +92,26 @@ const routes: Routes = [
         loadChildren: () => import('../pages/master/master.module').then(m => m.MasterPageModule)
       },
       {
+        path: 'profil/admin/master-two',
+        loadChildren: () => import('../pages/master-two/master-two.module').then(m => m.MasterTwoPageModule)
+      },
+      {
+        path: 'profil/admin/master-three',
+        loadChildren: () => import('../pages/master-three/master-three.module').then( m => m.MasterThreePageModule)
+      },
+      {
+        path: 'profil/admin/master-four',
+        loadChildren: () => import('../pages/master-four/master-four.module').then( m => m.MasterFourPageModule)
+      },
+      {
+        path: 'profil/admin/master-five',
+        loadChildren: () => import('../pages/master-five/master-five.module').then( m => m.MasterFivePageModule)
+      },
+      {
+        path: 'profil/admin/master-six',
+        loadChildren: () => import('../pages/master-six/master-six.module').then( m => m.MasterSixPageModule)
+      },
+      {
         path: 'profil/admin/create-edit-parent-master',
         loadChildren: () => import('../pages/create-edit-parent-master/create-edit-parent-master.module').then(m => m.CreateEditParentMasterPageModule)
       },

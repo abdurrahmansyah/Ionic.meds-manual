@@ -62,7 +62,7 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.createContent, contentData);
   }
 
-  UpdateSeat(contentData: UserData) {
+  UpdateContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.updateContent, contentData);
   }
 

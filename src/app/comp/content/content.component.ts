@@ -26,6 +26,7 @@ export class ContentComponent implements OnInit {
   }
 
   private GetThisRouteAndNextDefaultHref() {
+    // asesmen
     if (this.defaultHref == dataTemp.route.asesmen) {
       this.thisRoute = dataTemp.route.contentAsesmen;
       this.nextRoute = dataTemp.route.contentAsesmenTwo;
@@ -44,6 +45,46 @@ export class ContentComponent implements OnInit {
     } else if (this.defaultHref == dataTemp.route.contentAsesmenFive) {
       this.thisRoute = dataTemp.route.contentAsesmenSix;
       this.nextRoute = dataTemp.route.contentAsesmenSix;
+    }
+    // penunjang
+    else if (this.defaultHref == dataTemp.route.penunjang) {
+      this.thisRoute = dataTemp.route.contentPenunjang;
+      this.nextRoute = dataTemp.route.contentPenunjangTwo;
+    } else if (this.defaultHref == dataTemp.route.contentPenunjang) {
+      this.thisRoute = dataTemp.route.contentPenunjangTwo;
+      this.nextRoute = dataTemp.route.contentPenunjangThree;
+    } else if (this.defaultHref == dataTemp.route.contentPenunjangTwo) {
+      this.thisRoute = dataTemp.route.contentPenunjangThree;
+      this.nextRoute = dataTemp.route.contentPenunjangFour;
+    } else if (this.defaultHref == dataTemp.route.contentPenunjangThree) {
+      this.thisRoute = dataTemp.route.contentPenunjangFour;
+      this.nextRoute = dataTemp.route.contentPenunjangFive;
+    } else if (this.defaultHref == dataTemp.route.contentPenunjangFour) {
+      this.thisRoute = dataTemp.route.contentPenunjangFive;
+      this.nextRoute = dataTemp.route.contentPenunjangSix;
+    } else if (this.defaultHref == dataTemp.route.contentPenunjangFive) {
+      this.thisRoute = dataTemp.route.contentPenunjangSix;
+      this.nextRoute = dataTemp.route.contentPenunjangSix;
+    }
+    // panduan
+    else if (this.defaultHref == dataTemp.route.panduan) {
+      this.thisRoute = dataTemp.route.contentPanduan;
+      this.nextRoute = dataTemp.route.contentPanduanTwo;
+    } else if (this.defaultHref == dataTemp.route.contentPanduan) {
+      this.thisRoute = dataTemp.route.contentPanduanTwo;
+      this.nextRoute = dataTemp.route.contentPanduanThree;
+    } else if (this.defaultHref == dataTemp.route.contentPanduanTwo) {
+      this.thisRoute = dataTemp.route.contentPanduanThree;
+      this.nextRoute = dataTemp.route.contentPanduanFour;
+    } else if (this.defaultHref == dataTemp.route.contentPanduanThree) {
+      this.thisRoute = dataTemp.route.contentPanduanFour;
+      this.nextRoute = dataTemp.route.contentPanduanFive;
+    } else if (this.defaultHref == dataTemp.route.contentPanduanFour) {
+      this.thisRoute = dataTemp.route.contentPanduanFive;
+      this.nextRoute = dataTemp.route.contentPanduanSix;
+    } else if (this.defaultHref == dataTemp.route.contentPanduanFive) {
+      this.thisRoute = dataTemp.route.contentPanduanSix;
+      this.nextRoute = dataTemp.route.contentPanduanSix;
     }
   }
 

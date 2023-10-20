@@ -12,11 +12,11 @@
     <ion-text>PANDUAN</ion-text>
     <div class="ion-padding red09">
       <ion-row>
-        <ion-col button (click)="PanduanKasus()">
+        <ion-col button (click)="Content(tabs.panduanKasus, titles.panduanKasus)">
           <img src="../../../assets/images/panduan-kasus.png">
           <ion-text>PANDUAN KASUS</ion-text>
         </ion-col>
-        <ion-col>
+        <ion-col button (click)="Content(tabs.panduanTindakan, titles.panduanTindakan)">
           <img src="../../../assets/images/panduan-tindakan.png">
           <ion-text>PANDUAN TINDAKAN</ion-text>
         </ion-col>
@@ -24,7 +24,7 @@
       <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
 
       <ion-row>
-        <ion-col size="6">
+        <ion-col size="6" button (click)="Content(tabs.pengukuran, titles.pengukuran)">
           <img src="../../../assets/images/pengukuran.png">
           <ion-text>PENGUKURAN</ion-text>
         </ion-col>

@@ -1,8 +1,5 @@
 <ion-content>
   <div class="flexContainer">
-    <!-- 
-    <comp-header [title]="titleHeader" [defaultHref]="defaultHref"></comp-header>
-     -->
     <comp-header [title]="'Master Data'" [defaultHref]="defaultHref!"></comp-header>
     <div class="ion-text-center">
       <ion-item color="meds-pink" lines="none">{{title}}</ion-item>
@@ -10,28 +7,7 @@
     <hr style="height: 16px;" class="ion-no-padding ion-no-margin">
 
     <div class="scrollYnew">
-      <comp-master [datas]="datas!" [title]="title!" [defaultHref]="defaultHref!"></comp-master>
-      <!--       
-      <ion-list [inset]="true" mode="ios">
-        <ion-item-sliding *ngFor="let x of datas">
-          <ion-item color="meds-red" button (click)="Open(x)">
-            <ion-label>{{x.title}}</ion-label>
-            <ion-icon name="create" slot="end" style="margin-right: 10px;"></ion-icon>
-            <ion-icon name="trash" slot="end"></ion-icon>
-          </ion-item>
-          <ion-item-options>
-            <ion-item-option color="meds-pink" button (click)="CreateEdit(x)">Ubah</ion-item-option>
-            <ion-item-option color="warning">Hapus</ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-
-      <ion-list [inset]="true" mode="ios">
-        <ion-item color="meds-red" button (click)="CreateEdit()" lines="none">
-          <ion-label>Tambah Data</ion-label>
-        </ion-item>
-      </ion-list>
-       -->
+      <comp-master [datas]="datas!" [parent_name]="parent_name!" [title]="title!" [defaultHref]="defaultHref!"></comp-master>
     </div>
 
     <hr style="height: 20px;" class="ion-no-padding ion-no-margin">

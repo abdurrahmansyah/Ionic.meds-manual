@@ -16,6 +16,7 @@ export class MasterTwoPage implements OnInit {
   param: any;
 
   // header
+  parent_name: string | undefined;
   title: string | undefined;
   defaultHref: string | undefined;
 
@@ -47,6 +48,7 @@ export class MasterTwoPage implements OnInit {
       else {
         this.param = this.router.getCurrentNavigation()?.extras.state!['data'];
 
+        this.parent_name = this.param!.data;
         this.title = this.param!.titleAlias ? this.param!.titleAlias : this.param!.title;
         this.defaultHref = this.param!.defaultHref;
       }

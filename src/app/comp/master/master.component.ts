@@ -11,6 +11,7 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class MasterComponent implements OnInit {
   @Input('datas') datas: ContentData[] = [];
+  @Input('parent_name') parent_name: string = '';
   @Input('title') title: string = '';
   @Input('defaultHref') defaultHref: string = '';
 
@@ -65,7 +66,7 @@ export class MasterComponent implements OnInit {
   }
 
   CreateEdit(x?: any) {
-    const data = { data: x ? x : this.datas.find(x => x)?.parent_name, title: this.title, defaultHref: this.thisRoute };
+    const data = { data: x ? x : this.parent_name, title: this.title, defaultHref: this.thisRoute };
     let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
     console.log('data btn', data);
 

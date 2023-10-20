@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
+import { dataTemp } from 'src/app/dataTemp';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-panduan',
@@ -6,14 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./panduan.page.scss'],
 })
 export class PanduanPage implements OnInit {
+  tabs = dataTemp.tab;
+  titles = dataTemp.title;
 
-  constructor() { }
+  constructor(private router: Router,
+    private globalService: GlobalService) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  Content(dt: string, title: string) {
+    const data = { data: dt, title: title, defaultHref: dataTemp.route.panduan };
+    this.NavigatePage(data);
   }
 
-  PanduanKasus(){
-    
+  private NavigatePage(data: { data: string; title: string; defaultHref: string; }) {
+    let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
+    this.router.navigate([dataTemp.route.contentPanduan], navigationExtras);
   }
-
 }

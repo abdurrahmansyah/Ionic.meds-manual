@@ -56,6 +56,54 @@ const routes: Routes = [
         loadChildren: () => import('../pages/content-six/content-six.module').then(m => m.ContentSixPageModule)
       },
       {
+        path: 'penunjang/content',
+        loadChildren: () => import('../pages/content/content.module').then(m => m.ContentPageModule)
+      },
+      {
+        path: 'penunjang/content-two',
+        loadChildren: () => import('../pages/content-two/content-two.module').then(m => m.ContentTwoPageModule)
+      },
+      {
+        path: 'penunjang/content-three',
+        loadChildren: () => import('../pages/content-three/content-three.module').then(m => m.ContentThreePageModule)
+      },
+      {
+        path: 'penunjang/content-four',
+        loadChildren: () => import('../pages/content-four/content-four.module').then(m => m.ContentFourPageModule)
+      },
+      {
+        path: 'penunjang/content-five',
+        loadChildren: () => import('../pages/content-five/content-five.module').then(m => m.ContentFivePageModule)
+      },
+      {
+        path: 'penunjang/content-six',
+        loadChildren: () => import('../pages/content-six/content-six.module').then(m => m.ContentSixPageModule)
+      },
+      {
+        path: 'panduan/content',
+        loadChildren: () => import('../pages/content/content.module').then(m => m.ContentPageModule)
+      },
+      {
+        path: 'panduan/content-two',
+        loadChildren: () => import('../pages/content-two/content-two.module').then(m => m.ContentTwoPageModule)
+      },
+      {
+        path: 'panduan/content-three',
+        loadChildren: () => import('../pages/content-three/content-three.module').then(m => m.ContentThreePageModule)
+      },
+      {
+        path: 'panduan/content-four',
+        loadChildren: () => import('../pages/content-four/content-four.module').then(m => m.ContentFourPageModule)
+      },
+      {
+        path: 'panduan/content-five',
+        loadChildren: () => import('../pages/content-five/content-five.module').then(m => m.ContentFivePageModule)
+      },
+      {
+        path: 'panduan/content-six',
+        loadChildren: () => import('../pages/content-six/content-six.module').then(m => m.ContentSixPageModule)
+      },
+      {
         path: 'asesmen',
         loadChildren: () => import('../pages/asesmen/asesmen.module').then(m => m.AsesmenPageModule)
       },

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { dataTemp } from 'src/app/dataTemp';
-import { Category } from 'src/app/services/firebase.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-penunjang',
@@ -9,11 +9,25 @@ import { Category } from 'src/app/services/firebase.service';
   styleUrls: ['./penunjang.page.scss'],
 })
 export class PenunjangPage implements OnInit {
+  tabs = dataTemp.tab;
+  titles = dataTemp.title;
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router,
+    private globalService: GlobalService) { }
 
   ngOnInit() { }
 
+  Content(dt: string, title: string) {
+    const data = { data: dt, title: title, defaultHref: dataTemp.route.penunjang };
+    this.NavigatePage(data);
+  }
+
+  private NavigatePage(data: { data: string; title: string; defaultHref: string; }) {
+    let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
+    this.router.navigate([dataTemp.route.contentPenunjang], navigationExtras);
+  }
+
+  /* CEK
   Radioimaging() { this.router.navigate([dataTemp.route.radioimaging]); }
 
   NilaiNormalLab() { 
@@ -30,4 +44,5 @@ export class PenunjangPage implements OnInit {
   }
 
   EKG() { this.router.navigate([dataTemp.route.ekg]); }
+  */
 }

@@ -57,10 +57,9 @@ export class CreateEditMasterComponent implements OnInit {
 
     try {
       if (this.IsCreate()) await this.PrepareData();
-      else {
-        this.InitializeData()
-        this.SetView();
-      }
+      else this.InitializeData();
+
+      this.SetView();
       loading.dismiss();
     } catch (error: any) {
       var msg = error;
@@ -75,7 +74,7 @@ export class CreateEditMasterComponent implements OnInit {
     this.type = this.param?.data.type;
     this.data = this.param?.data.data;
     this.titleBtn = this.param?.data.title;
-    this.titleAliasBtn = this.param?.data.titleAlias;
+    this.titleAliasBtn = this.param?.data.title_alias;
     this.imageBtn = this.param?.data.image;
   }
 
@@ -84,6 +83,9 @@ export class CreateEditMasterComponent implements OnInit {
     this.id = Math.max.apply(null, datas.map(function (o: any) { return o.urut; })) + 1;
     this.type = dataTemp.type.text;
     this.data = undefined;
+    this.titleBtn = undefined;
+    this.titleAliasBtn = undefined;
+    this.imageBtn = undefined;
   }
 
   SetView() {
@@ -152,6 +154,7 @@ export class CreateEditMasterComponent implements OnInit {
         var msg = "Berhasil menambah data baru";
         await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.editMaster);
         await this.PrepareData();
+        this.SetView();
       } else {
         var isUpdateSuccess: any = await this.UpdateContent(contentData);
         if (isUpdateSuccess.status == 'failed') throw ('Tidak berhasil memperbarui akun baru');

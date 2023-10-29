@@ -71,8 +71,163 @@
 
 /*#region  Style Content*/
 
+// .text {
+//     margin-bottom: 0px;
+//     text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .textWithMargin {
+//     text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .textWithoutMargin {
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .sub {
+//     font-weight: 700;
+// }
+
+// .subWithoutMargin {
+//     margin-bottom: 0px;
+//     font-weight: 700;
+// }
+
+// .subsub {
+//     font-weight: 700;
+//     font-size: 0.85em;
+// }
+
+// .subsubWithoutMargin {
+//     margin-bottom: 0px;
+//     font-weight: 700;
+//     font-size: 0.85em;
+// }
+
+// .img {
+//     font-size: 0.85em;
+// }
+
+// .ref {
+//     margin: 0px;
+//     // text-align: justify;
+//     font-size: 0.8em;
+// }
+
+// .numbering0 {
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering1 {
+//     margin-left: 10px;
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering2 {
+//     margin-left: 20px;
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering3 {
+//     margin-left: 30px;
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering4 {
+//     margin-left: 40px;
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering5 {
+//     margin-left: 50px;
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering6 {
+//     margin-left: 60px;
+//     margin-top: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering0WithoutMargin {
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering1WithoutMargin {
+//     margin-left: 10px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering2WithoutMargin {
+//     margin-left: 20px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering3WithoutMargin {
+//     margin-left: 30px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering4WithoutMargin {
+//     margin-left: 40px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering5WithoutMargin {
+//     margin-left: 50px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
+// .numbering6WithoutMargin {
+//     margin-left: 60px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     // text-align: justify;
+//     font-size: 0.85em;
+// }
+
 .text {
-    margin-bottom: 0px;
+    text-align: justify;
+    font-size: 0.85em;
+}
+
+.textWithMargin {
     text-align: justify;
     font-size: 0.85em;
 }
@@ -89,6 +244,7 @@
 }
 
 .subWithoutMargin {
+    margin-top: 0px;
     margin-bottom: 0px;
     font-weight: 700;
 }
@@ -99,6 +255,7 @@
 }
 
 .subsubWithoutMargin {
+    margin-top: 0px;
     margin-bottom: 0px;
     font-weight: 700;
     font-size: 0.85em;
@@ -109,63 +266,96 @@
 }
 
 .ref {
-    margin-top: 0px;
-    // text-align: justify;
+    margin: 0px;
     font-size: 0.8em;
 }
 
 .numbering0 {
-    margin-top: 0px;
-    // text-align: justify;
     font-size: 0.85em;
 }
 
 .numbering1 {
     margin-left: 10px;
-    margin-top: 0px;
-    // text-align: justify;
     font-size: 0.85em;
 }
 
 .numbering2 {
     margin-left: 20px;
-    margin-top: 0px;
-    // text-align: justify;
     font-size: 0.85em;
 }
 
 .numbering3 {
     margin-left: 30px;
-    margin-top: 0px;
-    // text-align: justify;
     font-size: 0.85em;
 }
 
 .numbering4 {
     margin-left: 40px;
-    margin-top: 0px;
-    // text-align: justify;
     font-size: 0.85em;
 }
 
 .numbering5 {
     margin-left: 50px;
-    margin-top: 0px;
-    // text-align: justify;
     font-size: 0.85em;
 }
 
 .numbering6 {
     margin-left: 60px;
+    font-size: 0.85em;
+}
+
+.numbering0WithoutMargin {
     margin-top: 0px;
-    // text-align: justify;
+    margin-bottom: 0px;
+    font-size: 0.85em;
+}
+
+.numbering1WithoutMargin {
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.85em;
+}
+
+.numbering2WithoutMargin {
+    margin-left: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.85em;
+}
+
+.numbering3WithoutMargin {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.85em;
+}
+
+.numbering4WithoutMargin {
+    margin-left: 40px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.85em;
+}
+
+.numbering5WithoutMargin {
+    margin-left: 50px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.85em;
+}
+
+.numbering6WithoutMargin {
+    margin-left: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     font-size: 0.85em;
 }
 
 /*#endregion Style Content*/
 
 ion-modal {
-    &.modalTermAndCond {
+    c &.modalTermAndCond {
         --width: 85vw;
         --min-height: 40%;
         --max-height: 90%;

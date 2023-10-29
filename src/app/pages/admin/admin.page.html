@@ -44,7 +44,8 @@
         <ion-item slot="header" color="meds-pink">
           <ion-label>Obat</ion-label>
         </ion-item>
-        <div class="ion-padding" slot="content">Daftar Obat</div>
+        <div class="ion-padding" slot="content" button (click)="Master(tabs.obat, titles.obat)">
+          {{titles.obat}}</div>
       </ion-accordion>
       <ion-accordion value="user">
         <ion-item slot="header" color="meds-pink">

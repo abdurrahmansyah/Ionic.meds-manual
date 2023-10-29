@@ -6,20 +6,20 @@
     <ion-input label="Tipe*" labelPlacement="floating" [(ngModel)]="type" [readonly]="true"></ion-input>
   </ion-item>
   <ion-item *ngIf="!isAudio" color="meds-red" button>
-    <ion-textarea *ngIf="!isImg && !isBtn" label="Data*" labelPlacement="floating" placeholder="Ketik disini"
+    <ion-textarea *ngIf="!isImg && !isBtn && !isbtnOutline" label="Data*" labelPlacement="floating" placeholder="Ketik disini"
       [autoGrow]="true" [(ngModel)]="data"></ion-textarea>
     <ion-textarea *ngIf="isImg" label="Data*" labelPlacement="floating" [autoGrow]="true" [(ngModel)]="data"
       [readonly]="true" (click)="ChangeImage()"></ion-textarea>
-    <ion-input *ngIf="isBtn" label="Data*" labelPlacement="floating" placeholder="Tidak boleh ada spasi"
+    <ion-input *ngIf="isBtn || isbtnOutline" label="Data*" labelPlacement="floating" placeholder="Tidak boleh ada spasi"
       [(ngModel)]="data"></ion-input>
   </ion-item>
   <ion-item *ngIf="isAudio" color="meds-red" button id="open-audio-two">
     <ion-input label="Data*" labelPlacement="floating" [(ngModel)]="data" [readonly]="true"></ion-input>
   </ion-item>
-  <ion-item *ngIf="isBtn" color="meds-red" button>
+  <ion-item *ngIf="isBtn || isbtnOutline" color="meds-red" button>
     <ion-input label="Title*" labelPlacement="floating" placeholder="Masukkan title" [(ngModel)]="titleBtn"></ion-input>
   </ion-item>
-  <ion-item *ngIf="isBtn" color="meds-red" button>
+  <ion-item *ngIf="isBtn  || isbtnOutline" color="meds-red" button>
     <ion-input label="Title Alias" labelPlacement="floating" placeholder="Masukkan title alias"
       [(ngModel)]="titleAliasBtn"></ion-input>
   </ion-item>

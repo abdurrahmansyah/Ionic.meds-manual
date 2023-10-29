@@ -1,8 +1,26 @@
 <div *ngFor="let x of datas" style="padding: 0px 10%;">
   <p *ngIf="IsText(x.type)" class="text">{{x.data}}</p>
+  <p *ngIf="IstTextWithMargin(x.type)" class="textWithMargin">{{x.data}}</p>
+  <p *ngIf="IsTextWithoutMargin(x.type)" class="textWithoutMargin">{{x.data}}</p>
   <p *ngIf="IsSub(x.type)" class="sub">{{x.data}}</p>
+  <p *ngIf="IsSubWithoutMargin(x.type)" class="subWithoutMargin">{{x.data}}</p>
   <p *ngIf="IsSubSub(x.type)" class="subsub">{{x.data}}</p>
+  <p *ngIf="IsSubsubWithoutMargin(x.type)" class="subsubWithoutMargin">{{x.data}}</p>
   <img *ngIf="IsImg(x.type)" [src]="x.data" button (click)="ViewImage(x.data)">
+  <p *ngIf="IsNumbering0(x.type)" class="numbering0">{{x.data}}</p>
+  <p *ngIf="IsNumbering1(x.type)" class="numbering1">{{x.data}}</p>
+  <p *ngIf="IsNumbering2(x.type)" class="numbering2">{{x.data}}</p>
+  <p *ngIf="IsNumbering3(x.type)" class="numbering3">{{x.data}}</p>
+  <p *ngIf="IsNumbering4(x.type)" class="numbering4">{{x.data}}</p>
+  <p *ngIf="IsNumbering5(x.type)" class="numbering5">{{x.data}}</p>
+  <p *ngIf="IsNumbering6(x.type)" class="numbering6">{{x.data}}</p>
+  <p *ngIf="IsNumbering0WithoutMargin(x.type)" class="numbering0WithoutMargin">{{x.data}}</p>
+  <p *ngIf="IsNumbering1WithoutMargin(x.type)" class="numbering1WithoutMargin">{{x.data}}</p>
+  <p *ngIf="IsNumbering2WithoutMargin(x.type)" class="numbering2WithoutMargin">{{x.data}}</p>
+  <p *ngIf="IsNumbering3WithoutMargin(x.type)" class="numbering3WithoutMargin">{{x.data}}</p>
+  <p *ngIf="IsNumbering4WithoutMargin(x.type)" class="numbering4WithoutMargin">{{x.data}}</p>
+  <p *ngIf="IsNumbering5WithoutMargin(x.type)" class="numbering5WithoutMargin">{{x.data}}</p>
+  <p *ngIf="IsNumbering6WithoutMargin(x.type)" class="numbering6WithoutMargin">{{x.data}}</p>
   <p *ngIf="IsRef(x.type)" class="ref">{{x.data}}</p>
   <div *ngIf="IsBtn(x.type)">
     <ion-list *ngIf="!IsWithImage(x)" [inset]="true" mode="ios">
@@ -16,5 +34,7 @@
       <hr style="height: 20px;">
     </div>
   </div>
+  <ion-button *ngIf="IsbtnOutline(x.type)" fill="outline" expand="block" color="meds-red"
+    (click)="BtnThru(x)">{{x.title}}</ion-button>
   <audio *ngIf="IsAudio(x.type)" [src]="x.data" controls></audio>
 </div>

@@ -89,19 +89,31 @@ export class ContentComponent implements OnInit {
   }
 
   IsText(type: string): boolean { if (type == dataTemp.type.text) return true; else return false; }
-
+  IstTextWithMargin(type: string): boolean { if (type == dataTemp.type.textWithMargin) return true; else return false; }
+  IsTextWithoutMargin(type: string): boolean { if (type == dataTemp.type.textWithoutMargin) return true; else return false; }
   IsSub(type: string): boolean { if (type == dataTemp.type.sub) return true; else return false; }
-
+  IsSubWithoutMargin(type: string): boolean { if (type == dataTemp.type.subWithoutMargin) return true; else return false; }
   IsSubSub(type: string): boolean { if (type == dataTemp.type.subsub) return true; else return false; }
-
+  IsSubsubWithoutMargin(type: string): boolean { if (type == dataTemp.type.subsubWithoutMargin) return true; else return false; }
   IsImg(type: string): boolean { if (type == dataTemp.type.img) return true; else return false; }
-
+  IsNumbering0(type: string): boolean { if (type == dataTemp.type.numbering0) return true; else return false; }
+  IsNumbering1(type: string): boolean { if (type == dataTemp.type.numbering1) return true; else return false; }
+  IsNumbering2(type: string): boolean { if (type == dataTemp.type.numbering2) return true; else return false; }
+  IsNumbering3(type: string): boolean { if (type == dataTemp.type.numbering3) return true; else return false; }
+  IsNumbering4(type: string): boolean { if (type == dataTemp.type.numbering4) return true; else return false; }
+  IsNumbering5(type: string): boolean { if (type == dataTemp.type.numbering5) return true; else return false; }
+  IsNumbering6(type: string): boolean { if (type == dataTemp.type.numbering6) return true; else return false; }
+  IsNumbering0WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering0WithoutMargin) return true; else return false; }
+  IsNumbering1WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering1WithoutMargin) return true; else return false; }
+  IsNumbering2WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering2WithoutMargin) return true; else return false; }
+  IsNumbering3WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering3WithoutMargin) return true; else return false; }
+  IsNumbering4WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering4WithoutMargin) return true; else return false; }
+  IsNumbering5WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering5WithoutMargin) return true; else return false; }
+  IsNumbering6WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering6WithoutMargin) return true; else return false; }
   IsRef(type: string): boolean { if (type == dataTemp.type.ref) return true; else return false; }
-
   IsBtn(type: string): boolean { if (type == dataTemp.type.btn) return true; else return false; }
-
+  IsbtnOutline(type: string): boolean { if (type == dataTemp.type.btnOutline) return true; else return false; }
   IsAudio(type: string): boolean { if (type == dataTemp.type.audio) return true; else return false; }
-
   IsWithImage(data: ContentData): boolean { if (data.image) return true; else return false; }
 
   async ViewImage(data: string) {

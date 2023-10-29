@@ -30,6 +30,7 @@ export class CreateEditMasterComponent implements OnInit {
   // condition
   isImg: boolean = false;
   isBtn: boolean = false;
+  isbtnOutline: boolean = false;
   isAudio: boolean = false;
   isCreate: boolean = false;
 
@@ -91,15 +92,20 @@ export class CreateEditMasterComponent implements OnInit {
   SetView() {
     this.isImg = this.type == dataTemp.type.img ? true : false;
     this.isBtn = this.type == dataTemp.type.btn ? true : false;
+    this.isbtnOutline = this.type == dataTemp.type.btnOutline ? true : false;
     this.isAudio = this.type == dataTemp.type.audio ? true : false;
   }
 
   GetType(ev: any) {
+    if (ev.detail.role == 'cancel' || ev.detail.role == 'backdrop') return;
+
     this.type = ev.detail.data.action;
     this.SetView();
   }
 
   GetAudio(ev: any) {
+    if (ev.detail.role == 'cancel' || ev.detail.role == 'backdrop') return;
+
     this.data = ev.detail.data.action;
   }
 
@@ -135,8 +141,8 @@ export class CreateEditMasterComponent implements OnInit {
     try {
       if (!this.type) throw 'Tipe harus diisi';
       if (!this.data) throw 'Data harus diisi';
-      if (this.isBtn) { if (this.data.indexOf(' ') > 0) throw 'Data tidak boleh ada spasi'; }
-      if (this.isBtn) { if (!this.titleBtn) throw 'Title harus diisi'; }
+      if (this.isBtn || this.isbtnOutline) { if (this.data.indexOf(' ') > 0) throw 'Data tidak boleh ada spasi'; }
+      if (this.isBtn || this.isbtnOutline) { if (!this.titleBtn) throw 'Title harus diisi'; }
 
       const contentData: ContentData = {
         content_id: this.param.data.data == null || undefined ? '' : this.param.data.content_id,

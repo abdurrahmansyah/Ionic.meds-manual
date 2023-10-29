@@ -56,6 +56,8 @@ export class MasterComponent implements OnInit {
   }
 
   IsBtn(type: string): boolean { if (type == dataTemp.type.btn) return true; else return false; }
+  
+  IsBtnOutline(type: string): boolean { if (type == dataTemp.type.btnOutline) return true; else return false; }
 
   Open(x: ContentData) {
     const data = { data: x.data, title: x.title_alias ? x.title_alias : x.title!, defaultHref: this.thisRoute };

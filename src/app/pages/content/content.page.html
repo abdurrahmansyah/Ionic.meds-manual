@@ -2,7 +2,7 @@
   <div class="flexContainer" [class.focusSearch]="isFocusSearch">
     <comp-header [title]="title!" [defaultHref]="defaultHref!"></comp-header>
     <div class="scrollYnew">
-      <comp-search (callParent)="getEventOutput($event)"></comp-search>
+      <comp-search (callParent)="getEventOutput($event)" [defaultHref]="defaultHref!"></comp-search>
     </div>
 
     <hr style="height: 10px;" class="ion-no-padding ion-no-margin">

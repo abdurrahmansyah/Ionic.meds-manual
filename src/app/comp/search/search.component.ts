@@ -17,6 +17,7 @@ export interface SearchData {
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  @Input('defaultHref') defaultHref: string = '';
 
   @Output() callParent = new EventEmitter();
 
@@ -29,6 +30,8 @@ export class SearchComponent implements OnInit {
   lastSearch: SearchData[] = [];
   maySearch: any[] = [];
   search: ContentData[] = [];
+
+  thisRoute: string = '';
 
   constructor(private globalService: GlobalService,
     private router: Router,
@@ -48,6 +51,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     console.log('this.lastSearch', this.lastSearch);
     console.log('this.maySearch', this.maySearch);
+    this.GetThisRouteAndNextDefaultHref();
   }
 
   InitializeData() {
@@ -55,14 +59,42 @@ export class SearchComponent implements OnInit {
     // this.GetMaySearch();
   }
 
+  private GetThisRouteAndNextDefaultHref() {
+    // asesmen
+    if (this.defaultHref == dataTemp.route.asesmen) this.thisRoute = dataTemp.route.contentAsesmen;
+    else if (this.defaultHref == dataTemp.route.contentAsesmen) this.thisRoute = dataTemp.route.contentAsesmenTwo;
+    else if (this.defaultHref == dataTemp.route.contentAsesmenTwo) this.thisRoute = dataTemp.route.contentAsesmenThree;
+    else if (this.defaultHref == dataTemp.route.contentAsesmenThree) this.thisRoute = dataTemp.route.contentAsesmenFour;
+    else if (this.defaultHref == dataTemp.route.contentAsesmenFour) this.thisRoute = dataTemp.route.contentAsesmenFive;
+    else if (this.defaultHref == dataTemp.route.contentAsesmenFive) this.thisRoute = dataTemp.route.contentAsesmenSix;
+
+    // penunjang
+    else if (this.defaultHref == dataTemp.route.penunjang) this.thisRoute = dataTemp.route.contentPenunjang;
+    else if (this.defaultHref == dataTemp.route.contentPenunjang) this.thisRoute = dataTemp.route.contentPenunjangTwo;
+    else if (this.defaultHref == dataTemp.route.contentPenunjangTwo) this.thisRoute = dataTemp.route.contentPenunjangThree;
+    else if (this.defaultHref == dataTemp.route.contentPenunjangThree) this.thisRoute = dataTemp.route.contentPenunjangFour;
+    else if (this.defaultHref == dataTemp.route.contentPenunjangFour) this.thisRoute = dataTemp.route.contentPenunjangFive;
+    else if (this.defaultHref == dataTemp.route.contentPenunjangFive) this.thisRoute = dataTemp.route.contentPenunjangSix;
+
+    // panduan
+    else if (this.defaultHref == dataTemp.route.panduan) this.thisRoute = dataTemp.route.contentPanduan;
+    else if (this.defaultHref == dataTemp.route.contentPanduan) this.thisRoute = dataTemp.route.contentPanduanTwo;
+    else if (this.defaultHref == dataTemp.route.contentPanduanTwo) this.thisRoute = dataTemp.route.contentPanduanThree;
+    else if (this.defaultHref == dataTemp.route.contentPanduanThree) this.thisRoute = dataTemp.route.contentPanduanFour;
+    else if (this.defaultHref == dataTemp.route.contentPanduanFour) this.thisRoute = dataTemp.route.contentPanduanFive;
+    else if (this.defaultHref == dataTemp.route.contentPanduanFive) this.thisRoute = dataTemp.route.contentPanduanSix;
+  }
+
   searchInput(event: any) {
     const query = event.target.value.toLowerCase();
-    console.log('Input', query);
+    // console.log('Input', query);
     this.inputs = query;
     if (this.inputs.length > 0) this.isSearch = true; else this.isSearch = false;
   }
 
   async searchChange(event: any) {
+    if (!event.target.value) return;
+
     this.search = [];
     const query = event.target.value.toLowerCase();
     console.log('Search', query);
@@ -102,7 +134,7 @@ export class SearchComponent implements OnInit {
   }
 
   setEventForParent(isFocusSearch: boolean) {
-    console.log('isFocusSearch', isFocusSearch);
+    // console.log('isFocusSearch', isFocusSearch);
     this.callParent.emit(isFocusSearch);
   }
 
@@ -114,15 +146,15 @@ export class SearchComponent implements OnInit {
       console.log('x', x);
       if (x.type != dataTemp.type.btn) {
         const dt: ContentData = await this.GetContentbyData(x.parent_name);
-        // const data = { data: dt.data, title: dt.title_alias ? dt.title_alias : dt.title!, defaultHref: this.thisRoute };
-        // let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
-        // this.router.navigate([this.nextRoute], navigationExtras);
-        // console.log('data btn', data);
+        const data = { data: dt.data, title: dt.title_alias ? dt.title_alias : dt.title!, defaultHref: this.thisRoute };
+        let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
+        this.router.navigate([dataTemp.route.searchContent], navigationExtras);
+        console.log('data btn', data);
       } else {
-        // const data = { data: x.data, title: x.title_alias ? x.title_alias : x.title!, defaultHref: this.thisRoute };
-        // let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
-        // this.router.navigate([this.nextRoute], navigationExtras);
-        // console.log('data btn', data);
+        const data = { data: x.data, title: x.title_alias ? x.title_alias : x.title!, defaultHref: this.thisRoute };
+        let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
+        this.router.navigate([dataTemp.route.searchContent], navigationExtras);
+        console.log('data btn', data);
       }
 
       loading.dismiss();

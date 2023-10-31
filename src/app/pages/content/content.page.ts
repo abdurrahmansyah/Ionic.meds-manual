@@ -19,6 +19,8 @@ export class ContentPage implements OnInit {
   title: string | undefined;
   defaultHref: string | undefined;
 
+  isFocusSearch: boolean = false;
+
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
     private fetchService: FetchService,
@@ -65,5 +67,9 @@ export class ContentPage implements OnInit {
         if (x.type == dataTemp.type.audio) x.data = url + x.data + '.mp3'
       })
     }
+  }
+
+  getEventOutput($event: any) {
+    this.isFocusSearch = $event;
   }
 }

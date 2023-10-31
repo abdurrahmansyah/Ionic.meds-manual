@@ -8,10 +8,11 @@ import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { MasterComponent } from './master/master.component';
 import { CreateEditMasterComponent } from './create-edit-master/create-edit-master.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
-  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent],
-  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent],
+  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent, SearchComponent],
+  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent, SearchComponent],
   imports: [
     CommonModule,
     FormsModule,

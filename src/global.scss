@@ -69,6 +69,20 @@
     }
 }
 
+.focusSearch {
+    background-color: var(--ion-color-light); // lightgrey
+
+    ion-searchbar {
+        --background: #fff;
+        --color: #19422d;
+        --placeholder-color: #19422d;
+        --icon-color: #19422d;
+        --clear-button-color: #19422d;
+
+        --cancel-button-color: #19422d;
+    }
+}
+
 /*#region  Style Content*/
 
 // .text {

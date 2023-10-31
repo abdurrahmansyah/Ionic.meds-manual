@@ -73,6 +73,8 @@ export var dataTemp = {
         'getContents': url.urlHit + 'getContents',
         'getContentsbyId': url.urlHit + 'getContentsbyId',
         'getContentsbyName': url.urlHit + 'getContentsbyName',
+        'getContentbyData': url.urlHit + 'getContentbyData',
+        'searchContentsbyData': url.urlHit + 'searchContentsbyData',
         'createContent': url.urlHit + 'createContent',
         'updateContent': url.urlHit + 'updateContent',
         'getFireUsers': url.urlHit + 'getFireUsers',

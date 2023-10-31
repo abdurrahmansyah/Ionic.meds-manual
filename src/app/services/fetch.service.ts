@@ -58,6 +58,14 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.getContentsbyName, { 'parent_name': parent_name });
   }
 
+  private getContentbyData(data: string) {
+    return this.httpClient.post(dataTemp.url.getContentbyData, { 'data': data });
+  }
+
+  private searchContentsbyData(data: string) {
+    return this.httpClient.post(dataTemp.url.searchContentsbyData, { 'data': data });
+  }
+
   CreateContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.createContent, contentData);
   }
@@ -94,6 +102,28 @@ export class FetchService {
     });
 
     if (res.status == 'failed') throw ('Gagal memuat data content: ' + parent_name);
+    return res.data;
+  }
+
+  public async GetContentbyData(data: string) {
+    const res: any = await new Promise(resolve => {
+      this.getContentbyData(data).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal memuat data content: ' + data);
+    return res.data.find((x: any) => x);
+  }
+
+  public async SearchContentsbyData(data: string) {
+    const res: any = await new Promise(resolve => {
+      this.searchContentsbyData(data).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal memuat data content: ' + data);
     return res.data;
   }
 

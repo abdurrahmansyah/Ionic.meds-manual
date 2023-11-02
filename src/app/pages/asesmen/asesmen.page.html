@@ -1,43 +1,47 @@
 <ion-content>
-  <div class="ion-text-center">
-    <ion-row class="header ion-align-items-center">
-      <ion-col>
-        <ion-text>MEDS Manual</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar>
-
-    <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
-    <ion-text>ASESMEN MEDIS</ion-text>
-    <div class="ion-padding red09">
-      <ion-row>
-        <ion-col button (click)="Content(tabs.triase, titles.triase)">
-          <img src="../../../assets/images/triase.png">
-          <ion-text>TRIASE</ion-text>
-        </ion-col>
-        <ion-col button (click)="Content(tabs.surveiPrimer, titles.surveiPrimer)">
-          <img src="../../../assets/images/survei-primer.png">
-          <ion-text>SURVEI PRIMER</ion-text>
-        </ion-col>
-      </ion-row>
-      <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
-
-      <ion-row>
-        <ion-col button (click)="Content(tabs.surveiSekunder, titles.surveiSekunder)">
-          <img src="../../../assets/images/survei-sekunder.png">
-          <ion-text>SURVEI SEKUNDER</ion-text>
-        </ion-col>
-        <ion-col button (click)="Content(tabs.tandaVital, titles.tandaVital)">
-          <img src="../../../assets/images/tanda-vital.png">
-          <ion-text>TANDA VITAL</ion-text>
+  <div class="flexContainer" [class.focusSearch]="isFocusSearch">
+    <div class="ion-text-center">
+      <ion-row class="header ion-align-items-center">
+        <ion-col>
+          <ion-text>MEDS Manual</ion-text>
         </ion-col>
       </ion-row>
     </div>
 
-    <div class=" footer">
-      <img src="../../../assets/images/undraw_medical_research_qg4d.png">
+    <div class="scrollYnew0">
+      <comp-search (callParent)="getEventOutput($event)" [defaultHref]="defaultHref!"></comp-search>
     </div>
 
+    <div *ngIf="!isFocusSearch" class="ion-text-center scrollYnew2">
+      <ion-text>ASESMEN MEDIS</ion-text>
+      <div class="ion-padding red09">
+        <ion-row>
+          <ion-col button (click)="Content(tabs.triase, titles.triase)">
+            <img src="../../../assets/images/triase.png">
+            <ion-text>TRIASE</ion-text>
+          </ion-col>
+          <ion-col button (click)="Content(tabs.surveiPrimer, titles.surveiPrimer)">
+            <img src="../../../assets/images/survei-primer.png">
+            <ion-text>SURVEI PRIMER</ion-text>
+          </ion-col>
+        </ion-row>
+        <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
+
+        <ion-row>
+          <ion-col button (click)="Content(tabs.surveiSekunder, titles.surveiSekunder)">
+            <img src="../../../assets/images/survei-sekunder.png">
+            <ion-text>SURVEI SEKUNDER</ion-text>
+          </ion-col>
+          <ion-col button (click)="Content(tabs.tandaVital, titles.tandaVital)">
+            <img src="../../../assets/images/tanda-vital.png">
+            <ion-text>TANDA VITAL</ion-text>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="footer">
+        <img src="../../../assets/images/undraw_medical_research_qg4d.png">
+      </div>
+    </div>
   </div>
 </ion-content>

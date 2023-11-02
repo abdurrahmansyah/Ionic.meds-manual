@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AsesmenPageRoutingModule } from './asesmen-routing.module';
 
 import { AsesmenPage } from './asesmen.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { AsesmenPage } from './asesmen.page';
     FormsModule,
     IonicModule,
     AsesmenPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [AsesmenPage]
 })

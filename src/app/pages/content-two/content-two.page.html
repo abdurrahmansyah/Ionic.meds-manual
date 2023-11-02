@@ -1,15 +1,16 @@
 <ion-content>
-  <div class="flexContainer">
+  <div class="flexContainer" [class.focusSearch]="isFocusSearch">
     <comp-header [title]="title!" [defaultHref]="defaultHref!"></comp-header>
-    <div class="ion-text-center">
-      <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search"
-        style="padding: 0px 5%;"></ion-searchbar>
-    </div>
-    <hr style="height: 10px;" class="ion-no-padding ion-no-margin">
-    
     <div class="scrollYnew">
+      <comp-search (callParent)="getEventOutput($event)" [defaultHref]="defaultHref!"></comp-search>
+    </div>
+
+    <hr style="height: 10px;" class="ion-no-padding ion-no-margin">
+
+    <div *ngIf="!isFocusSearch" class="scrollYnew">
       <comp-content [datas]="datas!" [defaultHref]="defaultHref!"></comp-content>
     </div>
+
     <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
   </div>
 </ion-content>

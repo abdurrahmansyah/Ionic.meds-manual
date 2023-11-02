@@ -63,9 +63,21 @@
         display: none;
     }
 
+    .scrollYnew0 {
+        overflow: auto;
+        flex-grow: 1 !important;
+        height: 0px;
+    }
+
     .scrollYnew {
         overflow: auto;
         flex-grow: 1 !important;
+    }
+
+    .scrollYnew2 {
+        overflow: auto;
+        flex-grow: 1 !important;
+        height: calc(100vh - 390px)
     }
 }
 

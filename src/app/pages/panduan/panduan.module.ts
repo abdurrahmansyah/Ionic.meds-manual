@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PanduanPageRoutingModule } from './panduan-routing.module';
 
 import { PanduanPage } from './panduan.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PanduanPageRoutingModule
+    PanduanPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [PanduanPage]
 })

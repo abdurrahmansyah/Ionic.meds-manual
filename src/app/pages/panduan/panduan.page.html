@@ -1,39 +1,43 @@
 <ion-content>
-  <div class="ion-text-center">
-    <ion-row class="header ion-align-items-center">
-      <ion-col>
-        <ion-text>MEDS Manual</ion-text>
-      </ion-col>
-    </ion-row>
-
-    <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search" style="padding: 0px 5%;"></ion-searchbar>
-
-    <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
-    <ion-text>PANDUAN</ion-text>
-    <div class="ion-padding red09">
-      <ion-row>
-        <ion-col button (click)="Content(tabs.panduanKasus, titles.panduanKasus)">
-          <img src="../../../assets/images/panduan-kasus.png">
-          <ion-text>PANDUAN KASUS</ion-text>
-        </ion-col>
-        <ion-col button (click)="Content(tabs.panduanTindakan, titles.panduanTindakan)">
-          <img src="../../../assets/images/panduan-tindakan.png">
-          <ion-text>PANDUAN TINDAKAN</ion-text>
-        </ion-col>
-      </ion-row>
-      <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
-
-      <ion-row>
-        <ion-col size="6" button (click)="Content(tabs.pengukuran, titles.pengukuran)">
-          <img src="../../../assets/images/pengukuran.png">
-          <ion-text>PENGUKURAN</ion-text>
+  <div class="flexContainer" [class.focusSearch]="isFocusSearch">
+    <div class="ion-text-center">
+      <ion-row class="header ion-align-items-center">
+        <ion-col>
+          <ion-text>MEDS Manual</ion-text>
         </ion-col>
       </ion-row>
     </div>
 
-    <div class=" footer">
-      <img src="../../../assets/images/undraw_doctor_kw-5-l (1).png">
+    <div class="scrollYnew0">
+      <comp-search (callParent)="getEventOutput($event)" [defaultHref]="defaultHref!"></comp-search>
     </div>
 
+    <div *ngIf="!isFocusSearch" class="ion-text-center scrollYnew2">
+      <ion-text>PANDUAN</ion-text>
+      <div class="ion-padding red09">
+        <ion-row>
+          <ion-col button (click)="Content(tabs.panduanKasus, titles.panduanKasus)">
+            <img src="../../../assets/images/panduan-kasus.png">
+            <ion-text>PANDUAN KASUS</ion-text>
+          </ion-col>
+          <ion-col button (click)="Content(tabs.panduanTindakan, titles.panduanTindakan)">
+            <img src="../../../assets/images/panduan-tindakan.png">
+            <ion-text>PANDUAN TINDAKAN</ion-text>
+          </ion-col>
+        </ion-row>
+        <hr style="height: 20px;" class="ion-no-padding ion-no-margin">
+
+        <ion-row>
+          <ion-col size="6" button (click)="Content(tabs.pengukuran, titles.pengukuran)">
+            <img src="../../../assets/images/pengukuran.png">
+            <ion-text>PENGUKURAN</ion-text>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="footer">
+        <img src="../../../assets/images/undraw_medical_research_qg4d.png">
+      </div>
+    </div>
   </div>
 </ion-content>

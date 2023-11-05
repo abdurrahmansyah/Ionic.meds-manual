@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ObatPageRoutingModule } from './obat-routing.module';
 
 import { ObatPage } from './obat.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ObatPageRoutingModule
+    ObatPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [ObatPage]
 })

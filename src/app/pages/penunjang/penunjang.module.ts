@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PenunjangPageRoutingModule } from './penunjang-routing.module';
 
 import { PenunjangPage } from './penunjang.page';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PenunjangPageRoutingModule
+    PenunjangPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [PenunjangPage]
 })

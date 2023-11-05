@@ -1,26 +1,22 @@
 <ion-content>
-  <div class="flexContainer">
+  <div class="flexContainer" [class.focusSearch]="isFocusSearch">
     <div class="ion-text-center">
       <ion-row class="header ion-align-items-center">
         <ion-col>
           <ion-text>MEDS Manual</ion-text>
         </ion-col>
       </ion-row>
+    </div>
 
-      <ion-searchbar mode="ios" show-cancel-button="focus" placeholder="Search"
-        style="padding: 0px 5%;"></ion-searchbar>
+    <div class="scrollYnew0">
+      <comp-search (callParent)="getEventOutput($event)" [defaultHref]="defaultHref!"></comp-search>
+    </div>
 
-      <hr style="height: 50px;" class="ion-no-padding ion-no-margin">
+    <!-- <div *ngIf="!isFocusSearch" class="ion-text-center">
+    </div> -->
+
+    <div *ngIf="!isFocusSearch" class="scrollYnew2 ion-text-center">
       <ion-text>OBAT</ion-text>
-    </div>
-
-    <div class="ion-text-center">
-      <div class=" footer">
-        <img src="../../../assets/images/undraw_medical_research_qg4d.png">
-      </div>
-    </div>
-
-    <div class="scrollYnew">
       <div *ngFor="let x of datas" style="padding: 0px 10%;">
         <p *ngIf="IsText(x.type)" class="text">{{x.data}}</p>
         <p *ngIf="IstTextWithMargin(x.type)" class="textWithMargin">{{x.data}}</p>
@@ -45,7 +41,7 @@
         <p *ngIf="IsNumbering5WithoutMargin(x.type)" class="numbering5WithoutMargin">{{x.data}}</p>
         <p *ngIf="IsNumbering6WithoutMargin(x.type)" class="numbering6WithoutMargin">{{x.data}}</p>
         <p *ngIf="IsRef(x.type)" class="ref">{{x.data}}</p>
-              <div *ngIf="IsBtn(x.type)">
+        <div *ngIf="IsBtn(x.type)">
           <ion-list *ngIf="!IsWithImage(x)" [inset]="true" mode="ios">
             <ion-item color="meds-red" button (click)="BtnThru(x)" lines="none">
               <ion-label>{{x.title}}</ion-label>
@@ -60,6 +56,12 @@
         <ion-button *ngIf="IsbtnOutline(x.type)" fill="outline" expand="block" color="meds-red"
           (click)="BtnThru(x)">{{x.title}}</ion-button>
         <audio *ngIf="IsAudio(x.type)" [src]="x.data" controls></audio>
+      </div>
+    </div>
+
+    <div class="ion-text-center">
+      <div class="footer">
+        <img src="../../../assets/images/undraw_medical_research_qg4d.png">
       </div>
     </div>
   </div>

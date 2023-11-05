@@ -12,6 +12,9 @@ export class PenunjangPage implements OnInit {
   tabs = dataTemp.tab;
   titles = dataTemp.title;
 
+  isFocusSearch: boolean = false;
+  defaultHref: string = dataTemp.route.penunjang;
+
   constructor(private router: Router,
     private globalService: GlobalService) { }
 
@@ -25,6 +28,10 @@ export class PenunjangPage implements OnInit {
   private NavigatePage(data: { data: string; title: string; defaultHref: string; }) {
     let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
     this.router.navigate([dataTemp.route.contentPenunjang], navigationExtras);
+  }
+
+  getEventOutput($event: any) {
+    this.isFocusSearch = $event;
   }
 
   /* CEK

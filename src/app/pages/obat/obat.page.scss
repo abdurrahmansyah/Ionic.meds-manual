@@ -11,6 +11,7 @@ ion-row.header {
     margin-bottom: 30px;
     position: absolute;
     bottom: 0px;
+    z-index: -1;
 }
 
 ion-button{

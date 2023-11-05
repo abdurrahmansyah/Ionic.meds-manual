@@ -18,8 +18,9 @@ export class ObatPage implements OnInit {
   titles = dataTemp.title;
 
   datas: ContentData[] = [];
-  // defaultHref: string | undefined;
 
+  isFocusSearch: boolean = false;
+  defaultHref: string = dataTemp.route.obat;
 
   constructor(private router: Router,
     private fetchService: FetchService,
@@ -105,5 +106,9 @@ export class ObatPage implements OnInit {
     console.log('data btn', data);
 
     this.router.navigate([dataTemp.route.contentObat], navigationExtras);
+  }
+
+  getEventOutput($event: any) {
+    this.isFocusSearch = $event;
   }
 }

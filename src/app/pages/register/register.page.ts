@@ -78,7 +78,7 @@ export class RegisterPage implements OnInit {
     await loading.present();
 
     try {
-      this.photo = await this.photoService.TakeAPhoto();
+      this.photo = await this.photoService.ChooseFromGallery();
       this.photoImg = this.photoService.ConvertPhotoBase64ToImage(this.photo.base64String);
       loading.dismiss()
     } catch (error) {
@@ -88,7 +88,7 @@ export class RegisterPage implements OnInit {
   }
 
   async EditLampiran() {
-    const image = await this.photoService.TakeAPhoto();
+    const image = await this.photoService.ChooseFromGallery();
     const loading = await this.loadingController.create();
     await loading.present();
 

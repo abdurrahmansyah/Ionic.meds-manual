@@ -95,7 +95,7 @@ export class ProfilPage implements OnInit {
       }, {
         text: 'Lanjut',
         handler: async () => {
-          const image = await this.photoService.TakeAPhoto();
+          const image = await this.photoService.ChooseFromGallery();
           console.log('image', image);
           this.photo = this.photoService.ConvertPhotoBase64ToImage(image.base64String);
 

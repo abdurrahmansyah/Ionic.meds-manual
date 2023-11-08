@@ -381,7 +381,7 @@
 /*#endregion Style Content*/
 
 ion-modal {
-    c &.modalTermAndCond {
+    &.modalTermAndCond {
         --width: 85vw;
         --min-height: 40%;
         --max-height: 90%;

@@ -37,7 +37,7 @@ export class FetchService {
 
   async GetContents(): Promise<ContentData> {
     const res: any = await new Promise(resolve => {
-      this.GetObsContents().subscribe(data => {
+      this.getContents().subscribe(data => {
         resolve(data);
       });
     });
@@ -46,11 +46,11 @@ export class FetchService {
     return res.data;
   }
 
-  GetObsContents() {
+  getContents() {
     return this.httpClient.get(dataTemp.url.getContents);
   }
 
-  GetContentsbyId(content_id: number) {
+  getContentsbyId(content_id: number) {
     return this.httpClient.post(dataTemp.url.getContentsbyId, { 'content_id': content_id });
   }
 
@@ -66,31 +66,31 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.searchContentsbyData, { 'data': data });
   }
 
-  CreateContent(contentData: ContentData) {
+  createContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.createContent, contentData);
   }
 
-  UpdateContent(contentData: ContentData) {
+  updateContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.updateContent, contentData);
   }
 
-  GetFireUsers() {
+  getFireUsers() {
     return this.httpClient.get(dataTemp.url.getFireUsers);
   }
 
-  GetFireUsersbyId(fire_user_id: number) {
+  getFireUsersbyId(fire_user_id: number) {
     return this.httpClient.post(dataTemp.url.getFireUsersbyId, { 'fire_user_id': fire_user_id });
   }
 
-  GetFireUsersbyEmail(email: string) {
+  getFireUsersbyEmail(email: string) {
     return this.httpClient.post(dataTemp.url.getFireUsersbyEmail, { 'email': email });
   }
 
-  CreateFireUser(userData: UserData) {
+  createFireUser(userData: UserData) {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
   }
 
-  UpdateFireUser(userData: UserData) {
+  updateFireUser(userData: UserData) {
     return this.httpClient.post(dataTemp.url.updateFireUser, userData);
   }
 
@@ -131,7 +131,7 @@ export class FetchService {
     const user = this.auth.currentUser;
 
     const res: any = await new Promise(resolve => {
-      this.GetFireUsersbyEmail(user?.email!).subscribe(data => {
+      this.getFireUsersbyEmail(user?.email!).subscribe(data => {
         resolve(data);
       });
     });
@@ -139,5 +139,4 @@ export class FetchService {
     if (res.status == 'failed') throw ('Gagal memuat data profile');
     return res.data.find((x: any) => x);
   }
-
 }

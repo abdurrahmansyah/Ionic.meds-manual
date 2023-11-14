@@ -8,6 +8,7 @@ import { ProfilPageRoutingModule } from './profil-routing.module';
 
 import { ProfilPage } from './profil.page';
 import { MaskitoModule } from '@maskito/angular';
+import { ComponentsModule } from 'src/app/comp/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { MaskitoModule } from '@maskito/angular';
     FormsModule,
     IonicModule,
     ProfilPageRoutingModule,
-    MaskitoModule
+    MaskitoModule,
+    ComponentsModule
   ],
   declarations: [ProfilPage]
 })

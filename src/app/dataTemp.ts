@@ -148,6 +148,7 @@ export var dataTemp = {
         'search': 'search',
         'editMaster': 'edit-master',
         'fetch': 'fetch',
+        'updateProfile': 'update-profile',
     },
     typeOld: {
         'text': 'text',

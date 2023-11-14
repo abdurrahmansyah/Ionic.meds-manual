@@ -22,6 +22,14 @@
   --ion-color-meds-red-shade: #e04141;
   --ion-color-meds-red-tint: #ff5c5c;
 
+  /** meds-white-red **/
+  --ion-color-meds-white-red: #ffffff;
+  --ion-color-meds-white-red-rgb: 255, 255, 255;
+  --ion-color-meds-white-red-contrast: #FF4A4A;
+  --ion-color-meds-white-red-contrast-rgb: 234, 34, 39;
+  --ion-color-meds-white-red-shade: #fce7e7;
+  --ion-color-meds-white-red-tint: #ffffff;
+
   /** meds-darkred **/
   --ion-color-meds-darkred: #c53939;
   --ion-color-meds-darkred-rgb: 197, 57, 57;
@@ -61,6 +69,14 @@
   --ion-color-meds-rose-contrast-rgb: 0, 0, 0;
   --ion-color-meds-rose-shade: #e0b4ba;
   --ion-color-meds-rose-tint: #fed2d7;
+
+  /** meds-tweet **/
+  --ion-color-meds-tweet: #f5f8fa;
+  --ion-color-meds-tweet-rgb: 245, 248, 250;
+  --ion-color-meds-tweet-contrast: #000000;
+  --ion-color-meds-tweet-contrast-rgb: 0, 0, 0;
+  --ion-color-meds-tweet-shade: #d8dadc;
+  --ion-color-meds-tweet-tint: #f6f9fb;
 
   /** primary **/
   --ion-color-primary: #3880ff;
@@ -148,6 +164,15 @@
   --ion-color-tint: var(--ion-color-meds-red-tint);
 }
 
+.ion-color-meds-white-red {
+  --ion-color-base: var(--ion-color-meds-white-red);
+  --ion-color-base-rgb: var(--ion-color-meds-white-red-rgb);
+  --ion-color-contrast: var(--ion-color-meds-white-red-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-meds-white-red-contrast-rgb);
+  --ion-color-shade: var(--ion-color-meds-white-red-shade);
+  --ion-color-tint: var(--ion-color-meds-white-red-tint);
+}
+
 .ion-color-meds-darkred {
   --ion-color-base: var(--ion-color-meds-darkred);
   --ion-color-base-rgb: var(--ion-color-meds-darkred-rgb);
@@ -191,6 +216,15 @@
   --ion-color-contrast-rgb: var(--ion-color-meds-rose-contrast-rgb);
   --ion-color-shade: var(--ion-color-meds-rose-shade);
   --ion-color-tint: var(--ion-color-meds-rose-tint);
+}
+
+.ion-color-meds-tweet {
+  --ion-color-base: var(--ion-color-meds-tweet);
+  --ion-color-base-rgb: var(--ion-color-meds-tweet-rgb);
+  --ion-color-contrast: var(--ion-color-meds-tweet-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-meds-tweet-contrast-rgb);
+  --ion-color-shade: var(--ion-color-meds-tweet-shade);
+  --ion-color-tint: var(--ion-color-meds-tweet-tint);
 }
 
 @media (prefers-color-scheme: dark) {

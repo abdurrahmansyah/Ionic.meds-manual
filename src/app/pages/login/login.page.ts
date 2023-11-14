@@ -44,5 +44,4 @@ export class LoginPage implements OnInit {
   Login() {
     this.authService.Login(this.email, this.password);
   }
-
 }

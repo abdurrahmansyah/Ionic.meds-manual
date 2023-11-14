@@ -26,7 +26,7 @@ export class RegisterPage implements OnInit {
   nama: string = '';
   tglLahir: string = '';
   profesi: string = '';
-  lampiran: string = '';
+  lampiran: Photo | undefined;
   lampiranString: string = '';
   photoImg: any;
   photo: Photo | undefined;
@@ -74,33 +74,24 @@ export class RegisterPage implements OnInit {
   }
 
   async ChangeImage() {
-    const loading = await this.loadingController.create();
-    await loading.present();
-
     try {
       this.photo = await this.photoService.ChooseFromGallery();
       this.photoImg = this.photoService.ConvertPhotoBase64ToImage(this.photo.base64String);
-      loading.dismiss()
     } catch (error) {
-      loading.dismiss();
       this.globalService.PresentToast('Gagal memuat foto! Coba lagi');
     }
   }
 
   async EditLampiran() {
-    const image = await this.photoService.ChooseFromGallery();
-    const loading = await this.loadingController.create();
-    await loading.present();
-
     try {
-      const name = 'meds-manual-' + (Math.random() + 1).toString(36).substring(5);
-      this.lampiranString = name + '.png';
-      this.lampiran = await this.photoService.UploadFile(image, name);
-      console.log('this.lampiran', this.lampiran);
-      if (this.lampiran == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
+      this.lampiran = await this.photoService.ChooseFromGallery();
+      // const name = 'lampiran_' + (Math.random() + 1).toString(36).substring(5);
+      // this.lampiranString = name + '.png';
+      // this.lampiran = await this.photoService.UploadFile(image, name);
+      // console.log('this.lampiran', this.lampiran);
+      // if (this.lampiran == '') throw ('Gagal memuat foto! Coba lagi'); else loading.dismiss();
     } catch (error: any) {
-      loading.dismiss()
-      this.globalService.PresentToast(error);
+      this.globalService.PresentToast('Gagal memuat foto! Coba lagi');
     }
   }
 
@@ -116,10 +107,12 @@ export class RegisterPage implements OnInit {
     try {
       this.ValidateData();
       let r = (Math.random() + 1).toString(36).substring(3);
-      var name = this.email ? this.email + '_' + this.globalService.GetDate().todayDateTimeFormatted : r;
-      var photo = this.photo ? await this.photoService.UploadFile(this.photo!, name) : '';
+      const nameProfil = this.email ? this.email + '_' + this.globalService.GetDate().todayDateTimeFormatted : 'profil_' + r;
+      const nameLampiran = 'lampiran_' + (Math.random() + 1).toString(36).substring(5);
+      var photo = this.photo ? await this.photoService.UploadFile(this.photo!, nameProfil) : '';
+      var lampiran = await this.photoService.UploadFile(this.lampiran!, nameLampiran);
       this.email = this.email.toLowerCase();
-      await this.authService.Register(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran, photo);
+      await this.authService.RegisterWithFirebase(this.email, this.password, this.nama, this.tglLahir, this.profesi, lampiran, photo);
       loading.dismiss();
     } catch (error: any) {
       loading.dismiss();
@@ -127,14 +120,14 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  async Register() {
+  async RegisterWithDBWP() {
     const loading = await this.loadingController.create();
     await loading.present();
 
     try {
       this.ValidateData();
-      this.email = this.email.toLowerCase();
-      await this.authService.RegisterWithDBWP(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran, this.photo?.base64String);
+
+      await this.authService.RegisterWithDBWP(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran!.base64String!, this.photo?.base64String);
       loading.dismiss();
     } catch (error: any) {
       loading.dismiss();
@@ -143,7 +136,7 @@ export class RegisterPage implements OnInit {
   }
 
   ValidateData() {
-    if (!this.email) throw ('Email tidak boleh kosong!');
+    if (!this.email) throw ('Email tidak boleh kosong!'); else this.email = this.email.toLowerCase();
     if (!this.password) throw ('Password tidak boleh kosong!');
     if (!this.nama) throw ('Nama tidak boleh kosong!');
     if (!this.tglLahir) throw ('Tanggal Lahir tidak boleh kosong!');

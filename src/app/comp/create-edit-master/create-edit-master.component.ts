@@ -177,14 +177,14 @@ export class CreateEditMasterComponent implements OnInit {
   }
 
   private async CreateContent(contentData: ContentData) {
-    const result = this.fetchService.CreateContent(contentData);
+    const result = this.fetchService.createContent(contentData);
     return await new Promise(resolve => {
       result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
     });
   }
 
   private async UpdateContent(contentData: ContentData) {
-    const result = this.fetchService.UpdateContent(contentData);
+    const result = this.fetchService.updateContent(contentData);
     return await new Promise(resolve => {
       result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
     });

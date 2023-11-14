@@ -9,7 +9,7 @@ import { dataTemp } from '../dataTemp';
 })
 export class GlobalService {
   // PROFILE
-  public karyawanData: UserData = new UserData();
+  public profile: any;
 
   // Master Data
   public userDataList: any = [];

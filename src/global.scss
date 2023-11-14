@@ -79,6 +79,12 @@
         flex-grow: 1 !important;
         height: calc(100vh - 390px)
     }
+
+    .scrollYnew3 {
+        overflow: auto;
+        flex-grow: 1 !important;
+        height: calc(100vh - 130px)
+    }
 }
 
 .focusSearch {

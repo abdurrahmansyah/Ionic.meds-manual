@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, createUserWithEmailAndPassword, onAuthStateChanged } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GlobalService, LogData, UserData } from './global.service';
+import { FireUserData, GlobalService, LogData } from './global.service';
 import { FirebaseService } from './firebase.service';
 import { dataTemp } from '../dataTemp';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -21,7 +21,7 @@ export class AuthService {
   email: string | undefined;
   oldEmail: string | undefined;
 
-  private userDataDoc: AngularFirestoreDocument<UserData>;
+  private userDataDoc: AngularFirestoreDocument<FireUserData>;
 
   constructor(private router: Router,
     public authFireCompat: AngularFireAuth,
@@ -47,13 +47,13 @@ export class AuthService {
       }
     });
 
-    this.userDataDoc = this.afs.doc<UserData>(`user/${this.email}`);
+    this.userDataDoc = this.afs.doc<FireUserData>(`user/${this.email}`);
   }
 
-  async RegisterWithFirebase(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, photo: string) {
+  async RegisterWithFirebase(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, status: string, photo: string) {
     try {
       await createUserWithEmailAndPassword(this.auth, email, password);
-      var userData: UserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, photo: photo, isAdmin: false };
+      var userData: FireUserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false };
       await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
       var msg = "Register Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
@@ -66,11 +66,11 @@ export class AuthService {
     }
   }
 
-  async RegisterWithDBWP(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, photo?: string) {
+  async RegisterWithDBWP(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, status: string, photo?: string) {
     try {
       await createUserWithEmailAndPassword(this.auth, email, password);
-      var userData: UserData = photo ? { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, photo: photo, isAdmin: false } :
-        { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, isAdmin: false };
+      var userData: FireUserData = photo ? { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false } :
+        { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, isAdmin: false };
       var isCreateSuccess: any = await this.CreateFireUser(userData);
 
       console.log('isCreateSuccess', isCreateSuccess);
@@ -88,25 +88,27 @@ export class AuthService {
     }
   }
 
-  private async CreateFireUser(userData: UserData) {
+  private async CreateFireUser(userData: FireUserData) {
     const result = this.fetchService.createFireUser(userData);
     return await new Promise(resolve => {
       result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
     });
   }
 
-  private async UpdateFireUser(userData: UserData) {
+  async UpdateFireUser(userData: FireUserData) {
     const result = this.fetchService.updateFireUser(userData);
     return await new Promise(resolve => {
       result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
     });
   }
 
-  async UpdateUser(email: string, nama: string, tglLahir: string, profesi: string, photo?: string) {
+  async UpdateProfile(email: string, nama: string, tglLahir: string, profesi: string, photo?: string) {
     try {
-      var userData: UserData = photo ? { fire_user_id: this.globalService.profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: this.globalService.profile.lampiran, photo: photo, isAdmin: false } :
-        { fire_user_id: this.globalService.profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: this.globalService.profile.lampiran, isAdmin: false };
-      var isUpdateSuccess: any = await this.UpdateFireUser(userData);
+      const profile = this.globalService.profile;
+      var profileData: FireUserData = photo ? { fire_user_id: profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: profile.lampiran, status: profile.status, photo: photo, isAdmin: profile.isAdmin } :
+        { fire_user_id: profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: profile.lampiran, status: profile.status, isAdmin: profile.isAdmin };
+
+      var isUpdateSuccess: any = await this.UpdateFireUser(profileData);
 
       console.log('isUpdateSuccess', isUpdateSuccess);
       if (isUpdateSuccess.status == 'failed') throw ('Tidak berhasil merubah data akun');

@@ -256,6 +256,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/penunjang-detail/penunjang-detail.module').then(m => m.PenunjangDetailPageModule)
       },
       {
+        path: 'profil/admin/users',
+        loadChildren: () => import('../pages/users/users.module').then( m => m.UsersPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/asesmen',
         pathMatch: 'full'

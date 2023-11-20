@@ -10,10 +10,11 @@ import { MasterComponent } from './master/master.component';
 import { CreateEditMasterComponent } from './create-edit-master/create-edit-master.component';
 import { SearchComponent } from './search/search.component';
 import { SocialMediaComponent } from './social-media/social-media.component';
+import { ApprovalComponent } from './approval/approval.component';
 
 @NgModule({
-  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent, SearchComponent, SocialMediaComponent],
-  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent, SearchComponent, SocialMediaComponent],
+  declarations: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent, SearchComponent, SocialMediaComponent, ApprovalComponent],
+  exports: [TermAndCondPage, PhotoviewerComponent, HeaderComponent, ContentComponent, MasterComponent, CreateEditMasterComponent, SearchComponent, SocialMediaComponent, ApprovalComponent],
   imports: [
     CommonModule,
     FormsModule,

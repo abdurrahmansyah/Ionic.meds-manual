@@ -84,16 +84,3 @@ ion-avatar {
         background: var(--ion-color-meds-pink-two);
     }
 }
-
-.avatar-modal {
-    background-color: var(--ion-color-meds-pink-two);
-    display: flex;
-    justify-content: center;
-
-    .preview {
-        width: 84px;
-        height: 84px;
-        border-radius: 50%;
-        background: whitesmoke;
-    }
-}

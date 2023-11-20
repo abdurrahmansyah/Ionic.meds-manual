@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { AlertController, IonInput, LoadingController, ToastController } from '@ionic/angular';
 import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
+import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
@@ -29,7 +30,7 @@ export class RegisterPage implements OnInit {
   lampiran: Photo | undefined;
   lampiranString: string = '';
   photoImg: any;
-  photo: Photo | undefined;
+  photo: any;
   profile: any;
   iconIAgree: string = 'square-outline';
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
@@ -75,8 +76,8 @@ export class RegisterPage implements OnInit {
 
   async ChangeImage() {
     try {
-      this.photo = await this.photoService.ChooseFromGallery();
-      this.photoImg = this.photoService.ConvertPhotoBase64ToImage(this.photo.base64String);
+      const photo = await this.photoService.ChooseFromGallery();
+      this.photo = this.photoService.ConvertPhotoBase64ToImage(photo.base64String);
     } catch (error) {
       this.globalService.PresentToast('Gagal memuat foto! Coba lagi');
     }
@@ -112,7 +113,7 @@ export class RegisterPage implements OnInit {
       var photo = this.photo ? await this.photoService.UploadFile(this.photo!, nameProfil) : '';
       var lampiran = await this.photoService.UploadFile(this.lampiran!, nameLampiran);
       this.email = this.email.toLowerCase();
-      await this.authService.RegisterWithFirebase(this.email, this.password, this.nama, this.tglLahir, this.profesi, lampiran, photo);
+      await this.authService.RegisterWithFirebase(this.email, this.password, this.nama, this.tglLahir, this.profesi, lampiran, dataTemp.status.inactive, photo);
       loading.dismiss();
     } catch (error: any) {
       loading.dismiss();
@@ -127,7 +128,7 @@ export class RegisterPage implements OnInit {
     try {
       this.ValidateData();
 
-      await this.authService.RegisterWithDBWP(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran!.base64String!, this.photo?.base64String);
+      await this.authService.RegisterWithDBWP(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran!.base64String!, dataTemp.status.inactive, this.photo);
       loading.dismiss();
     } catch (error: any) {
       loading.dismiss();
@@ -142,7 +143,7 @@ export class RegisterPage implements OnInit {
     if (!this.tglLahir) throw ('Tanggal Lahir tidak boleh kosong!');
     if (!this.profesi) throw ('Profesi tidak boleh kosong!');
     if (!this.lampiran) throw ('Foto Ijazah/STR/Kartu Mahasiswa tidak boleh kosong!');
-    // if (!this.photo) throw ('Foto avatar tidak boleh kosong!');
+    if (!this.photo) this.photo = dataTemp.master.photo;
     if (this.iconIAgree == 'square-outline') throw ('Silahkan menyetujui Syarat dan Ketentuan');
   }
 

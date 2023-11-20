@@ -19,11 +19,15 @@ export class AdminPage implements OnInit {
 
   Master(dt: string, title: string) {
     const data = { data: dt, title: title, defaultHref: dataTemp.route.admin };
-    this.NavigatePage(data);
+    // this.NavigatePage(data);
   }
 
   private NavigatePage(data: { data: string; title: string; defaultHref: string; }) {
     let navigationExtras: NavigationExtras = this.globalService.SetExtras(data);
     this.router.navigate([dataTemp.route.master], navigationExtras);
+  }
+
+  Users(){
+    this.router.navigate([dataTemp.route.users]);
   }
 }

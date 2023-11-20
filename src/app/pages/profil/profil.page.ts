@@ -6,7 +6,7 @@ import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
 import { FetchService } from 'src/app/services/fetch.service';
-import { GlobalService, UserData } from 'src/app/services/global.service';
+import { FireUserData, GlobalService } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 
@@ -18,7 +18,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 export class ProfilPage implements OnInit {
   @ViewChild(IonModal) modal: any;
 
-  profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, isAdmin: false };
+  profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, status: undefined, isAdmin: false };
 
   readonly tglLahirMask: MaskitoOptions = {
     mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
@@ -30,7 +30,7 @@ export class ProfilPage implements OnInit {
   // tglLahir: string = '';
   // profesi: string = '';
   // photo: any;
-  photoImg: any;
+  // photoImg: any;
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
 
   constructor(private globalService: GlobalService,
@@ -43,7 +43,10 @@ export class ProfilPage implements OnInit {
 
   async ngOnInit() {
     try {
-      const profile: UserData = await this.fetchService.getUserProfile();
+      console.log('profile awal', this.profile);
+
+      this.profile = this.globalService.profile;
+      const profile: FireUserData = await this.fetchService.GetUserProfile();
       this.globalService.profile = profile;
       console.log('profile', profile);
 
@@ -55,8 +58,8 @@ export class ProfilPage implements OnInit {
       // this.photo = profile.photo;
       var aa = profile.isAdmin == true ? 'bener' : 'wrong';
       console.log('aa', aa);
-      
-      this.photoImg = profile.photo ? this.photoService.ConvertPhotoBase64ToImage(profile.photo) : undefined;
+
+      // this.photoImg = profile.photo ? this.photoService.ConvertPhotoBase64ToImage(profile.photo) : undefined;
       console.log('this.profile', this.profile);
     } catch (error: any) {
       var msg = error ? error : "Gagal memuat data";
@@ -70,8 +73,8 @@ export class ProfilPage implements OnInit {
 
   async ChangeImage() {
     try {
-      this.profile.photo = await this.photoService.ChooseFromGallery();
-      this.photoImg = this.photoService.ConvertPhotoBase64ToImage(this.profile.photo.base64String);
+      const photo = await this.photoService.ChooseFromGallery();
+      this.profile.photo = this.photoService.ConvertPhotoBase64ToImage(photo.base64String);
     } catch (error) {
       this.globalService.PresentToast('Gagal memuat foto! Coba lagi');
     }
@@ -116,8 +119,7 @@ export class ProfilPage implements OnInit {
     try {
       this.ValidateData();
 
-      // await this.authService.RegisterWithDBWP(this.email, this.password, this.nama, this.tglLahir, this.profesi, this.lampiran!.base64String!, this.photo?.base64String);
-      await this.authService.UpdateUser(this.profile.email, this.profile.nama, this.profile.tglLahir, this.profile.profesi, this.profile.photo?.base64String);
+      await this.authService.UpdateProfile(this.profile.email, this.profile.nama, this.profile.tglLahir, this.profile.profesi, this.profile.photo);
       this.modal.dismiss(null, 'confirm');
 
       loading.dismiss();

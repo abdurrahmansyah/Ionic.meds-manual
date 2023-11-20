@@ -9,7 +9,8 @@ import { dataTemp } from '../dataTemp';
 })
 export class GlobalService {
   // PROFILE
-  public profile: any;
+  // public profile: any;
+  profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, status: undefined, isAdmin: false };
 
   // Master Data
   public userDataList: any = [];
@@ -102,18 +103,18 @@ export class DateData {
   constructor() { }
 }
 
-export class UserData {
-  public fire_user_id?: string = '';
-  public email: string = '';
-  public nama: string = '';
-  public tglLahir: string = '';
-  public profesi: string = '';
-  public lampiran: string = '';
-  public photo?: string = '';
-  public isAdmin: boolean = false;
+// export class UserData {
+//   public fire_user_id?: string = '';
+//   public email: string = '';
+//   public nama: string = '';
+//   public tglLahir: string = '';
+//   public profesi: string = '';
+//   public lampiran: string = '';
+//   public photo?: string = '';
+//   public isAdmin: boolean = false;
 
-  constructor() { }
-}
+//   constructor() { }
+// }
 
 export class FireUserData {
   public fire_user_id?: string = '';
@@ -122,7 +123,8 @@ export class FireUserData {
   public tglLahir: string = '';
   public profesi: string = '';
   public lampiran: string = '';
-  public photo: string = '';
+  public photo?: string = '';
+  public status: string = '';
   public isAdmin: boolean = false;
 
   constructor() { }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { GlobalService, LogData, TriaseData, UserData } from './global.service';
+import { FireUserData, GlobalService, LogData } from './global.service';
 import { Observable } from 'rxjs';
 import { doc, setDoc, Firestore, getFirestore, collection, collectionData, docData, addDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { initializeApp } from '@angular/fire/app';
@@ -30,9 +30,9 @@ export interface SubCategory {
   providedIn: 'root'
 })
 export class FirebaseService {
-  public userDataListCollection: AngularFirestoreCollection<UserData>;
+  public userDataListCollection: AngularFirestoreCollection<FireUserData>;
   public logDataListCollection: AngularFirestoreCollection<LogData>;
-  public userDataList: Observable<UserData[]>;
+  public userDataList: Observable<FireUserData[]>;
 
   public triaseDataListCollection: AngularFirestoreCollection<Category>;
   public surveiPrimerDataListCollection: AngularFirestoreCollection<Category>;
@@ -51,7 +51,7 @@ export class FirebaseService {
     private firestore: Firestore,
     private afs: AngularFirestore,
     private globalService: GlobalService) {
-    this.userDataListCollection = this.afs.collection<UserData>('users', ref => ref.orderBy('nama'));
+    this.userDataListCollection = this.afs.collection<FireUserData>('users', ref => ref.orderBy('nama'));
     this.logDataListCollection = this.afs.collection<LogData>('logs');
 
     this.triaseDataListCollection = this.afs.collection<Category>(dataTemp.tab.triase, ref => ref.orderBy('id'));

@@ -7,7 +7,7 @@
     <div style="padding: 0px 10%;">
       <div class="avatar ion-padding">
         <ion-avatar (click)="ChangeImage()">
-          <img *ngIf="photoImg; else placeholder_avatar" src="{{ photoImg }}">
+          <img *ngIf="photo; else placeholder_avatar" src="{{ photo }}">
 
           <ng-template #placeholder_avatar>
             <div class="preview">

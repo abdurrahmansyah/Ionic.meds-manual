@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { InjectorInstance } from '../app.module';
 import { HttpClient } from '@angular/common/http';
 import { dataTemp } from '../dataTemp';
-import { ContentData, UserData } from './global.service';
+import { ContentData, FireUserData } from './global.service';
 import { Auth } from '@angular/fire/auth';
 
 // export interface FireUserData {
@@ -73,9 +73,21 @@ export class FetchService {
   updateContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.updateContent, contentData);
   }
+  
+  getFireUserSummary() {
+    return this.httpClient.get(dataTemp.url.getFireUserSummary);
+  }
 
-  getFireUsers() {
-    return this.httpClient.get(dataTemp.url.getFireUsers);
+  getFireUsers(status?: string) {
+    return this.httpClient.post(dataTemp.url.getFireUsers, status ? { 'status': status } : {});
+  }
+
+  getFireUsersLimit(limit: number, page: number, status?: string) {
+    return this.httpClient.post(dataTemp.url.getFireUsersLimit, status ? { 'limit': limit, 'page': page, 'status': status } : { 'limit': limit, 'page': page });
+  }
+
+  searchFireUsersLimit(data: string, limit: number, page: number, status?: string) {
+    return this.httpClient.post(dataTemp.url.searchFireUsersLimit, status ? { 'data': data, 'limit': limit, 'page': page, 'status': status } : { 'data': data, 'limit': limit, 'page': page });
   }
 
   getFireUsersbyId(fire_user_id: number) {
@@ -86,11 +98,11 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.getFireUsersbyEmail, { 'email': email });
   }
 
-  createFireUser(userData: UserData) {
+  createFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
   }
 
-  updateFireUser(userData: UserData) {
+  updateFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.updateFireUser, userData);
   }
 
@@ -126,8 +138,41 @@ export class FetchService {
     if (res.status == 'failed') throw ('Gagal memuat data content: ' + data);
     return res.data;
   }
+  
+  public async GetFireUserSummary() {
+    const res: any = await new Promise(resolve => {
+      this.getFireUserSummary().subscribe(data => {
+        resolve(data);
+      });
+    });
 
-  public async getUserProfile() {
+    if (res.status == 'failed') throw ('Gagal memuat data user summary');
+    return res.data.find((x: any) => x);
+  }
+
+  public async GetFireUsersLimit(limit: number, page: number, status?: string) {
+    const res: any = await new Promise(resolve => {
+      this.getFireUsersLimit(limit, page, status).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal memuat data user');
+    return res.data;
+  }
+
+  public async SearchFireUsersLimit(data: string, limit: number, page: number, status?: string) {
+    const res: any = await new Promise(resolve => {
+      this.searchFireUsersLimit(data, limit, page, status).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal memuat data user');
+    return res.data;
+  }
+
+  public async GetUserProfile() {
     const user = this.auth.currentUser;
 
     const res: any = await new Promise(resolve => {

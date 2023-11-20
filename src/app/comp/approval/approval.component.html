@@ -1,0 +1,73 @@
+<ion-header mode="ios">
+  <ion-toolbar color="meds-red">
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">Approval</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="meds-tweet">
+  <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+  <div class="avatar-modal ion-padding">
+    <ion-avatar>
+      <img [src]="profile.photo">
+    </ion-avatar>
+  </div>
+
+  <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
+  <!-- <ion-item Lines="full" color="meds-tweet">
+    <h5 style="font-weight: bold;">Membership</h5>
+  </ion-item>
+
+  <ion-item button Lines="inset">
+    <ion-label class="ion-text-center">Membership hingga:
+      <ion-text color="meds-red">16-10-2023</ion-text>
+    </ion-label>
+  </ion-item>
+
+  <ion-item Lines="full">
+    <ion-label class="ion-text-wrap">
+      <sub>Pastikan untuk memperbarui membership untuk mendapatkan akses penuh terhadap layanan MEDS
+        Manual.</sub>
+    </ion-label>
+  </ion-item> -->
+
+  <ion-item Lines="full" color="meds-tweet">
+    <h5 style="font-weight: bold;">Account</h5>
+  </ion-item>
+
+  <ion-item Lines="inset">
+    <ion-text>Email</ion-text>
+    <ion-label class="ion-text-right">{{profile.email}}</ion-label>
+  </ion-item>
+  <ion-item Lines="inset">
+    <ion-text>Nama</ion-text>
+    <ion-label class="ion-text-right">{{profile.nama}}</ion-label>
+  </ion-item>
+  <ion-item Lines="inset">
+    <ion-text>Tanggal Lahir</ion-text>
+    <ion-label class="ion-text-right">{{profile.tglLahir}}</ion-label>
+  </ion-item>
+  <ion-item Lines="inset">
+    <ion-text>Profesi</ion-text>
+    <ion-label class="ion-text-right">{{profile.profesi}}</ion-label>
+  </ion-item>
+  <ion-item Lines="none">
+    <ion-text>File</ion-text> <br>
+  </ion-item>
+  <div style="background-color: white;" class="ion-text-center">
+    <img class="ion-text-center" [src]="profile.lampiran">
+  </div>
+  <ion-item Lines="full"></ion-item>
+
+  <!-- 
+ -->
+
+  <hr style="height: 12px; background-color: var(--ion-color-meds-tweet); margin-top: 0px; margin-bottom: 0px;"
+    class="ion-no-padding">
+  <hr style="height: 0.5px; background-color: #cecece; margin-top: 0px; margin-bottom: 0px;" class="ion-no-padding">
+
+  <ion-item button (click)="Approve()" Lines="full">
+    <ion-label class="ion-text-center" color="meds-red">Approve</ion-label>
+  </ion-item>
+</ion-content>

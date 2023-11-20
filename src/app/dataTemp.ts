@@ -72,6 +72,7 @@ export var dataTemp = {
         'createEditMasterFour': '/tabs/profil/admin/master-four/create-edit-master-four',
         'createEditMasterFive': '/tabs/profil/admin/master-five/create-edit-master-five',
         'createEditMasterSix': '/tabs/profil/admin/master-six/create-edit-master-six',
+        'users': '/tabs/profil/admin/users',
     },
     url: {
         'login': url.urlHit + 'login',
@@ -83,7 +84,10 @@ export var dataTemp = {
         'searchContentsbyData': url.urlHit + 'searchContentsbyData',
         'createContent': url.urlHit + 'createContent',
         'updateContent': url.urlHit + 'updateContent',
+        'getFireUserSummary': url.urlHit + 'getFireUserSummary',
         'getFireUsers': url.urlHit + 'getFireUsers',
+        'getFireUsersLimit': url.urlHit + 'getFireUsersLimit',
+        'searchFireUsersLimit': url.urlHit + 'searchFireUsersLimit',
         'getFireUsersbyId': url.urlHit + 'getFireUsersbyId',
         'getFireUsersbyEmail': url.urlHit + 'getFireUsersbyEmail',
         'createFireUser': url.urlHit + 'createFireUser',
@@ -213,4 +217,11 @@ export var dataTemp = {
         'panduan': 'Panduan',
         'obat': 'Obat',
     },
+    status: {
+        active: 'active',
+        inactive: 'inactive'
+    },
+    master: {
+        photo: 'https://ionicframework.com/docs/img/demos/avatar.svg'
+    }
 }

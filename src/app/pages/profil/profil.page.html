@@ -35,7 +35,7 @@
           <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
           <div class="avatar-modal ion-padding">
             <ion-avatar (click)="ChangeImage()">
-              <img *ngIf="photoImg; else placeholder_avatar" [src]="photoImg">
+              <img *ngIf="profile.photo; else placeholder_avatar" [src]="profile.photo">
 
               <ng-template #placeholder_avatar>
                 <div class="preview ion-text-center">
@@ -84,13 +84,13 @@
           <ion-item detail button Lines="inset">
             <ion-text class="ion-text-nowrap">Tanggal Lahir</ion-text>
             <ion-input class="ion-text-right" aria-label="Tanggal Lahir" placeholder="Tanggal Lahir (mm/dd/yyyy)"
-              [maskito]="tglLahirMask" [maskitoElement]="maskPredicate" style="color: grey;" [(ngModel)]="profile.tglLahir"
-              (ionChange)="onChangeTglLahir()"></ion-input>
+              [maskito]="tglLahirMask" [maskitoElement]="maskPredicate" style="color: grey;"
+              [(ngModel)]="profile.tglLahir" (ionChange)="onChangeTglLahir()"></ion-input>
           </ion-item>
 
           <ion-item detail button Lines="full">
-            <ion-select class="ion-text-right" mode="ios" [(ngModel)]="profile.profesi" label="Profesi" interface="action-sheet"
-              class="always-flip" toggleIcon="caret-down" style="color: grey;">
+            <ion-select class="ion-text-right" mode="ios" [(ngModel)]="profile.profesi" label="Profesi"
+              interface="action-sheet" class="always-flip" toggleIcon="caret-down" style="color: grey;">
               <ion-select-option value="Dokter">Dokter</ion-select-option>
               <ion-select-option value="Perawat">Perawat</ion-select-option>
               <ion-select-option value="Bidan">Bidan</ion-select-option>
@@ -114,10 +114,11 @@
     <div style="padding: 0px 10%;">
       <div class="avatar ion-padding">
         <ion-avatar>
-          <img *ngIf="photoImg; else placeholder_avatar" [src]="photoImg">
+          <img *ngIf="profile.photo; else placeholder_avatar" [src]="profile.photo">
 
           <ng-template #placeholder_avatar>
-            <div class="preview">
+            <ion-skeleton-text *ngIf="!profile.email" [animated]="true"></ion-skeleton-text>
+            <div *ngIf="profile.email" class="preview">
               <img style="padding-top: 10px;" src="../../../assets/images/gallery.png"> <br>
               <ion-text style="font-size: small; color: grey;">Foto</ion-text> <br>
               <ion-text style="font-size: small; color: grey;">Profil</ion-text>
@@ -127,33 +128,38 @@
       </div>
 
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-skeleton-text class="form" *ngIf="!profile" [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        <ion-skeleton-text class="form" *ngIf="!profile.email" [animated]="true"
+          style="width: 80%;"></ion-skeleton-text>
         <ion-input [readonly]="true" class="form" [(ngModel)]="profile.email"></ion-input>
         <ion-icon style="margin-right: 12px;" name="mail" slot="end"></ion-icon>
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-skeleton-text class="form" *ngIf="!profile" [animated]="true" style="width: 60%;"></ion-skeleton-text>
+        <ion-skeleton-text class="form" *ngIf="!profile.email" [animated]="true"
+          style="width: 60%;"></ion-skeleton-text>
         <ion-input [readonly]="true" class="form" [(ngModel)]="profile.nama"></ion-input>
         <ion-icon style="margin-right: 12px;" name="person" slot="end"></ion-icon>
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-skeleton-text class="form" *ngIf="!profile" [animated]="true" style="width: 25%;"></ion-skeleton-text>
+        <ion-skeleton-text class="form" *ngIf="!profile.email" [animated]="true"
+          style="width: 25%;"></ion-skeleton-text>
         <ion-input [readonly]="true" class="form" [(ngModel)]="profile.tglLahir"></ion-input>
         <ion-icon style="margin-right: 12px;" name="calendar" slot="end"></ion-icon>
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-skeleton-text class="form" *ngIf="!profile" [animated]="true" style="width: 40%;"></ion-skeleton-text>
+        <ion-skeleton-text class="form" *ngIf="!profile.email" [animated]="true"
+          style="width: 40%;"></ion-skeleton-text>
         <ion-input [readonly]="true" class="form" [(ngModel)]="profile.profesi"></ion-input>
         <ion-icon style="margin-right: 12px;" name="medkit" slot="end"></ion-icon>
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
       <ion-item class="border" lines="none" color="meds-pink">
-        <ion-skeleton-text class="ion-text-center" *ngIf="!profile" [animated]="true"
+        <ion-skeleton-text class="ion-text-center" *ngIf="!profile.email" [animated]="true"
           style="width: 80%;"></ion-skeleton-text>
-        <ion-label *ngIf="profile.email" class="ion-text-center" style="font-size: 0.9em; color: black;">Membership hingga:
+        <ion-label *ngIf="profile.email" class="ion-text-center" style="font-size: 0.9em; color: black;">Membership
+          hingga:
           <ion-text color="meds-red">16-10-2023</ion-text>
         </ion-label>
       </ion-item>

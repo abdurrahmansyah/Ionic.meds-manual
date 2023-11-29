@@ -4,6 +4,7 @@ import { FireUserData, GlobalService } from './services/global.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FetchService } from './services/fetch.service';
 import { AuthService } from './services/auth.service';
+import { dataTemp } from './dataTemp';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +34,10 @@ export class AppComponent {
           } else this.isAdmin = false;
         });
 
-        const profile: FireUserData = await this.fetchService.GetUserProfile();
+        var profile = JSON.parse(localStorage.getItem(dataTemp.keyStrg.profile)!);
+        this.globalService.profile = profile;
+
+        profile = await this.fetchService.GetUserProfile();
         this.globalService.profile = profile;
       }
     });

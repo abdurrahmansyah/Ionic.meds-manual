@@ -98,6 +98,10 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.getFireUsersbyEmail, { 'email': email });
   }
 
+  getFireUsersLogin(email: string) {
+    return this.httpClient.post(dataTemp.url.getFireUsersLogin, { 'email': email });
+  }
+
   createFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
   }
@@ -182,6 +186,17 @@ export class FetchService {
     });
 
     if (res.status == 'failed') throw ('Gagal memuat data profile');
+    return res.data.find((x: any) => x);
+  }
+
+  public async GetUserProfileForLogin(email: string) {
+    const res: any = await new Promise(resolve => {
+      this.getFireUsersLogin(email).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal login');
     return res.data.find((x: any) => x);
   }
 }

@@ -126,6 +126,7 @@ export class FireUserData {
   public photo?: string = '';
   public status: string = '';
   public isAdmin: boolean = false;
+  public isSuperAdmin: boolean = false;
 
   constructor() { }
 }

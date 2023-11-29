@@ -5,8 +5,7 @@ export var url = {
 }
 
 export var dataTemp = {
-    // urlHit: environment.production ? 'https://kip.hutamakarya.com/api/' :  'http://kipdev.hutamakarya.com/',
-    urlHit: environment.production ? 'https://ppid.hutamakarya.com/api/' : 'https://ppiddev.hutamakarya.com/api/',
+    urlHit: environment.production ? 'https://medsmanual.com/wp-json/api/' : 'https://medsmanual.com/wp-json/api/',
     route: {
         'detail': '/tabs/detail',
         'asesmen': '/tabs/asesmen',
@@ -90,6 +89,7 @@ export var dataTemp = {
         'searchFireUsersLimit': url.urlHit + 'searchFireUsersLimit',
         'getFireUsersbyId': url.urlHit + 'getFireUsersbyId',
         'getFireUsersbyEmail': url.urlHit + 'getFireUsersbyEmail',
+        'getFireUsersLogin': url.urlHit + 'getFireUsersLogin',
         'createFireUser': url.urlHit + 'createFireUser',
         'updateFireUser': url.urlHit + 'updateFireUser'
     },
@@ -223,5 +223,8 @@ export var dataTemp = {
     },
     master: {
         photo: 'https://ionicframework.com/docs/img/demos/avatar.svg'
+    },
+    keyStrg: {
+        profile: 'profile',
     }
 }

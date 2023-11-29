@@ -10,6 +10,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { FetchService } from './fetch.service';
 import { take } from 'rxjs';
 import { LoadingController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -53,8 +54,10 @@ export class AuthService {
   async RegisterWithFirebase(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, status: string, photo: string) {
     try {
       await createUserWithEmailAndPassword(this.auth, email, password);
-      var userData: FireUserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false };
+      var userData: FireUserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false, isSuperAdmin: false };
       await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
+      if (!environment.production) { userData.lampiran = ''; userData.photo = dataTemp.master.photo; }
+      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(userData));
       var msg = "Register Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
@@ -69,13 +72,16 @@ export class AuthService {
   async RegisterWithDBWP(email: string, password: string, nama: string, tglLahir: string, profesi: string, lampiran: string, status: string, photo?: string) {
     try {
       await createUserWithEmailAndPassword(this.auth, email, password);
-      var userData: FireUserData = photo ? { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false } :
-        { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, isAdmin: false };
+      var userData: FireUserData = photo ? { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false, isSuperAdmin: false } :
+        { email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, isAdmin: false, isSuperAdmin: false };
       var isCreateSuccess: any = await this.CreateFireUser(userData);
 
       console.log('isCreateSuccess', isCreateSuccess);
       if (isCreateSuccess.status == 'failed') throw ('Tidak berhasil membuat akun baru');
       // await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
+      this.globalService.profile = userData;
+      if (!environment.production) { userData.lampiran = ''; userData.photo = dataTemp.master.photo; }
+      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(userData));
 
       var msg = "Register Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
@@ -105,14 +111,17 @@ export class AuthService {
   async UpdateProfile(email: string, nama: string, tglLahir: string, profesi: string, photo?: string) {
     try {
       const profile = this.globalService.profile;
-      var profileData: FireUserData = photo ? { fire_user_id: profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: profile.lampiran, status: profile.status, photo: photo, isAdmin: profile.isAdmin } :
-        { fire_user_id: profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: profile.lampiran, status: profile.status, isAdmin: profile.isAdmin };
+      var profileData: FireUserData = photo ? { fire_user_id: profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: profile.lampiran, status: profile.status, photo: photo, isAdmin: profile.isAdmin, isSuperAdmin: profile.isSuperAdmin } :
+        { fire_user_id: profile.fire_user_id, email: email, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: profile.lampiran, status: profile.status, isAdmin: profile.isAdmin, isSuperAdmin: profile.isSuperAdmin };
 
       var isUpdateSuccess: any = await this.UpdateFireUser(profileData);
 
       console.log('isUpdateSuccess', isUpdateSuccess);
       if (isUpdateSuccess.status == 'failed') throw ('Tidak berhasil merubah data akun');
 
+      this.globalService.profile = profileData;
+      if (!environment.production) { profile.lampiran = ''; profile.photo = dataTemp.master.photo; }
+      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(profileData));
       var msg = "Update Profile Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.updateProfile);
       // this.router.navigateByUrl('/tabs', { replaceUrl: true });
@@ -130,6 +139,13 @@ export class AuthService {
 
     try {
       await this.authFireCompat.signInWithEmailAndPassword(email, password);
+
+      const profile: FireUserData = await this.fetchService.GetUserProfileForLogin(email);
+      console.log('profile GetUserProfileForLogin', profile);
+
+      this.globalService.profile = profile;
+      if (!environment.production) { profile.lampiran = ''; profile.photo = dataTemp.master.photo; }
+      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(profile));
       var msg = "Login Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.login);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
@@ -150,6 +166,7 @@ export class AuthService {
   async Logout() {
     try {
       await this.auth.signOut();
+      localStorage.removeItem(dataTemp.keyStrg.profile);
       var msg = "Logout Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
       this.router.navigateByUrl('/login', { replaceUrl: true })

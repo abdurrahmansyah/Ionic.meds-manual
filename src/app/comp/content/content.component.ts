@@ -86,6 +86,26 @@ export class ContentComponent implements OnInit {
       this.thisRoute = dataTemp.route.contentPanduanSix;
       this.nextRoute = dataTemp.route.contentPanduanSix;
     }
+    // obat
+    else if (this.defaultHref == dataTemp.route.obat) {
+      this.thisRoute = dataTemp.route.contentObat;
+      this.nextRoute = dataTemp.route.contentObatTwo;
+    } else if (this.defaultHref == dataTemp.route.contentObat) {
+      this.thisRoute = dataTemp.route.contentObatTwo;
+      this.nextRoute = dataTemp.route.contentObatThree;
+    } else if (this.defaultHref == dataTemp.route.contentObatTwo) {
+      this.thisRoute = dataTemp.route.contentObatThree;
+      this.nextRoute = dataTemp.route.contentObatFour;
+    } else if (this.defaultHref == dataTemp.route.contentObatThree) {
+      this.thisRoute = dataTemp.route.contentObatFour;
+      this.nextRoute = dataTemp.route.contentObatFive;
+    } else if (this.defaultHref == dataTemp.route.contentObatFour) {
+      this.thisRoute = dataTemp.route.contentObatFive;
+      this.nextRoute = dataTemp.route.contentObatSix;
+    } else if (this.defaultHref == dataTemp.route.contentObatFive) {
+      this.thisRoute = dataTemp.route.contentObatSix;
+      this.nextRoute = dataTemp.route.contentObatSix;
+    }
     // search
     else if (this.defaultHref == dataTemp.route.searchContent) {
       this.thisRoute = dataTemp.route.searchContent;

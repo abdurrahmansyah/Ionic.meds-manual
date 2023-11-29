@@ -15,9 +15,13 @@ export class GlobalService {
   // Master Data
   public userDataList: any = [];
 
+  // Buttons
   public actionSheetButtons: any = [];
   public actionSheetAudioButtons: any = [];
 
+  // Cache
+  cache: any[] = [];
+  
   constructor(private toastController: ToastController,
     private alertController: AlertController) {
     const types: any = dataTemp.type;

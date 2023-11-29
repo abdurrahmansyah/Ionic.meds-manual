@@ -4,7 +4,7 @@ import { LoadingController } from '@ionic/angular';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
 import { FetchService } from 'src/app/services/fetch.service';
-import { ContentData } from 'src/app/services/global.service';
+import { ContentData, GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-content-two',
@@ -25,11 +25,19 @@ export class ContentTwoPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private fetchService: FetchService,
     private loadingController: LoadingController,
-    private authService: AuthService
+    private authService: AuthService,
+    private globalService: GlobalService
   ) { }
 
   async ngOnInit() {
     await this.GetExtras();
+
+    const cache = this.globalService.cache.find(x => x.key == this.param.data);
+    if (cache) {
+      this.datas = cache.data;
+      return;
+    }
+
     const loading = await this.loadingController.create();
     await loading.present();
 
@@ -67,6 +75,13 @@ export class ContentTwoPage implements OnInit {
         if (x.type == dataTemp.type.audio) x.data = url + x.data + '.mp3'
       })
     }
+
+    this.PushCache(this.param.data, this.datas);
+  }
+
+  PushCache(key: string, data: ContentData[]) {
+    if (!this.globalService.cache.find(x => x.key == key))
+      this.globalService.cache.push({ key: key, data: data });
   }
 
   getEventOutput($event: any) {

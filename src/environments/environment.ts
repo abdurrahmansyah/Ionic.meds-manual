@@ -12,7 +12,7 @@ export const environment = {
     authDomain: 'meds-manual.firebaseapp.com',
     messagingSenderId: '714865266305',
   },
-  production: false
+  production: true
 };
 
 /*

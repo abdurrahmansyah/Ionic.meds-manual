@@ -10,7 +10,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { FetchService } from './fetch.service';
 import { take } from 'rxjs';
 import { LoadingController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
+import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +56,8 @@ export class AuthService {
       await createUserWithEmailAndPassword(this.auth, email, password);
       var userData: FireUserData = { email: this.email!, nama: nama, tglLahir: tglLahir, profesi: profesi, lampiran: lampiran, status: status, photo: photo, isAdmin: false, isSuperAdmin: false };
       await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
-      if (!environment.production) { userData.lampiran = ''; userData.photo = dataTemp.master.photo; }
-      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(userData));
+      await this.globalService.SaveProfileToPreference(userData);
+
       var msg = "Register Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
@@ -80,8 +80,7 @@ export class AuthService {
       if (isCreateSuccess.status == 'failed') throw ('Tidak berhasil membuat akun baru');
       // await this.firebaseService.userDataListCollection.doc(userData.email).set(userData);
       this.globalService.profile = userData;
-      if (!environment.production) { userData.lampiran = ''; userData.photo = dataTemp.master.photo; }
-      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(userData));
+      await this.globalService.SaveProfileToPreference(userData);
 
       var msg = "Register Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.register);
@@ -120,8 +119,8 @@ export class AuthService {
       if (isUpdateSuccess.status == 'failed') throw ('Tidak berhasil merubah data akun');
 
       this.globalService.profile = profileData;
-      if (!environment.production) { profile.lampiran = ''; profile.photo = dataTemp.master.photo; }
-      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(profileData));
+      await this.globalService.SaveProfileToPreference(profileData);
+
       var msg = "Update Profile Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.updateProfile);
       // this.router.navigateByUrl('/tabs', { replaceUrl: true });
@@ -144,8 +143,8 @@ export class AuthService {
       console.log('profile GetUserProfileForLogin', profile);
 
       this.globalService.profile = profile;
-      if (!environment.production) { profile.lampiran = ''; profile.photo = dataTemp.master.photo; }
-      localStorage.setItem(dataTemp.keyStrg.profile, JSON.stringify(profile));
+      await this.globalService.SaveProfileToPreference(profile);
+
       var msg = "Login Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.login);
       this.router.navigateByUrl('/tabs', { replaceUrl: true });
@@ -166,7 +165,8 @@ export class AuthService {
   async Logout() {
     try {
       await this.auth.signOut();
-      localStorage.removeItem(dataTemp.keyStrg.profile);
+      await Preferences.remove({ key: dataTemp.keyStrg.profile });
+
       var msg = "Logout Berhasil";
       await this.CreateSaveAndShowLog(msg, dataTemp.log.logout);
       this.router.navigateByUrl('/login', { replaceUrl: true })
@@ -197,7 +197,7 @@ export class AuthService {
   }
 
   GetEror(errCode: string, errMsg: string): string {
-    if (errCode == 'auth/too-many-requests') return 'Permintaan masuk terlalu banyak! Silahkan coba beberapa saat lagi';
+    if (errCode == 'auth/too-many-requests') return 'Anomali login terdeteksi! Silahkan coba beberapa saat lagi';
     if (errCode == 'auth/uid-already-exists') return 'uid yang diberikan sudah digunakan oleh pengguna yang sudah ada';
     if (errCode == 'auth/unauthorized-continue-uri') return 'Domain URL tidak diizinkan';
     if (errCode == 'auth/invalid-email') return 'Format email tidak valid';

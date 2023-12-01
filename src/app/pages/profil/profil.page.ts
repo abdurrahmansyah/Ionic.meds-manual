@@ -25,12 +25,6 @@ export class ProfilPage implements OnInit {
   };
   readonly maskPredicate: MaskitoElementPredicateAsync = async (el) => (el as HTMLIonInputElement).getInputElement();
 
-  // email: string = '';
-  // nama: string = '';
-  // tglLahir: string = '';
-  // profesi: string = '';
-  // photo: any;
-  // photoImg: any;
   @ViewChild('ionInputElName', { static: true }) ionInputElName!: IonInput;
 
   constructor(private globalService: GlobalService,
@@ -43,24 +37,9 @@ export class ProfilPage implements OnInit {
 
   async ngOnInit() {
     try {
-      console.log('profile awal', this.profile);
-
       this.profile = this.globalService.profile;
-      const profile: FireUserData = await this.fetchService.GetUserProfile();
-      this.globalService.profile = profile;
-      console.log('profile', profile);
-
-      this.profile = profile;
-      // this.email = profile.email;
-      // this.nama = profile.nama;
-      // this.tglLahir = profile.tglLahir;
-      // this.profesi = profile.profesi;
-      // this.photo = profile.photo;
-      var aa = profile.isAdmin == true ? 'bener' : 'wrong';
-      console.log('aa', aa);
-
-      // this.photoImg = profile.photo ? this.photoService.ConvertPhotoBase64ToImage(profile.photo) : undefined;
-      console.log('this.profile', this.profile);
+      if (this.profile.photo == undefined) this.profile = await this.globalService.GetProfileFromPreference();
+      this.profile = await this.fetchService.GetUserProfile();
     } catch (error: any) {
       var msg = error ? error : "Gagal memuat data";
       await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.fetch);

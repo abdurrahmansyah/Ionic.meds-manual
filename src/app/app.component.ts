@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FetchService } from './services/fetch.service';
 import { AuthService } from './services/auth.service';
 import { dataTemp } from './dataTemp';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-root',
@@ -34,11 +35,10 @@ export class AppComponent {
           } else this.isAdmin = false;
         });
 
-        var profile = JSON.parse(localStorage.getItem(dataTemp.keyStrg.profile)!);
-        this.globalService.profile = profile;
-
-        profile = await this.fetchService.GetUserProfile();
-        this.globalService.profile = profile;
+        this.globalService.profile = await this.globalService.GetProfileFromPreference();
+        console.log('bzzz', this.globalService.profile);
+        
+        this.globalService.profile = await this.fetchService.GetUserProfile();
       }
     });
   }

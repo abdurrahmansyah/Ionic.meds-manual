@@ -3,6 +3,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { NavigationExtras } from '@angular/router';
 import { dataTemp } from '../dataTemp';
+import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class GlobalService {
 
   // Cache
   cache: any[] = [];
-  
+
   constructor(private toastController: ToastController,
     private alertController: AlertController) {
     const types: any = dataTemp.type;
@@ -57,6 +58,17 @@ export class GlobalService {
     dateData.todayDateTimeFormatted = formatDate(date, 'YYYY-MM-dd HH:mm:ss', 'en-US');
 
     return dateData;
+  }
+
+  public async GetProfileFromPreference(): Promise<FireUserData> {
+    this.profile = JSON.parse((await Preferences.get({ key: dataTemp.keyStrg.profile })).value!);
+    return this.profile;
+  }
+
+  public async SaveProfileToPreference(profile: FireUserData) {
+    profile.lampiran = ''; 
+    profile.photo = dataTemp.master.photo;
+    await Preferences.set({ key: dataTemp.keyStrg.profile, value: JSON.stringify(profile) });
   }
 
   public SetExtras(data: { data: any; title: string; defaultHref: string }): NavigationExtras {

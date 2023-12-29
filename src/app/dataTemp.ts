@@ -176,6 +176,7 @@ export var dataTemp = {
         'btn': 'Button',
         'btnOutline': 'Button Outline',
         'audio': 'Audio',
+        'teksCenter': 'Teks Center',
         'numbering0': 'Numbering 0',
         'numbering1': 'Numbering 1',
         'numbering2': 'Numbering 2',

@@ -22,6 +22,7 @@
   <p *ngIf="IsNumbering5WithoutMargin(x.type)" class="numbering5WithoutMargin">{{x.data}}</p>
   <p *ngIf="IsNumbering6WithoutMargin(x.type)" class="numbering6WithoutMargin">{{x.data}}</p>
   <p *ngIf="IsRef(x.type)" class="ref">{{x.data}}</p>
+  <p *ngIf="IsCenter(x.type)" class="teksCenter">{{x.data}}</p>
   <div *ngIf="IsBtn(x.type)">
     <ion-list *ngIf="!IsWithImage(x)" [inset]="true" mode="ios">
       <ion-item color="meds-red" button (click)="BtnThru(x)" lines="none">

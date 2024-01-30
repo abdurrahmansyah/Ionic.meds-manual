@@ -2,10 +2,10 @@ import { environment } from "src/environments/environment";
 
 export var url = {
     urlHit: environment.production ? 'https://medsmanual.com/wp-json/api/' : 'https://medsmanual.com/wp-json/api/',
+    urlMidtrans: environment.production ? 'https://api.midtrans.com/' : 'https://app.sandbox.midtrans.com/',
 }
 
 export var dataTemp = {
-    urlHit: environment.production ? 'https://medsmanual.com/wp-json/api/' : 'https://medsmanual.com/wp-json/api/',
     route: {
         'detail': '/tabs/detail',
         'asesmen': '/tabs/asesmen',
@@ -91,7 +91,12 @@ export var dataTemp = {
         'getFireUsersbyEmail': url.urlHit + 'getFireUsersbyEmail',
         'getFireUsersLogin': url.urlHit + 'getFireUsersLogin',
         'createFireUser': url.urlHit + 'createFireUser',
-        'updateFireUser': url.urlHit + 'updateFireUser'
+        'updateFireUser': url.urlHit + 'updateFireUser',
+        'charge': url.urlHit + 'charge'
+    },
+    urlMidtrans: {
+        'snapTransactions': url.urlMidtrans + 'snap/v1/transactions',
+        'charge': url.urlMidtrans + 'v2/charge',
     },
     tab: {
         'asesmen': 'asesmen',
@@ -177,6 +182,7 @@ export var dataTemp = {
         'btnOutline': 'Button Outline',
         'audio': 'Audio',
         'teksCenter': 'Teks Center',
+        'teksCenterWithoutMargin': 'Teks Center Tanpa Margin',
         'numbering0': 'Numbering 0',
         'numbering1': 'Numbering 1',
         'numbering2': 'Numbering 2',
@@ -227,5 +233,11 @@ export var dataTemp = {
     },
     keyStrg: {
         profile: 'profile',
+    },
+    responsActions: {
+        generateqrcode: 'generate-qr-code',
+        deeplinkredirect: 'deeplink-redirect',
+        getstatus: 'get-status',
+        cancel: 'cancel'
     }
 }

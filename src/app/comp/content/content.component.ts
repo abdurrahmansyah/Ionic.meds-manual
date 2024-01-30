@@ -152,6 +152,7 @@ export class ContentComponent implements OnInit {
   IsNumbering6WithoutMargin(type: string): boolean { if (type == dataTemp.type.numbering6WithoutMargin) return true; else return false; }
   IsRef(type: string): boolean { if (type == dataTemp.type.ref) return true; else return false; }
   IsCenter(type: string): boolean { if (type == dataTemp.type.teksCenter) return true; else return false; }
+  IsCenterWithoutMargin(type: string): boolean { if (type == dataTemp.type.teksCenterWithoutMargin) return true; else return false; }
   IsBtn(type: string): boolean { if (type == dataTemp.type.btn) return true; else return false; }
   IsbtnOutline(type: string): boolean { if (type == dataTemp.type.btnOutline) return true; else return false; }
   IsAudio(type: string): boolean { if (type == dataTemp.type.audio) return true; else return false; }

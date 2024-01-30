@@ -9,6 +9,8 @@ import { FetchService } from 'src/app/services/fetch.service';
 import { FireUserData, GlobalService } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { MidtransService, transaction, transaction_details } from 'src/app/services/midtrans.service';
+import { take, timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-profil',
@@ -17,6 +19,8 @@ import { OverlayEventDetail } from '@ionic/core/components';
 })
 export class ProfilPage implements OnInit {
   @ViewChild(IonModal) modal: any;
+  isMember: boolean = false;
+  isSubsActive: boolean = false;
 
   profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, status: undefined, isAdmin: false };
 
@@ -32,6 +36,7 @@ export class ProfilPage implements OnInit {
     private router: Router,
     private photoService: PhotoService,
     private fetchService: FetchService,
+    private midtransService: MidtransService,
     private loadingController: LoadingController) {
   }
 
@@ -120,5 +125,48 @@ export class ProfilPage implements OnInit {
     if (ev.detail.role === 'confirm') {
       // this.message = `Hello, ${ev.detail.data}!`;
     }
+  }
+
+  async Subs() {
+    this.isSubsActive = true;
+    // var transactionData: transaction = { transaction_details: { order_id: 'Rdev.001', gross_amount: 1000 }, credit_card: { secure: true } };
+    // console.log('transactionData', transactionData);
+
+    // var data: any = await this.snapTransactions(transactionData);
+    // console.log('data', data);
+
+    // this.midtransService.snapTransactions
+  }
+
+  async SubsClicked() {
+    this.isSubsActive = this.isSubsActive == true ? false : true;
+  }
+
+  private async snapTransactions(transactionData: transaction) {
+    const result = this.midtransService.snapTransactions(transactionData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
+  private async charge(transactionData: transaction) {
+    const result = this.fetchService.charge(transactionData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
+  async SubsPaket1() {
+    console.log('klik paket 1');
+
+    var transactionData: transaction = { transaction_details: { order_id: 'Rdev.002' + timestamp, gross_amount: 1000 }, credit_card: { secure: true } };
+    console.log('transactionData', transactionData);
+
+    var data: any = await this.charge(transactionData);
+    console.log('data', data);
+    var deeplinkredirect = data.actions.find((x: any) => x.name == dataTemp.responsActions.deeplinkredirect);
+    console.log('deeplinkredirect', deeplinkredirect);
+
+    window.open(deeplinkredirect.url, '_system', 'location=yes')
   }
 }

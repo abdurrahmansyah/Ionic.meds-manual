@@ -155,12 +155,20 @@
         <ion-icon style="margin-right: 12px;" name="medkit" slot="end"></ion-icon>
       </ion-item>
       <hr style="height: 12px;" class="ion-no-padding ion-no-margin">
-      <ion-item class="border" lines="none" color="meds-pink">
+      <ion-item *ngIf="isMember" class="border" lines="none" color="meds-pink">
         <ion-skeleton-text class="ion-text-center" *ngIf="!profile.email" [animated]="true"
           style="width: 80%;"></ion-skeleton-text>
         <ion-label *ngIf="profile.email" class="ion-text-center" style="font-size: 0.9em; color: black;">Membership
           hingga:
           <ion-text color="meds-red">16-10-2023</ion-text>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="!isMember" class="border" lines="none" color="meds-pink" (click)="Subs()">
+        <ion-skeleton-text class="ion-text-center" *ngIf="!profile.email" [animated]="true"
+          style="width: 80%;"></ion-skeleton-text>
+        <ion-label *ngIf="profile.email" class="ion-text-center"
+          style="font-size: 0.9em; color: var(--ion-color-meds-red);">Daftar Akses
+          Full Membership
         </ion-label>
       </ion-item>
     </div>
@@ -182,3 +190,39 @@
     </div>
   </div>
 </ion-content>
+
+<div *ngIf="isSubsActive" class="subscription" (click)="SubsClicked()">
+  <div class="form">
+    <!-- text -->
+    <hr style="height: 25px;">
+
+    <ion-item class="border" lines="none" color="meds-pink">
+      <ion-label class="ion-text-center" style="font-size: 0.9em; color: var(--ion-color-meds-red);">Daftar Akses
+        Full Membership
+      </ion-label>
+    </ion-item>
+
+    <hr style="height: 10px;">
+
+    <ion-row>
+      <ion-col style="background-color: var(--ion-color-meds-pink); border-radius: 10px;" (click)="SubsPaket1()">
+        <ion-text style="font-size: 12px;">3 Bulan</ion-text><br>
+        <ion-text color="meds-red" style="font-size: 26px;">15rb</ion-text><br>
+        <ion-text style="font-size: 12px;">per bulan</ion-text>
+      </ion-col>
+      <span style="margin: 5px"></span>
+      <ion-col style="background-color: var(--ion-color-meds-pink); border-radius: 10px;">
+        <ion-text style="font-size: 12px;">6 Bulan</ion-text><br>
+        <ion-text color="meds-red" style="font-size: 26px;">12rb</ion-text><br>
+        <ion-text style="font-size: 12px;">per bulan</ion-text>
+      </ion-col>
+      <span style="margin: 5px"></span>
+      <ion-col style="background-color: var(--ion-color-meds-pink); border-radius: 10px;">
+        <ion-text style="font-size: 12px;">12 Bulan</ion-text><br>
+        <ion-text color="meds-red" style="font-size: 26px;">10rb</ion-text><br>
+        <ion-text style="font-size: 12px;">per bulan</ion-text>
+      </ion-col>
+    </ion-row>
+    <hr style="height: 25px;">
+  </div>
+</div>

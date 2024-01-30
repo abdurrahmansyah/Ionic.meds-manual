@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { dataTemp } from '../dataTemp';
 import { ContentData, FireUserData } from './global.service';
 import { Auth } from '@angular/fire/auth';
+import { transaction } from './midtrans.service';
 
 // export interface FireUserData {
 //   fire_user_id?: number,
@@ -104,6 +105,11 @@ export class FetchService {
 
   createFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
+  }
+
+  public charge(transactionData: transaction) {
+    return this.httpClient.post(dataTemp.url.charge, transactionData);
+      // { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic U0ItTWlkLXNlcnZlci1BVnppdXRudE9TbF9LU3BBMHJrbk5fZlg6' } });
   }
 
   updateFireUser(userData: FireUserData) {

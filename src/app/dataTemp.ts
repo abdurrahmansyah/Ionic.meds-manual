@@ -239,5 +239,8 @@ export var dataTemp = {
         deeplinkredirect: 'deeplink-redirect',
         getstatus: 'get-status',
         cancel: 'cancel'
+    },
+    payment_type: {
+        gopay: 'gopay'
     }
 }

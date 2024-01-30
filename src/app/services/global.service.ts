@@ -56,6 +56,7 @@ export class GlobalService {
     dateData.szAMPM = dateData.decHour > 12 ? "PM" : "AM";
     dateData.todayFormatted = formatDate(date, 'YYYY-MM-dd', 'en-US');
     dateData.todayDateTimeFormatted = formatDate(date, 'YYYY-MM-dd HH:mm:ss', 'en-US');
+    dateData.time = date.getTime();
 
     return dateData;
   }
@@ -66,7 +67,7 @@ export class GlobalService {
   }
 
   public async SaveProfileToPreference(profile: FireUserData) {
-    profile.lampiran = ''; 
+    profile.lampiran = '';
     profile.photo = dataTemp.master.photo;
     await Preferences.set({ key: dataTemp.keyStrg.profile, value: JSON.stringify(profile) });
   }
@@ -113,6 +114,7 @@ export class DateData {
   public szAMPM: string = '';
   public decSec: number = 0;
   public decMonth: number = 0;
+  public time: number = 0;
   public todayFormatted: string = '';
   public todayDateTimeFormatted: string = '';
 

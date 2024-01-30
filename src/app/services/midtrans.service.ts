@@ -46,10 +46,16 @@ export interface charge {
   customer_details?: customer_details,
 }
 export interface transaction {
+  payment_type: string,
   transaction_details: transaction_details,
-  credit_card: credit_card,
+  credit_card?: credit_card,
   item_details?: item_details[],
   customer_details?: customer_details,
+  gopay?: gopay
+}
+export interface gopay {
+  enable_callback: boolean,
+  callback_url: string,
 }
 export interface transaction_details {
   order_id: string,

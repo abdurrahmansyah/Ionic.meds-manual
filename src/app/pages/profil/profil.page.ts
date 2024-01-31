@@ -157,24 +157,31 @@ export class ProfilPage implements OnInit {
   }
 
   async SubsPaket(x: number) {
-    console.log('klik paket 1');
+    const loading = await this.loadingController.create();
+    await loading.present();
 
-    var order_id = this.globalService.profile.fire_user_id + this.globalService.GetDate().time;
+    try {
+      var order_id = this.globalService.profile.fire_user_id + this.globalService.GetDate().time;
 
-    var transactionData: transaction = {
-      payment_type: dataTemp.payment_type.gopay,
-      transaction_details: { order_id: order_id, gross_amount: x == 1 ? 45000 : x == 2 ? 72000 : 120000 },
-      item_details: [{ id: x == 1 ? 'subs1' : x == 2 ? 'subs2' : 'subs3', name: x == 1 ? 'Paket 3 Bulan - 45000' : x == 2 ? 'Paket 6 Bulan - 72000' : 'Paket 12 Bulan - 120000', price: x == 1 ? 45000 : x == 2 ? 72000 : 120000, quantity: 1 }],
-      customer_details: { first_name: this.globalService.profile.fire_user_id, last_name: this.globalService.profile.nama, email: this.globalService.profile.email, phone: '' },
-      gopay: { enable_callback: true, callback_url: 'someapps://callback' }
-    };
-    console.log('transactionData', transactionData);
+      var transactionData: transaction = {
+        payment_type: dataTemp.payment_type.gopay,
+        transaction_details: { order_id: order_id, gross_amount: x == 1 ? 45000 : x == 2 ? 72000 : 120000 },
+        item_details: [{ id: x == 1 ? 'subs1' : x == 2 ? 'subs2' : 'subs3', name: x == 1 ? 'Paket 3 Bulan - 45000' : x == 2 ? 'Paket 6 Bulan - 72000' : 'Paket 12 Bulan - 120000', price: x == 1 ? 45000 : x == 2 ? 72000 : 120000, quantity: 1 }],
+        customer_details: { first_name: this.globalService.profile.fire_user_id, last_name: this.globalService.profile.nama, email: this.globalService.profile.email, phone: '' },
+        gopay: { enable_callback: true, callback_url: 'someapps://callback' }
+      };
+      console.log('transactionData', transactionData);
 
-    var data: any = await this.charge(transactionData);
-    console.log('data', data);
-    var deeplinkredirect = data.actions.find((x: any) => x.name == dataTemp.responsActions.deeplinkredirect);
-    console.log('deeplinkredirect', deeplinkredirect);
+      var data: any = await this.charge(transactionData);
+      console.log('data', data);
+      var deeplinkredirect = data.actions.find((x: any) => x.name == dataTemp.responsActions.deeplinkredirect);
+      console.log('deeplinkredirect', deeplinkredirect);
 
-    window.open(deeplinkredirect.url, '_system', 'location=yes')
+      loading.dismiss();
+      window.open(deeplinkredirect.url, '_system', 'location=yes')
+    } catch (error: any) {
+      loading.dismiss();
+      this.globalService.PresentToast(error);
+    }
   }
 }

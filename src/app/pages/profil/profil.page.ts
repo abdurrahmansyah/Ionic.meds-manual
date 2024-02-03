@@ -11,6 +11,7 @@ import { PhotoService } from 'src/app/services/photo.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { MidtransService, transaction, transaction_details } from 'src/app/services/midtrans.service';
 import { take, timestamp } from 'rxjs';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-profil',
@@ -42,6 +43,22 @@ export class ProfilPage implements OnInit {
 
   async ngOnInit() {
     try {
+      var transaction_id = await this.globalService.GetObjFromPreference('transaction_id');
+      console.log('hasil get transaction_id dr storage', transaction_id);
+      if (transaction_id) {
+        var data: any = await this.getTransactionStatus(transaction_id);
+        console.log('data getTransactionStatus', data);
+        console.log('data getTransactionStatus', data.transaction_status);
+
+        if (data.transaction_status == dataTemp.transaction_status.settlement) {
+          // create transaction 
+          // create subscription
+          // await Preferences.remove({ key: 'transaction_id' });
+        }
+        else if (data.transaction_status != dataTemp.transaction_status.pending)
+          await Preferences.remove({ key: 'transaction_id' });
+      }
+
       this.profile = this.globalService.profile;
       if (this.profile.photo == undefined) this.profile = await this.globalService.GetProfileFromPreference();
       this.profile = await this.fetchService.GetUserProfile();
@@ -156,6 +173,13 @@ export class ProfilPage implements OnInit {
     });
   }
 
+  private async getTransactionStatus(transaction_id: string) {
+    const result = this.fetchService.getTransactionStatus(transaction_id);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
   async SubsPaket(x: number) {
     const loading = await this.loadingController.create();
     await loading.present();
@@ -178,7 +202,13 @@ export class ProfilPage implements OnInit {
       console.log('deeplinkredirect', deeplinkredirect);
 
       loading.dismiss();
-      window.open(deeplinkredirect.url, '_system', 'location=yes')
+      window.open(deeplinkredirect.url, '_system', 'location=yes');
+
+      // save transaction_id to storage,
+      this.globalService.SaveObjToPreference('transaction_id', data.transaction_id);
+      console.log('transaction_id', data.transaction_id);
+
+      // loop get status
     } catch (error: any) {
       loading.dismiss();
       this.globalService.PresentToast(error);

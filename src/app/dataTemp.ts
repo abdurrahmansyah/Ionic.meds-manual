@@ -92,11 +92,13 @@ export var dataTemp = {
         'getFireUsersLogin': url.urlHit + 'getFireUsersLogin',
         'createFireUser': url.urlHit + 'createFireUser',
         'updateFireUser': url.urlHit + 'updateFireUser',
-        'charge': url.urlHit + 'charge'
+        'charge': url.urlHit + 'charge',
+        'getTransactionStatus': url.urlHit + 'getTransactionStatus',
     },
     urlMidtrans: {
         'snapTransactions': url.urlMidtrans + 'snap/v1/transactions',
         'charge': url.urlMidtrans + 'v2/charge',
+        'v2': url.urlMidtrans + 'v2/',
     },
     tab: {
         'asesmen': 'asesmen',
@@ -242,5 +244,13 @@ export var dataTemp = {
     },
     payment_type: {
         gopay: 'gopay'
+    },
+    transaction_status: {
+        settlement: 'settlement',
+        pending: 'pending',
+        expire: 'expire',
+        cancel: 'cancel',
+        deny: 'deny',
+        refund: 'refund',
     }
 }

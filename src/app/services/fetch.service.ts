@@ -74,7 +74,7 @@ export class FetchService {
   updateContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.updateContent, contentData);
   }
-  
+
   getFireUserSummary() {
     return this.httpClient.get(dataTemp.url.getFireUserSummary);
   }
@@ -109,7 +109,11 @@ export class FetchService {
 
   public charge(transactionData: transaction) {
     return this.httpClient.post(dataTemp.url.charge, transactionData);
-      // { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic U0ItTWlkLXNlcnZlci1BVnppdXRudE9TbF9LU3BBMHJrbk5fZlg6' } });
+    // { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic U0ItTWlkLXNlcnZlci1BVnppdXRudE9TbF9LU3BBMHJrbk5fZlg6' } });
+  }
+
+  public getTransactionStatus(transaction_id: string) {
+    return this.httpClient.post(dataTemp.url.getTransactionStatus, { 'transaction_id': transaction_id });
   }
 
   updateFireUser(userData: FireUserData) {
@@ -148,7 +152,7 @@ export class FetchService {
     if (res.status == 'failed') throw ('Gagal memuat data content: ' + data);
     return res.data;
   }
-  
+
   public async GetFireUserSummary() {
     const res: any = await new Promise(resolve => {
       this.getFireUserSummary().subscribe(data => {

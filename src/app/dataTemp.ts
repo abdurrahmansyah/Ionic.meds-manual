@@ -103,6 +103,7 @@ export var dataTemp = {
     urlMidtrans: {
         'snapTransactions': url.urlMidtrans + 'snap/v1/transactions',
         'charge': url.urlMidtrans + 'v2/charge',
+        'v2': url.urlMidtrans + 'v2/',
     },
     tab: {
         'asesmen': 'asesmen',

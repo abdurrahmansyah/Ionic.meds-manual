@@ -110,6 +110,10 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
   }
 
+  public getTransactionStatus(transaction_id: string) {
+    return this.httpClient.post(dataTemp.url.getTransactionStatus, { 'transaction_id': transaction_id });
+  }
+
   updateFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.updateFireUser, userData);
   }

@@ -75,6 +75,15 @@ export class GlobalService {
     await Preferences.set({ key: dataTemp.keyStrg.profile, value: JSON.stringify(profile) });
   }
 
+  public async GetObjFromPreference(key: string): Promise<any> {
+    var data = JSON.parse((await Preferences.get({ key: key })).value!);
+    return data;
+  }
+
+  public async SaveObjToPreference(key: string, data: any) {
+    await Preferences.set({ key: key, value: JSON.stringify(data) });
+  }
+
   public SetExtras(data: { data: any; title: string; defaultHref: string }): NavigationExtras {
     return {
       state: {

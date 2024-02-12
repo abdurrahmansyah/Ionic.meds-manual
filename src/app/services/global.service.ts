@@ -13,6 +13,9 @@ export class GlobalService {
   // public profile: any;
   profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, status: undefined, isAdmin: false };
 
+  // Setting
+  public isProduction: boolean = false;
+
   // Master Data
   public userDataList: any = [];
 
@@ -133,6 +136,20 @@ export class DateData {
 
 //   constructor() { }
 // }
+
+export class TransactionData {
+  public transaction_id: string = '';
+  public order_id: string = '';
+  public fire_user_id: string = '';
+  public gross_amount: number = 0;
+  public payment_type: string = '';
+  public transaction_time: string = '';
+  public transaction_status: string = '';
+  public expiry_time: string = '';
+  public settlement_time?: string = '';
+
+  constructor() { }
+}
 
 export class FireUserData {
   public fire_user_id?: string = '';

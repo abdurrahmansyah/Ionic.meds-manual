@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { InjectorInstance } from '../app.module';
 import { HttpClient } from '@angular/common/http';
 import { dataTemp } from '../dataTemp';
-import { ContentData, FireUserData } from './global.service';
+import { ContentData, FireUserData, TransactionData } from './global.service';
 import { Auth } from '@angular/fire/auth';
-import { transaction } from './midtrans.service';
+import { charge } from './midtrans.service';
 
 // export interface FireUserData {
 //   fire_user_id?: number,
@@ -55,6 +55,7 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.getContentsbyId, { 'content_id': content_id });
   }
 
+  //#region content
   private getContentsbyName(parent_name: string) {
     return this.httpClient.post(dataTemp.url.getContentsbyName, { 'parent_name': parent_name });
   }
@@ -74,7 +75,9 @@ export class FetchService {
   updateContent(contentData: ContentData) {
     return this.httpClient.post(dataTemp.url.updateContent, contentData);
   }
-  
+  //#endregion
+
+  //#region fire user
   getFireUserSummary() {
     return this.httpClient.get(dataTemp.url.getFireUserSummary);
   }
@@ -107,15 +110,45 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
   }
 
-  public charge(transactionData: transaction) {
-    return this.httpClient.post(dataTemp.url.charge, transactionData);
-      // { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic U0ItTWlkLXNlcnZlci1BVnppdXRudE9TbF9LU3BBMHJrbk5fZlg6' } });
-  }
-
   updateFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.updateFireUser, userData);
   }
+  //#endregion
 
+  //#region midtrans
+  public charge(chargeData: charge) {
+    return this.httpClient.post(dataTemp.url.charge, chargeData);
+  }
+
+  public charge2(chargeData: charge) {
+    return this.httpClient.post(dataTemp.url.charge2, chargeData);
+  }
+
+  public status(transaction_id: string, production: boolean) {
+    return this.httpClient.get(dataTemp.url.status + transaction_id, { params: { 'production': production } });
+  }
+  //#endregion
+
+  //#region transaction
+  getTransactions() {
+    return this.httpClient.get(dataTemp.url.getTransactions);
+  }
+
+  getTransactionbyId(transaction_id: string) {
+    return this.httpClient.post(dataTemp.url.getTransactionbyId, { 'transaction_id': transaction_id });
+  }
+
+  createTransaction(transactionData: TransactionData) {
+    return this.httpClient.post(dataTemp.url.createTransaction, transactionData);
+  }
+
+  updateTransaction(transactionData: TransactionData) {
+    return this.httpClient.post(dataTemp.url.updateTransaction, transactionData);
+  }
+  //#endregion
+
+
+  //////////////////////////////////
   public async GetContentsbyName(parent_name: string) {
     const res: any = await new Promise(resolve => {
       this.getContentsbyName(parent_name).subscribe(data => {
@@ -148,7 +181,7 @@ export class FetchService {
     if (res.status == 'failed') throw ('Gagal memuat data content: ' + data);
     return res.data;
   }
-  
+
   public async GetFireUserSummary() {
     const res: any = await new Promise(resolve => {
       this.getFireUserSummary().subscribe(data => {

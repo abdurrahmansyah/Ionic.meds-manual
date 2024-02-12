@@ -92,7 +92,13 @@ export var dataTemp = {
         'getFireUsersLogin': url.urlHit + 'getFireUsersLogin',
         'createFireUser': url.urlHit + 'createFireUser',
         'updateFireUser': url.urlHit + 'updateFireUser',
-        'charge': url.urlHit + 'charge'
+        'charge': url.urlHit + 'midtrans/charge',
+        'charge2': url.urlHit + 'midtrans/charge2',
+        'status': url.urlHit + 'midtrans/status/',
+        'getTransactions': url.urlHit + 'getTransactions',
+        'getTransactionbyId': url.urlHit + 'getTransactionbyId',
+        'createTransaction': url.urlHit + 'createTransaction',
+        'updateTransaction': url.urlHit + 'updateTransaction',
     },
     urlMidtrans: {
         'snapTransactions': url.urlMidtrans + 'snap/v1/transactions',
@@ -158,6 +164,23 @@ export var dataTemp = {
         'editMaster': 'edit-master',
         'fetch': 'fetch',
         'updateProfile': 'update-profile',
+        'createTransaction': 'create-transaction',
+        'charge': 'charge',
+    },
+    logMessage: {
+        'success': 'Berhasil',
+        'failed': 'Gagal',
+        'login': 'login',
+        'logout': 'logout',
+        'register': 'register',
+        'subscibe': 'subscibe',
+        'browse': 'browse',
+        'search': 'search',
+        'editMaster': 'edit-master',
+        'fetch': 'fetch',
+        'updateProfile': 'update-profile',
+        'createTransaction': 'create-transaction',
+        'chargeSuccess': 'Berhasil melakukan Charge Tr',
     },
     typeOld: {
         'text': 'text',
@@ -233,6 +256,7 @@ export var dataTemp = {
     },
     keyStrg: {
         profile: 'profile',
+        transaction_id: 'transaction_id',
     },
     responsActions: {
         generateqrcode: 'generate-qr-code',
@@ -242,5 +266,19 @@ export var dataTemp = {
     },
     payment_type: {
         gopay: 'gopay'
+    },
+    transaction_status: {
+        authorize: 'authorize',
+        capture: 'capture',
+        settlement: 'settlement',
+        deny: 'deny',
+        pending: 'pending',
+        cancel: 'cancel',
+        refund: 'refund',
+        partial_refund: 'partial_refund',
+        chargeback: 'chargeback',
+        partial_chargeback: 'partial_chargeback',
+        expire: 'expire',
+        failure: 'failure'
     }
 }

@@ -11,8 +11,8 @@ export class MidtransService {
 
   constructor() { }
 
-  public snapTransactions(transactionData: transaction) {
-    return this.httpClient.post(dataTemp.urlMidtrans.snapTransactions, transactionData,
+  public snapTransactions(chargeData: charge) {
+    return this.httpClient.post(dataTemp.urlMidtrans.snapTransactions, chargeData,
       {
         headers: {
           'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic U0ItTWlkLXNlcnZlci1BVnppdXRudE9TbF9LU3BBMHJrbk5fZlg6',
@@ -24,8 +24,8 @@ export class MidtransService {
       });
   }
 
-  public charge(transactionData: transaction) {
-    return this.httpClient.post(dataTemp.urlMidtrans.charge, transactionData,
+  public charge(chargeData: charge) {
+    return this.httpClient.post(dataTemp.urlMidtrans.charge, chargeData,
       {
         headers: {
           'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Basic U0ItTWlkLXNlcnZlci1BVnppdXRudE9TbF9LU3BBMHJrbk5fZlg6',
@@ -38,20 +38,26 @@ export class MidtransService {
   }
 }
 
+// export interface charge {
+//   payment_type: string,
+//   transaction_details: transaction_details,
+//   credit_card: credit_card,
+//   item_details?: item_details[],
+//   customer_details?: customer_details,
+// }
 export interface charge {
-  payment_type: string,
-  transaction_details: transaction_details,
-  credit_card: credit_card,
-  item_details?: item_details[],
-  customer_details?: customer_details,
-}
-export interface transaction {
   payment_type: string,
   transaction_details: transaction_details,
   credit_card?: credit_card,
   item_details?: item_details[],
   customer_details?: customer_details,
-  gopay?: gopay
+  gopay?: gopay,
+  metadata?: metadata,
+  production: boolean
+}
+export interface metadata {
+  fire_user_id: string,
+  paket: string,
 }
 export interface gopay {
   enable_callback: boolean,

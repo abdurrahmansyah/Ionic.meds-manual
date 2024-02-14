@@ -52,9 +52,16 @@
             <h5 style="font-weight: bold;">Membership</h5>
           </ion-item>
 
-          <ion-item button Lines="inset">
-            <ion-label class="ion-text-center">Membership hingga:
-              <ion-text color="meds-red">16-10-2023</ion-text>
+          <ion-item *ngIf="!profile.email" button Lines="inset">
+            <ion-skeleton-text class="ion-text-center" [animated]="true" style="width: 80%;"></ion-skeleton-text>
+          </ion-item>
+
+          <ion-item *ngIf="profile.email" button Lines="inset">
+            <ion-label *ngIf="!isMember" class="ion-text-center">
+              <ion-text color="meds-red">Daftar Akses Full Membership</ion-text>
+            </ion-label>
+            <ion-label *ngIf="isMember" class="ion-text-center">Membership hingga:
+              <ion-text color="meds-red">{{subscriptionData.valid_until.substring(0, 10)}}</ion-text>
             </ion-label>
           </ion-item>
 
@@ -160,7 +167,7 @@
           style="width: 80%;"></ion-skeleton-text>
         <ion-label *ngIf="profile.email" class="ion-text-center" style="font-size: 0.9em; color: black;">Membership
           hingga:
-          <ion-text color="meds-red">16-10-2023</ion-text>
+          <ion-text color="meds-red">{{subscriptionData.valid_until.substring(0, 10)}}</ion-text>
         </ion-label>
       </ion-item>
       <ion-item *ngIf="!isMember" class="border" lines="none" color="meds-pink" (click)="Subs()">

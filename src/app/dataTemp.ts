@@ -92,6 +92,7 @@ export var dataTemp = {
         'getFireUsersLogin': url.urlHit + 'getFireUsersLogin',
         'createFireUser': url.urlHit + 'createFireUser',
         'updateFireUser': url.urlHit + 'updateFireUser',
+        'checkIsMember': url.urlHit + 'checkIsMember/',
         'charge': url.urlHit + 'midtrans/charge',
         'charge2': url.urlHit + 'midtrans/charge2',
         'status': url.urlHit + 'midtrans/status/',
@@ -99,11 +100,14 @@ export var dataTemp = {
         'getTransactionbyId': url.urlHit + 'getTransactionbyId',
         'createTransaction': url.urlHit + 'createTransaction',
         'updateTransaction': url.urlHit + 'updateTransaction',
+        'getSubscriptions': url.urlHit + 'getSubscriptions',
+        'getSubscriptionbyId': url.urlHit + 'getSubscriptionbyId',
+        'createSubscription': url.urlHit + 'createSubscription',
+        'updateSubscription': url.urlHit + 'updateSubscription',
     },
     urlMidtrans: {
         'snapTransactions': url.urlMidtrans + 'snap/v1/transactions',
-        'charge': url.urlMidtrans + 'v2/charge',
-        'v2': url.urlMidtrans + 'v2/',
+        'charge': url.urlMidtrans + 'v2/charge'
     },
     tab: {
         'asesmen': 'asesmen',

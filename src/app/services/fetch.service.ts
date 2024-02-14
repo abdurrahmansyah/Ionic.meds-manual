@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { InjectorInstance } from '../app.module';
 import { HttpClient } from '@angular/common/http';
 import { dataTemp } from '../dataTemp';
-import { ContentData, FireUserData, TransactionData } from './global.service';
+import { ContentData, FireUserData, SubscriptionData, TransactionData } from './global.service';
 import { Auth } from '@angular/fire/auth';
 import { charge } from './midtrans.service';
 
@@ -36,18 +36,8 @@ export class FetchService {
   constructor(public http: HttpClient,
     private auth: Auth) { }
 
-  async GetContents(): Promise<ContentData> {
-    const res: any = await new Promise(resolve => {
-      this.getContents().subscribe(data => {
-        resolve(data);
-      });
-    });
-
-    // if (resSeat.response == 'failed') throw (resSeat.data);
-    return res.data;
-  }
-
-  getContents() {
+   //#region content
+   getContents() {
     return this.httpClient.get(dataTemp.url.getContents);
   }
 
@@ -55,7 +45,6 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.getContentsbyId, { 'content_id': content_id });
   }
 
-  //#region content
   private getContentsbyName(parent_name: string) {
     return this.httpClient.post(dataTemp.url.getContentsbyName, { 'parent_name': parent_name });
   }
@@ -110,12 +99,12 @@ export class FetchService {
     return this.httpClient.post(dataTemp.url.createFireUser, userData);
   }
 
-  public getTransactionStatus(transaction_id: string) {
-    return this.httpClient.post(dataTemp.url.getTransactionStatus, { 'transaction_id': transaction_id });
-  }
-
   updateFireUser(userData: FireUserData) {
     return this.httpClient.post(dataTemp.url.updateFireUser, userData);
+  }
+
+  checkIsMember(fire_user_id: string) {
+    return this.httpClient.get(dataTemp.url.checkIsMember + fire_user_id);
   }
   //#endregion
 
@@ -133,7 +122,7 @@ export class FetchService {
   }
   //#endregion
 
-  //#region transaction
+  //#region transactions
   getTransactions() {
     return this.httpClient.get(dataTemp.url.getTransactions);
   }
@@ -151,8 +140,37 @@ export class FetchService {
   }
   //#endregion
 
+  //#region subscriptions
+  getSubscriptions() {
+    return this.httpClient.get(dataTemp.url.getSubscriptions);
+  }
+
+  getSubscriptionbyId(subscription_id: string) {
+    return this.httpClient.post(dataTemp.url.getSubscriptionbyId, { 'subscription_id': subscription_id });
+  }
+
+  createSubscription(subscriptionData: SubscriptionData) {
+    return this.httpClient.post(dataTemp.url.createSubscription, subscriptionData);
+  }
+
+  updateSubscription(subscriptionData: SubscriptionData) {
+    return this.httpClient.post(dataTemp.url.updateSubscription, subscriptionData);
+  }
+  //#endregion
 
   //////////////////////////////////
+
+  async GetContents(): Promise<ContentData> {
+    const res: any = await new Promise(resolve => {
+      this.getContents().subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    // if (resSeat.response == 'failed') throw (resSeat.data);
+    return res.data;
+  }
+
   public async GetContentsbyName(parent_name: string) {
     const res: any = await new Promise(resolve => {
       this.getContentsbyName(parent_name).subscribe(data => {
@@ -240,6 +258,29 @@ export class FetchService {
     });
 
     if (res.status == 'failed') throw ('Gagal login');
+    return res.data.find((x: any) => x);
+  }
+
+  public async CheckIsMember(fire_user_id: string) {
+    const res: any = await new Promise(resolve => {
+      this.checkIsMember(fire_user_id).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') res.data.find((x: any) => x);
+    // return res.data.find((x: any) => x); // revisi jika ada yang double, maka diambil data paling baru
+    return res.data.find((x: any) => x);
+  }
+
+  public async GetSubscriptionbyId(subscription_id: string) {
+    const res: any = await new Promise(resolve => {
+      this.getSubscriptionbyId(subscription_id).subscribe(data => {
+        resolve(data);
+      });
+    });
+
+    if (res.status == 'failed') throw ('Gagal memuat data subscription: ' + subscription_id);
     return res.data.find((x: any) => x);
   }
 }

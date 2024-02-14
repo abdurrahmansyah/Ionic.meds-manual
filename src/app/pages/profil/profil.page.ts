@@ -6,12 +6,13 @@ import { MaskitoElementPredicateAsync, MaskitoOptions } from '@maskito/core';
 import { dataTemp } from 'src/app/dataTemp';
 import { AuthService } from 'src/app/services/auth.service';
 import { FetchService } from 'src/app/services/fetch.service';
-import { FireUserData, GlobalService, TransactionData } from 'src/app/services/global.service';
+import { FireUserData, GlobalService, SubscriptionData, TransactionData } from 'src/app/services/global.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { MidtransService, charge, transaction_details } from 'src/app/services/midtrans.service';
 import { take, timestamp } from 'rxjs';
 import { Preferences } from '@capacitor/preferences';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-profil',
@@ -20,11 +21,14 @@ import { Preferences } from '@capacitor/preferences';
 })
 export class ProfilPage implements OnInit {
   @ViewChild(IonModal) modal: any;
-  isMember: boolean = false;
+  // isMember: boolean = false;
+  isMember: boolean = this.globalService.isMember;
+  subscriptionData: SubscriptionData = this.globalService.subscriptionData;
   isSubsActive: boolean = false;
 
   profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, status: undefined, isAdmin: false };
   transaction_id: any = null;
+  i: number = 0;
 
   readonly tglLahirMask: MaskitoOptions = {
     mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
@@ -44,44 +48,45 @@ export class ProfilPage implements OnInit {
 
   async ngOnInit() {
     try {
-      var transaction_id = await this.globalService.GetObjFromPreference('transaction_id');
-      console.log('hasil get transaction_id dr storage', transaction_id);
-      if (transaction_id) {
-        var data: any = await this.getTransactionStatus(transaction_id);
-        console.log('data getTransactionStatus', data);
-        console.log('data getTransactionStatus', data.transaction_status);
+      setTimeout(async () => {
+        if (!this.globalService.isMasterLoad) {
+          console.log('profil not ready: ' + this.i++);
+          this.ngOnInit();
+        } else {
+          console.log('PROFIL READY');
+          this.profile = this.globalService.profile;
+          this.isMember = this.globalService.isMember;
+          this.subscriptionData = this.globalService.subscriptionData;
+          console.log('profile', this.profile);
+          console.log('isMember', this.globalService.isMember);
+          console.log('subscriptionData', this.globalService.subscriptionData);
 
-        if (data.transaction_status == dataTemp.transaction_status.settlement) {
-          // create transaction 
-          // create subscription
-          // await Preferences.remove({ key: 'transaction_id' });
+          if (this.profile.photo == undefined) this.profile = await this.globalService.GetProfileFromPreference();
+          // this.profile = await this.fetchService.GetUserProfile();
+
+          // this.fetchService.GetSubscriptionbyId()
+
+          this.transaction_id = (await Preferences.get({ key: dataTemp.keyStrg.transaction_id })).value;
+          console.log('this.transaction_id', this.transaction_id);
+
+          await this.LoopStatus();
         }
-        else if (data.transaction_status != dataTemp.transaction_status.pending)
-          await Preferences.remove({ key: 'transaction_id' });
-      }
-
-      this.profile = this.globalService.profile;
-      console.log('profil pertama', this.profile);
-
-      if (this.profile.photo == undefined) this.profile = await this.globalService.GetProfileFromPreference();
-      this.profile = await this.fetchService.GetUserProfile();
-
-      this.transaction_id = (await Preferences.get({ key: dataTemp.keyStrg.transaction_id })).value;
-      console.log('this.transaction_id', this.transaction_id);
-
-      await this.LoopStatus();
+      }, 200);
     } catch (error: any) {
       var msg = error ? error : "Gagal memuat data";
       await this.authService.CreateSaveAndShowLog(msg, dataTemp.log.fetch);
     }
   }
 
- async LoopStatus(){
+  async LoopStatus() {
     while (this.transaction_id !== null) {
       var statusResult: any = await this.status(this.transaction_id, this.globalService.isProduction);
       console.log('statusResult', statusResult);
 
       if (statusResult.transaction_status != dataTemp.transaction_status.pending) {
+        const loading = await this.loadingController.create();
+        await loading.present();
+
         const transactionData: TransactionData = {
           transaction_id: statusResult.transaction_id,
           order_id: statusResult.order_id,
@@ -96,8 +101,33 @@ export class ProfilPage implements OnInit {
 
         var updateTransactionResult: any = await this.UpdateTransaction(transactionData);
         console.log('updateTransactionResult', updateTransactionResult);
+
+        var months = statusResult.metadata.paket == 1 ? 3 : statusResult.metadata.paket == 2 ? 6 : 12;
+        var valid_until = formatDate((this.globalService.GetDate(statusResult.settlement_time).date.setMonth(this.globalService.GetDate(statusResult.settlement_time).date.getMonth() + months)), 'YYYY-MM-dd HH:mm:ss', 'en-US');
+
+        if (statusResult.transaction_status == dataTemp.transaction_status.settlement) {
+          const subscriptionData: SubscriptionData = {
+            transaction_id: statusResult.transaction_id,
+            order_id: statusResult.order_id,
+            fire_user_id: statusResult.metadata.fire_user_id,
+            valid_start: statusResult.settlement_time,
+            valid_until: valid_until
+          }
+
+          var createSubscriptionResult: any = await this.CreateSubscription(subscriptionData);
+          console.log('createSubscriptionResult', createSubscriptionResult);
+
+          this.subscriptionData = await this.fetchService.CheckIsMember(this.globalService.profile.fire_user_id);
+          this.globalService.subscriptionData = this.subscriptionData;
+          this.isMember = true;
+          this.globalService.isMember = true;
+          console.log('subscriptionData update', this.globalService.subscriptionData);
+          console.log('isMember update', this.globalService.isMember);
+        }
+
         await Preferences.remove({ key: dataTemp.keyStrg.transaction_id });
         this.transaction_id = null;
+        loading.dismiss();
       }
     }
   }
@@ -178,13 +208,6 @@ export class ProfilPage implements OnInit {
 
   async SubsClicked() { this.isSubsActive = this.isSubsActive == true ? false : true }
 
-  private async getTransactionStatus(transaction_id: string) {
-    const result = this.fetchService.getTransactionStatus(transaction_id);
-    return await new Promise(resolve => {
-      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
-    });
-  }
-
   async SubsPaket(x: number) {
     const loading = await this.loadingController.create();
     await loading.present();
@@ -201,6 +224,7 @@ export class ProfilPage implements OnInit {
         item_details: [{ id: item_id, name: item_name, price: gross_amount, quantity: 1 }],
         customer_details: { first_name: this.globalService.profile.fire_user_id, last_name: this.globalService.profile.nama, email: this.globalService.profile.email, phone: '' },
         gopay: { enable_callback: true, callback_url: 'https://medsmanual.com/wp-json/api/callback/' + order_id + '!' + this.globalService.isProduction },
+        // gopay: { enable_callback: true, callback_url: 'someapps://callback' },
         metadata: { fire_user_id: this.globalService.profile.fire_user_id, paket: x.toString() },
         production: this.globalService.isProduction
       };
@@ -247,7 +271,7 @@ export class ProfilPage implements OnInit {
     } catch (error: any) {
       console.log('error', error);
       console.log('error.message', error.message);
-      
+
       const msg = error == dataTemp.log.charge ? 'Gagal melakukan proses charge transaksi' :
         error == dataTemp.log.createTransaction ? 'Gagal membuat data transaksi' : '';
       loading.dismiss();
@@ -283,6 +307,20 @@ export class ProfilPage implements OnInit {
 
   private async UpdateTransaction(transactionData: TransactionData) {
     const result = this.fetchService.updateTransaction(transactionData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
+  private async CreateSubscription(subscriptionData: SubscriptionData) {
+    const result = this.fetchService.createSubscription(subscriptionData);
+    return await new Promise(resolve => {
+      result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
+    });
+  }
+
+  private async UpdateSubscription(subscriptionData: SubscriptionData) {
+    const result = this.fetchService.updateSubscription(subscriptionData);
     return await new Promise(resolve => {
       result.pipe(take(1)).subscribe((data: any) => { resolve(data) });
     });

@@ -12,9 +12,12 @@ export class GlobalService {
   // PROFILE
   // public profile: any;
   profile: any = { email: undefined, nama: undefined, tglLahir: undefined, profesi: undefined, photo: undefined, status: undefined, isAdmin: false };
+  isMember: boolean = false;
+  subscriptionData: SubscriptionData = new SubscriptionData();
 
   // Setting
   public isProduction: boolean = false;
+  public isMasterLoad: boolean = false;
 
   // Master Data
   public userDataList: any = [];
@@ -73,15 +76,6 @@ export class GlobalService {
     profile.lampiran = '';
     profile.photo = dataTemp.master.photo;
     await Preferences.set({ key: dataTemp.keyStrg.profile, value: JSON.stringify(profile) });
-  }
-
-  public async GetObjFromPreference(key: string): Promise<any> {
-    var data = JSON.parse((await Preferences.get({ key: key })).value!);
-    return data;
-  }
-
-  public async SaveObjToPreference(key: string, data: any) {
-    await Preferences.set({ key: key, value: JSON.stringify(data) });
   }
 
   public SetExtras(data: { data: any; title: string; defaultHref: string }): NavigationExtras {
@@ -156,6 +150,17 @@ export class TransactionData {
   public transaction_status: string = '';
   public expiry_time: string = '';
   public settlement_time?: string = '';
+
+  constructor() { }
+}
+
+export class SubscriptionData {
+  public subscription_id?: string = '';
+  public transaction_id: string = '';
+  public order_id: string = '';
+  public fire_user_id: string = '';
+  public valid_start: string = '';
+  public valid_until: string = '';
 
   constructor() { }
 }

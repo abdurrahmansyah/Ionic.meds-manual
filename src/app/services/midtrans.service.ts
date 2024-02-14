@@ -36,10 +36,6 @@ export class MidtransService {
         }
       });
   }
-
-  public getTransactionStatus(transaction_id: string){
-    return this.httpClient.get(dataTemp.urlMidtrans.v2 + '/' + transaction_id);
-  }
 }
 
 // export interface charge {

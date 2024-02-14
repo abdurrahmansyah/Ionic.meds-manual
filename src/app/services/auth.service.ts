@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Auth, User, user, createUserWithEmailAndPassword, onAuthStateChanged } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { FireUserData, GlobalService, LogData } from './global.service';
+import { FireUserData, GlobalService, LogData, SubscriptionData } from './global.service';
 import { FirebaseService } from './firebase.service';
 import { dataTemp } from '../dataTemp';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -140,9 +140,14 @@ export class AuthService {
       await this.authFireCompat.signInWithEmailAndPassword(email, password);
 
       const profile: FireUserData = await this.fetchService.GetUserProfileForLogin(email);
-      console.log('profile GetUserProfileForLogin', profile);
+      const member: SubscriptionData = await this.fetchService.CheckIsMember(this.globalService.profile.fire_user_id);
 
       this.globalService.profile = profile;
+      this.globalService.isMember = member ? true : false;
+      this.globalService.subscriptionData = member ? member : new SubscriptionData();
+      console.log('profile GetUserProfileForLogin', profile);
+      console.log('this.globalService.subscriptionData', this.globalService.subscriptionData);
+      console.log('this.globalService.isMember', this.globalService.isMember);
       await this.globalService.SaveProfileToPreference(profile);
 
       var msg = "Login Berhasil";
